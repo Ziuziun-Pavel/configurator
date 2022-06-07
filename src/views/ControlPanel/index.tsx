@@ -28,11 +28,11 @@ const ControlPanel = () => {
 
   return (
     <>
-      <HeaderContainer/>
+      <HeaderContainer text="Конфигуратор тестов"/>
 
       <ButtonsGroup>
-        <Button width='305px' text='Смотреть статистику'/>
-        <Button width='249px' text='настроить блоки'/>
+        <Button width='305px' text='Смотреть статистику' bgColor="#FFF"/>
+        <Button width='249px' text='настроить блоки' bgColor="#096BFF"/>
       </ButtonsGroup>
 
       <TestFieldsGroup>
@@ -103,8 +103,8 @@ const ControlPanel = () => {
         </FooterContainer>
 
         <FooterButtonsGroup>
-          <Button width="272px" text="активировать тест"/>
-          <Button width="361px" text="Посмотреть превью теста"/>
+          <Button width="272px" text="активировать тест" bgColor="#096BFF"/>
+          <Button width="361px" text="Посмотреть превью теста" bgColor="#096BFF"/>
 
         </FooterButtonsGroup>
 
