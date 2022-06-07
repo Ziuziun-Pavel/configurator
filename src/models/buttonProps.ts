@@ -1,6 +1,4 @@
-export interface buttonProps {
-    onClick: () => void,
+export interface ButtonProps {
     width: string,
-    text: string,
-    isSelected: boolean
+    text: string
 }
