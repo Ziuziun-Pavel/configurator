@@ -9,6 +9,7 @@ import ListItem from "./components/ListItem";
 import TextFieldWithTitle from "./components/TextFieldWithTitle";
 import DropdownMenu from "./components/DropdownMenu";
 import ControlPanel from "./views/ControlPanel";
+import ListOfBlocks from "./views/ListOfBlocks";
 
 
 function App() {
@@ -38,8 +39,9 @@ function App() {
 
           {/*<DropdownMenu title='Изучить работадателя (блок 2'/>*/}
 
-          <ControlPanel/>
+          {/*<ControlPanel/>*/}
 
+          <ListOfBlocks/>
 
 
         </div>
