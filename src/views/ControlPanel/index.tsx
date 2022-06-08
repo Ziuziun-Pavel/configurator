@@ -23,6 +23,7 @@ import ListItem from "../../components/ListItem";
 import Table from "../../components/Table";
 import {textFieldTitlesData} from "../../data/textFieldTitlesData";
 import {dropDownMenuData} from "../../data/dropDownMenuData";
+import {Link} from "react-router-dom";
 
 const ControlPanel = () => {
 
@@ -31,7 +32,7 @@ const ControlPanel = () => {
       <HeaderContainer text="Конфигуратор тестов"/>
 
       <ButtonsGroup>
-        <Button width='305px' text='Смотреть статистику' bgColor="#FFF"/>
+       <Link to="/blocks"><Button width='305px' text='Смотреть статистику' bgColor="#FFF"/></Link>
         <Button width='249px' text='настроить блоки' bgColor="#096BFF"/>
       </ButtonsGroup>
 

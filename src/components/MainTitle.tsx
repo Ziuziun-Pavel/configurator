@@ -8,7 +8,7 @@ const MainTitle: React.FC<TextFieldProps>= ({text}) => {
     margin-bottom: 18px;
     text-align: left;
     font-weight: 700;
-    font-size: 60px;
+    font-size: 50px;
     line-height: 73px;
   `;
 

@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import styled from '@emotion/styled'
-import {ButtonProps} from '../models/buttonProps'
+import React from 'react';
+import styled from '@emotion/styled';
+import { ButtonProps } from '../models/buttonProps';
 
 const Button: React.FC<ButtonProps> = ({text, width, bgColor}) => {
 
