@@ -1,4 +1,4 @@
-import {TextFieldBlockProps} from "../models/textFieldBlockProps";
+import {TextFieldBlockProps} from '../models/Interfaces';
 
 export const textFieldTitlesData: Array<TextFieldBlockProps> = [
   {

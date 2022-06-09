@@ -1,22 +1,22 @@
 import React from 'react';
-import HeaderContainer from '../../components/HeaderContainer';
-import { TestTitle, TitleWrapper } from '../ControlPanel/styled';
-import { AddingCell, ButtonWrapper, DescriptionBlock, TasksContainer, TestBody } from './styled';
-import TextFieldWithTitle from '../../components/TextFieldWithTitle';
+import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
+import { AddingCell, ButtonWrapper, DescriptionBlock, TasksContainer, TestBody, TitleContainer } from './styled';
+import TextFieldWithTitle from '../../components/TextFieldWithTitle/TextFieldWithTitle';
 import AddIcon from '@mui/icons-material/Add';
-import TextField from '../../components/TextField';
-import Button from '../../components/Button';
-import TaskItemBlock from '../../components/TaskItemBlock';
+import TextField from '../../components/TextField/TextField';
+import Button from '../../components/Buttons/Button/Button';
+import TaskItemBlock from '../../components/TaskItemBlock/TaskItemBlock';
 import { tasksNamesData } from '../../data/tasksNames';
+import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 
 const ControlPanelTasks: React.FC = () => {
     return (
-        <>
+        <div className="container">
             <HeaderContainer text="Блоки для конфигурации заданий"/>
 
-            <TitleWrapper>
-                <TestTitle>Расскажите о себе</TestTitle>
-            </TitleWrapper>
+            <TitleContainer>
+                <TestTitle text="Расскажите о себе"/>
+            </TitleContainer>
 
             <TestBody>
                 <TextFieldWithTitle title="Название заголовка блока" placeholder="Пример: психологические вопросы"/>
@@ -25,10 +25,10 @@ const ControlPanelTasks: React.FC = () => {
                     <AddIcon
                         sx={{
                             position: 'absolute',
-                            left: '-25px',
+                            left: '-3.3rem',
+                            top: '-.5rem',
                             color: 'blue',
-                            height: '20px',
-                            weight: '20px',
+                            fontSize: '2em',
                             fontWeight: '700',
                         }}
                     />
@@ -38,7 +38,7 @@ const ControlPanelTasks: React.FC = () => {
                     <TextField text="Опишите задание"/>
 
                     <ButtonWrapper>
-                        <Button width="176px" text="Сохранить" bgColor="#096BFF"/>
+                        <Button width="17.7rem" text="Сохранить" bgColor="#096BFF"/>
                     </ButtonWrapper>
 
                 </DescriptionBlock>
@@ -48,14 +48,14 @@ const ControlPanelTasks: React.FC = () => {
                 </TasksContainer>
 
                 <ButtonWrapper>
-                    <Button width="238px" text="Сохранить блок" bgColor="#096BFF"/>
+                    <Button width="24.2rem" text="Сохранить блок" bgColor="#096BFF"/>
 
                 </ButtonWrapper>
 
 
             </TestBody>
 
-        </>
+        </div>
     )
 };
 
