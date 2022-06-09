@@ -2,28 +2,31 @@ import styled from '@emotion/styled';
 
 export const TestBody = styled.div`
   position: relative;
-  padding: 41px 143px 43px 87px;
+  padding: 7.9rem 24.3rem 5.1rem 10rem;
   background: #F0F6FF;
   border-radius: 10px;
 `;
 
+export const TitleContainer = styled.div`
+    margin-top: 8rem;
+`;
+
 
 export const AddingCell = styled.button`
-  margin-top: 60px;
-  margin-left: 30px;
+  margin-top: 5rem;
+  margin-left: 4.7rem;
   position: relative;
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 1.5em;
+  line-height: 1.8rem;
   background: none;
   border: none;
   cursor: pointer;
 `;
 
 export const DescriptionBlock = styled.div`
-  width: 50%;
-  min-height: 210px;
-  margin-top: 49px;
-  margin-bottom: 58px;
+  width: 60.9rem;
+  min-height: 21rem;
+  margin: 4.9rem auto 2.8rem -1.5rem ;
   padding: 31px 38px 16px 17px;
   background-color: #FFF;
 `;
@@ -31,11 +34,12 @@ export const DescriptionBlock = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 56px;
+  margin-top: 5rem;
 `;
 
 export const TasksContainer = styled.div`
-  width: 50%;
+  width: 60.9rem;
+  margin-left: -1.5rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

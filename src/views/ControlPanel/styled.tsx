@@ -1,48 +1,37 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React from 'react';
+import styled from '@emotion/styled';
 
 export const ButtonsGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 175px 0 85px auto;
-  width: 680px;
+  margin: 17.5rem 0 8.5rem auto;
+  width: 68rem;
 `;
 
 export const TestFieldsGroup = styled.div`
-  height: 654px;
+  height: 65.4rem;
   background: #F0F6FF;
-  padding-top: 130px;
-  padding-left: 104px;
+  padding-top: 13rem;
+  padding-left: 10.4rem;
 `;
 
 export const TestBody = styled.div`
   position: relative;
-  padding: 115px 59px 25px 109px;
+  padding: 8.9rem 5.9rem 18rem 10.9rem;
   background: #F0F6FF;
   border-radius: 10px;
 `;
 
-export const TestTitle = styled.h2`
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 48px;
-  color: #FFFFFF;
-`;
-
-export const TitleWrapper = styled.div`
-  padding: 26px 107px;
-  margin-top: 37px;
-  height: 102px;
-  background: #0F5BCD;
-  border-radius: 10px;
+export const TitleContainer = styled.div`
+  margin-top: 3.7rem;
 `;
 
 export const AddingTextField = styled.input`
   position: relative;
   width: 100%;
-  padding: 11px 20px;
-  font-size: 15px;
-  line-height: 18px;
+  padding: 1.1rem 2rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
   text-align: left;
   color: rgba(0, 0, 0, 0.5);
   background: #FFFFFF;
@@ -52,10 +41,10 @@ export const AddingTextField = styled.input`
 
 export const AddingButton = styled.button`
   position: absolute;
-  right: 110px;
-  top: 10px;
-  font-size: 15px;
-  line-height: 18px;
+  right: 11rem;
+  top: 1.3rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -63,7 +52,11 @@ export const AddingButton = styled.button`
 
 export const TextFieldWrapper = styled.div`
   position: relative;
-  margin-top: 25px;
+  margin-top: 2.5rem;
+`;
+
+export const TextFieldContainer = styled.div`
+  margin-top: 3rem;
 `;
 
 export const FooterContainer = styled.div`
@@ -71,15 +64,17 @@ export const FooterContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   position: relative;
-  margin-top: 80px;
+  margin-top: 8rem;
+  padding-right: 25.5rem;
 `;
 
 export const DropDownForSearching = styled.div`
   position: relative;
-  padding: 11px 20px;
-  width: 454px;
-  font-size: 15px;
-  line-height: 18px;
+  padding: 1.4rem 2rem;
+  width: 45.4rem;
+  height: 4rem;
+  font-size: 1.5em;
+  line-height: .8rem;
   text-align: left;
   color: rgba(0, 0, 0, 0.5);
   border: 1px solid #000000;
@@ -91,10 +86,10 @@ export const DropDownForSearching = styled.div`
     content: "";
     display: block;
     position: absolute;
-    top: 8px;
-    right: 22px;
-    width: 12px;
-    height: 12px;
+    top: .8rem;
+    right: 2.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
     border-right: 3px solid #000;
     border-top: 3px solid black;
     transform: rotate(135deg);
@@ -108,9 +103,9 @@ export const TableContainer = styled.div`
 export const AddingCell = styled.button`
   position: absolute;
   right: 0;
-  bottom: -20px;
-  font-size: 15px;
-  line-height: 18px;
+  bottom: -3rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -119,6 +114,6 @@ export const AddingCell = styled.button`
 export const FooterButtonsGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 715px;
-  margin-top: 90px;
+  width: 71.5rem;
+  margin-top: 9rem;
 `;

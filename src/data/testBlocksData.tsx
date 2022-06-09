@@ -1,4 +1,4 @@
-import {TestBlockProps} from "../models/testBlockProps";
+import { TestBlockProps } from '../models/Interfaces';
 
 export const testBlocksData: Array<TestBlockProps> = [
   {
