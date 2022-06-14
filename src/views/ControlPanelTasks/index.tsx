@@ -1,10 +1,10 @@
 import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import { AddingCell, ButtonWrapper, DescriptionBlock, TasksContainer, TestBody, TitleContainer } from './styled';
-import TextFieldWithTitle from '../../components/TextFieldWithTitle/TextFieldWithTitle';
+import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
 import AddIcon from '@mui/icons-material/Add';
-import TextField from '../../components/TextField/TextField';
-import Button from '../../components/Buttons/Button/Button';
+import TextField from '../../components/UI/TextFields/TextField/TextField';
+import Button from '../../components/UI/Buttons/Button/Button';
 import TaskItemBlock from '../../components/TaskItemBlock/TaskItemBlock';
 import { tasksNamesData } from '../../data/tasksNames';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TestBlockProps } from '../../models/Interfaces';
-import Button from '../Buttons/Button/Button';
-import { StyledTestBlock, StyledTitle } from './styled';
+import Button from '../UI/Buttons/Button/Button';
+import s from './TestBlock.module.scss';
 
 const TestBlock: React.FC<TestBlockProps> = ({ title, subtitle, isReady }) => {
 
@@ -15,13 +15,13 @@ const TestBlock: React.FC<TestBlockProps> = ({ title, subtitle, isReady }) => {
 
     return (
         <>
-            <StyledTestBlock>
+            <div className={s.testBlock}>
                 <div>
                     <StyledSubtitle>{subtitle}</StyledSubtitle>
-                    <StyledTitle>{title}</StyledTitle>
+                    <h3 className={s.testBlock__title}>{title}</h3>
                 </div>
                 <Button width='27.7rem' text='Изменить' bgColor='#096BFF' />
-            </StyledTestBlock>
+            </div>
         </>
     );
 };

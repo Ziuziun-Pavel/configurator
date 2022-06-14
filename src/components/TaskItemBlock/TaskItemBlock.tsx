@@ -1,16 +1,16 @@
 import React from 'react';
 import { TextFieldProps } from '../../models/Interfaces';
-import EditButton from '../Buttons/EditButton/EditButton';
-import { StyledTaskItemBlock, StyledTaskName } from './styled';
+import EditButton from '../UI/Buttons/EditButton/EditButton';
+import s from './TaskItemBlock.module.scss';
 
 const TaskItemBlock: React.FC<TextFieldProps> = ({text}) => {
 
     return (
         <>
-            <StyledTaskItemBlock>
-                <StyledTaskName>{text}</StyledTaskName>
+            <div className={s.taskItem}>
+                <h3 className={s.taskItem__name}>{text}</h3>
                 <EditButton/>
-            </StyledTaskItemBlock>
+            </div>
         </>
 
     );

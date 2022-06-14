@@ -1,0 +1,52 @@
+.request {
+  width: 52.7rem;
+  min-height: 38.2rem;
+  margin-bottom: 4rem;
+
+  &__body {
+    position: relative;
+    top: -2rem;
+    padding: 2.6rem 2rem 7rem 1.9rem;
+    background: #F0F6FF;
+    border-radius: 15px;
+    z-index: -1;
+  }
+
+  &__header {
+    height: 10.2rem;
+    background: #0F5BCD;
+    border-radius: 10px;
+    color: #FFF;
+    padding: 1.5rem 4.1rem 3.9rem 3.9rem;
+    text-align: center;
+    font-weight: 400;
+    font-size: 4em;
+    line-height: 4.8rem;
+  }
+
+  &__add {
+    position: relative;
+    margin-top: 2rem;
+    padding: 1.6rem 0 1.5rem 2rem;
+    background: #FFFFFF;
+    border-radius: 10px;
+    height: 4.9rem;
+    font-size: 1.5em;
+    line-height: 1.8rem;
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.subtitle  {
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  color: #FFFFFF;
+
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.7rem;
+  }
+
+}

@@ -10,6 +10,12 @@ export interface DropDownMenuProps {
     type?: string
 }
 
+export interface DropDownProps {
+    id?: number,
+    width: string,
+    text: string
+}
+
 export interface ListItemProps {
     text?: string,
     width?: string,

@@ -1,12 +1,12 @@
 import React from 'react';
 import { TextFieldProps } from '../../../models/Interfaces';
-import { StyledTitle } from './styled';
+import s from './MainTitle.module.scss';
 
 const MainTitle: React.FC<TextFieldProps>= ({text}) => {
 
   return (
     <>
-      <StyledTitle>{text}</StyledTitle>
+      <h3 className={s.mainTitle}>{text}</h3>
     </>
   )
 
