@@ -1,0 +1,78 @@
+.testFieldsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dropDownForSearching {
+  margin-top: 4.2rem;
+  position: relative;
+  padding: 1.5rem 2rem;
+  width: 55.4rem;
+  height: 4rem;
+  font-weight: 700;
+  font-size: 1.5em;
+  line-height: .8rem;
+  text-align: left;
+  color: rgb(0, 0, 0);
+  border: 1px solid #000000;
+  border-radius: 45px;
+  cursor: pointer;
+
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: .8rem;
+    right: 2.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-right: 3px solid #000;
+    border-top: 3px solid black;
+    transform: rotate(135deg);
+  }
+}
+
+.addingBtnWrapper {
+  margin-top: 5rem;
+  width: 19rem;
+  height: 4rem;
+  padding: 1.1rem 1.7rem;
+  border: 1px solid #000000;
+  border-radius: 51px;
+}
+
+.addingBtn {
+  margin-left: 2.7rem;
+  position: relative;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.downloadContainer {
+  margin-top: 2.4rem;
+  margin-left: 2.4rem;
+}
+
+.descriptionBlock {
+  width: 60.9rem;
+  min-height: 21rem;
+  margin: 4.9rem auto 2.8rem 0;
+  padding: 31px 38px 16px 17px;
+  border-radius: 10px;
+  background-color: #FFF;
+}
+
+.btnContainer {
+  margin-top: 4rem;
+}
+
+.clipWrapper {
+  position: absolute;
+  left: -3.3rem;
+  top: -.6rem;
+}

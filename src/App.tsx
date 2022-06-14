@@ -1,29 +1,17 @@
 import React from 'react';
 import './App.css';
 import './styles/set.scss';
-import {Routes, Route} from "react-router-dom";
-
-import ControlPanel from "./views/ControlPanel";
-import ListOfBlocks from "./views/ListOfBlocks";
-import ControlPanelTasks from './views/ControlPanelTasks';
-import ControlPanelQuestions from './views/ControlPanelQuestions';
+import AppRouter from './router/AppRouter';
 
 
-
-function App() {
+const App = () => {
 
   return (
         <div className='App'>
-            <Routes>
-                <Route path="/" element={<ControlPanel />} />
-                <Route path="/blocks" element={<ListOfBlocks />} />
-                <Route path="/tasks" element={<ControlPanelTasks />} />
-                <Route path="/questions" element={<ControlPanelQuestions />} />
-
-            </Routes>
+            <AppRouter/>
 
         </div>
     )
-}
+};
 
 export default App

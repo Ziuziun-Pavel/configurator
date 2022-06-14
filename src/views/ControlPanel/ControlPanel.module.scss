@@ -1,0 +1,88 @@
+.btnsGroup {
+  display: flex;
+  justify-content: space-between;
+  margin: 17.5rem 0 8.5rem auto;
+  width: 68rem;
+}
+
+.testFieldsGroup {
+  height: 65.4rem;
+  background: #F0F6FF;
+  padding-top: 13rem;
+  padding-left: 10.4rem;
+}
+
+.testBody {
+  position: relative;
+  padding: 8.9rem 5.9rem 18rem 10.9rem;
+  background: #F0F6FF;
+  border-radius: 10px;
+}
+
+.titleContainer {
+  margin-top: 3.7rem;
+}
+
+.addingTextField {
+  position: relative;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.5);
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 45px;
+}
+
+.addingButton {
+  position: absolute;
+  right: 11rem;
+  top: 1.3rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.textFieldWrapper {
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+.textFieldContainer {
+  margin-top: 3rem;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 8rem;
+  padding-right: 25.5rem;
+}
+
+.table {
+  position: relative;
+}
+
+.addingBtn {
+  position: absolute;
+  right: 0;
+  bottom: -3rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.footerBtnsGroup {
+  display: flex;
+  justify-content: space-between;
+  width: 71.5rem;
+  margin-top: 9rem;
+}

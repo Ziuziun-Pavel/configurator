@@ -1,21 +1,8 @@
 import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
-import {
-    AddingButton,
-    AddingCell,
-    AddingTextField,
-    ButtonsGroup,
-    DropDownForSearching,
-    FooterButtonsGroup,
-    FooterContainer,
-    TableContainer,
-    TestBody,
-    TestFieldsGroup, TextFieldContainer,
-    TextFieldWrapper, TitleContainer
-} from './styled';
-import Button from '../../components/Buttons/Button/Button';
-import TextFieldWithTitle from '../../components/TextFieldWithTitle/TextFieldWithTitle';
-import DropdownMenu from '../../components/DropDownMenu/DropdownMenu';
+import Button from '../../components/UI/Buttons/Button/Button';
+import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
+import DropdownMenu from '../../components/UI/DropDowns/DropDownMenu/DropdownMenu';
 import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
 import ListItem from '../../components/ListItem/ListItem';
@@ -24,7 +11,8 @@ import { textFieldTitlesData } from '../../data/textFieldTitlesData';
 import { dropDownMenuData } from '../../data/dropDownMenuData';
 import { Link } from 'react-router-dom';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
-
+import DropDownForSearching from '../../components/UI/DropDowns/DropDownForSearching/DropDownForSearching';
+import s from './ControlPanel.module.scss';
 
 const ControlPanel = () => {
 
@@ -32,27 +20,26 @@ const ControlPanel = () => {
         <div className='container'>
             <HeaderContainer text='Конфигуратор тестов' />
 
-            <ButtonsGroup>
+            <div className={s.btnsGroup}>
                 <Link to='/blocks'><Button width='30.7rem' text='Смотреть статистику' bgColor='#FFF' /></Link>
                 <Button width='25.2rem' text='настроить блоки' bgColor='#096BFF' />
-            </ButtonsGroup>
+            </div>
 
-            <TestFieldsGroup>
-                {textFieldTitlesData.map(item => <TextFieldContainer key={item.id}>
+            <div className={s.testFieldsGroup}>
+                {textFieldTitlesData.map(item => <div className={s.textFieldContainer} key={item.id}>
                         <TextFieldWithTitle
                             title={item.title}
                             placeholder={item.placeholder} />
-                    </TextFieldContainer>
+                    </div>
                 )}
-            </TestFieldsGroup>
+            </div>
 
 
-            <TitleContainer>
+            <div className={s.titleContainer}>
                 <TestTitle text='Тело теста' />
+            </div>
 
-            </TitleContainer>
-
-            <TestBody>
+            <div className={s.testBody}>
 
                 <div>
                     {
@@ -62,10 +49,10 @@ const ControlPanel = () => {
 
                 </div>
 
-                <TextFieldWrapper>
-                    <AddingTextField placeholder='Введите название блока' />
+                <div className={s.textFieldWrapper}>
+                    <input className={s.addingTextField} placeholder='Введите название блока' />
 
-                    <AddingButton>Добавить
+                    <button className={s.addingButton}>Добавить
                         <AddIcon
                             sx={{
                                 position: 'absolute',
@@ -76,26 +63,26 @@ const ControlPanel = () => {
                                 fontWeight: '700'
                             }}
                         />
-                    </AddingButton>
-                </TextFieldWrapper>
+                    </button>
+                </div>
 
-                <FooterContainer>
+                <div className={s.footer}>
 
                     <TextFieldWithTitle title='Адрес целевого сайта'
                                         placeholder='Введите адрес сайта на который будет направлен трафик' />
 
                     <div>
                         <Title text='Поисковая система' />
-                        <DropDownForSearching>Выберите тип поисковой системы</DropDownForSearching>
+                        <DropDownForSearching width='45.4rem' text='Выберите тип поисковой системы' />
                         <ListItem text='Яндекс' width='45.4rem' />
                         <ListItem text='Google' width='45.4rem' />
                     </div>
 
-                    <TableContainer>
+                    <div className={s.table}>
                         <Title text='Целевые запросы' />
                         <Table />
 
-                        <AddingCell>Добавить запрос и интенсивность
+                        <button className={s.addingBtn}>Добавить запрос и интенсивность
                             <AddIcon
                                 sx={{
                                     position: 'absolute',
@@ -106,20 +93,20 @@ const ControlPanel = () => {
                                     fontWeight: '700'
                                 }}
                             />
-                        </AddingCell>
+                        </button>
 
-                    </TableContainer>
+                    </div>
 
-                </FooterContainer>
+                </div>
 
-                <FooterButtonsGroup>
+                <div className={s.footerBtnsGroup}>
                     <Button width='27.5rem' text='активировать тест' bgColor='#096BFF' />
                     <Button width='36.5rem' text='Посмотреть превью теста' bgColor='#096BFF' />
 
-                </FooterButtonsGroup>
+                </div>
 
 
-            </TestBody>
+            </div>
 
         </div>
     );

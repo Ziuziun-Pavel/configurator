@@ -26,7 +26,7 @@ export const AddingCell = styled.button`
 export const DescriptionBlock = styled.div`
   width: 60.9rem;
   min-height: 21rem;
-  margin: 4.9rem auto 2.8rem -1.5rem ;
+  margin: 4.9rem auto 2.8rem 0 ;
   padding: 31px 38px 16px 17px;
   background-color: #FFF;
 `;
@@ -39,7 +39,6 @@ export const ButtonWrapper = styled.div`
 
 export const TasksContainer = styled.div`
   width: 60.9rem;
-  margin-left: -1.5rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

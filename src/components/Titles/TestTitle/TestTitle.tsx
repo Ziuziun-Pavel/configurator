@@ -1,14 +1,14 @@
 import React from 'react';
 import { TextFieldProps } from '../../../models/Interfaces';
-import { StyledTitle, TitleWrapper } from './styled';
+import s from './TestTitle.module.scss';
 
 const TestTitle: React.FC<TextFieldProps> = ({ text }) => {
 
     return (
         <>
-            <TitleWrapper>
-                <StyledTitle>{text}</StyledTitle>
-            </TitleWrapper>
+            <div className={s.title__wrapper}>
+                <h3 className={s.title}>{text}</h3>
+            </div>
         </>
 
     );
