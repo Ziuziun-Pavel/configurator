@@ -13,7 +13,7 @@ import Preview from '../views/Preview';
 const AppRouter = () => {
     return (
         <Routes>
-            <Route path={RouteNames.LANDING} element={<ControlPanel />} />
+            <Route path={RouteNames.CONFIGURATOR} element={<ControlPanel />} />
             <Route path={RouteNames.BLOCKS} element={<ListOfBlocks />} />
             <Route path={RouteNames.TASKS} element={<ControlPanelTasks />} />
             <Route path={RouteNames.QUESTIONS} element={<ControlPanelQuestions />} />

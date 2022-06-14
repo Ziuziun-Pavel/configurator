@@ -3,24 +3,23 @@ import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import Button from '../../components/UI/Buttons/Button/Button';
 import Title from '../../components/Titles/Title/Title';
 import ListItem from '../../components/ListItem/ListItem';
-import { ButtonsGroup, GroupOfRequests, HeaderWrapper, StyledItem } from './styled';
 import DropDownForSearching from '../../components/UI/DropDowns/DropDownForSearching/DropDownForSearching';
 import AddIcon from '@mui/icons-material/Add';
 import Request from '../../components/Request/Request';
-
+import s from './Semantics.module.scss';
 
 const Semantics: React.FC = () => {
     return (
         <div className='container'>
             <HeaderContainer text='Семантика' />
 
-            <HeaderWrapper>
+            <div className={s.header}>
                 <div>
                     <Title text='Проект:' />
                     <DropDownForSearching width='55.4rem' text='Выберите проект' />
                     <ListItem text='Request design' width='55.4rem' />
                     <ListItem text='Centrvosstaonleniya' width='55.4rem' />
-                    <StyledItem>Добавьте новый проект
+                    <div className={s.list__item}>Добавьте новый проект
                         <AddIcon
                             sx={{
                                 position: 'absolute',
@@ -31,17 +30,18 @@ const Semantics: React.FC = () => {
                                 fontWeight: '700'
                             }}
                         />
-                    </StyledItem>
+                    </div>
 
                 </div>
 
-                <ButtonsGroup>
+                <div className={s.btnsGroup}>
                     <Button width='30.7rem' text='Смотреть статистику' bgColor='#FFF' />
                     <Button width='25.2rem' text='настроить блоки' bgColor='#096BFF' />
-                </ButtonsGroup>;
-            </HeaderWrapper>
+                </div>
+                ;
+            </div>
 
-            <GroupOfRequests>
+            <div className={s.requestsGroup}>
                 <Request />
                 <Request />
                 <Request />
@@ -49,7 +49,7 @@ const Semantics: React.FC = () => {
                 <Request />
                 <Request />
 
-            </GroupOfRequests>
+            </div>
 
 
         </div>

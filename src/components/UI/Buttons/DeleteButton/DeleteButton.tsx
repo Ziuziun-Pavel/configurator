@@ -2,7 +2,7 @@ import React from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import s from './DeleteButton.module.scss';
 
-const DeleteButton:React.FC = () => {
+const DeleteButton: React.FC = () => {
 
     return (
         <>
@@ -18,7 +18,7 @@ const DeleteButton:React.FC = () => {
                 /></button>
 
         </>
-    )
+    );
 };
 
 export default DeleteButton;

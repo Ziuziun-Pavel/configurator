@@ -34,15 +34,6 @@
   }
 }
 
-.addingBtnWrapper {
-  margin-top: 5rem;
-  width: 19rem;
-  height: 4rem;
-  padding: 1.1rem 1.7rem;
-  border: 1px solid #000000;
-  border-radius: 51px;
-}
-
 .addingBtn {
   margin-left: 2.7rem;
   position: relative;
@@ -51,6 +42,15 @@
   background: none;
   border: none;
   cursor: pointer;
+
+  &__wrapper {
+    margin-top: 5rem;
+    width: 19rem;
+    height: 4rem;
+    padding: 1.1rem 1.7rem;
+    border: 1px solid #000000;
+    border-radius: 51px;
+  }
 }
 
 .downloadContainer {
@@ -67,12 +67,38 @@
   background-color: #FFF;
 }
 
-.btnContainer {
-  margin-top: 4rem;
+.btn {
+  &__container {
+    margin-top: 4rem;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5rem;
+  }
 }
 
 .clipWrapper {
   position: absolute;
   left: -3.3rem;
   top: -.6rem;
+}
+
+.tasksContainer {
+  width: 60.9rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.testBody {
+  position: relative;
+  padding: 7.9rem 24.3rem 5.1rem 10rem;
+  background: #F0F6FF;
+  border-radius: 10px;
+}
+
+.titleContainer {
+  margin-top: 8rem;
 }
