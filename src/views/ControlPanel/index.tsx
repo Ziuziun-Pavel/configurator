@@ -6,22 +6,38 @@ import DropdownMenu from '../../components/UI/DropDowns/DropDownMenu/DropdownMen
 import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
 import ListItem from '../../components/ListItem/ListItem';
-import Table from '../../components/Table/Table';
 import { textFieldTitlesData } from '../../data/textFieldTitlesData';
 import { dropDownMenuData } from '../../data/dropDownMenuData';
-import { Link } from 'react-router-dom';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import DropDownForSearching from '../../components/UI/DropDowns/DropDownForSearching/DropDownForSearching';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import { Table } from '@mui/material';
 import s from './ControlPanel.module.scss';
 
 const ControlPanel = () => {
+
+    function createData(
+        request: string,
+        intensivity: number
+    ) {
+        return { request, intensivity };
+    }
+
+    const rows = [
+        createData('Разработка сайтов', 10),
+        createData('', 2)
+    ];
 
     return (
         <div className='container'>
             <HeaderContainer text='Конфигуратор тестов' />
 
             <div className={s.btnsGroup}>
-                <Link to='/blocks'><Button width='30.7rem' text='Смотреть статистику' bgColor='#FFF' /></Link>
+                <Button width='30.7rem' text='Смотреть статистику' bgColor='#FFF' />
                 <Button width='25.2rem' text='настроить блоки' bgColor='#096BFF' />
             </div>
 
@@ -80,7 +96,43 @@ const ControlPanel = () => {
 
                     <div className={s.table}>
                         <Title text='Целевые запросы' />
-                        <Table />
+
+                        <TableContainer>
+                            <Table align='center' sx={{
+                                minWidth: '36.5rem',
+                                overflow: 'hidden'
+                            }} aria-label='caption table'>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{
+                                            border: '1px solid #000',
+                                            fontSize: '1.5em'
+                                        }} align='center'>Запрос</TableCell>
+                                        <TableCell sx={{
+                                            border: '1px solid #000',
+                                            fontSize: '1.5em'
+                                        }} align='center'>Интенсивность</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow key={row.request}>
+                                            <TableCell sx={{
+                                                border: '1px solid #000',
+                                                fontSize: '1.5em'
+                                            }} align='center' component='th' scope='row'>
+                                                {row.request}
+                                            </TableCell>
+                                            <TableCell sx={{
+                                                border: '1px solid #000',
+                                                fontSize: '1.5em'
+                                            }} align='center'>{row.intensivity}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
 
                         <button className={s.addingBtn}>Добавить запрос и интенсивность
                             <AddIcon

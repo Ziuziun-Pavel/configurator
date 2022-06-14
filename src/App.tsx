@@ -6,12 +6,12 @@ import AppRouter from './router/AppRouter';
 
 const App = () => {
 
-  return (
+    return (
         <div className='App'>
-            <AppRouter/>
+            <AppRouter />
 
         </div>
-    )
+    );
 };
 
-export default App
+export default App;

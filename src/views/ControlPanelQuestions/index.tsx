@@ -1,6 +1,5 @@
 import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
-import { ButtonWrapper, TasksContainer, TestBody, TitleContainer } from '../ControlPanelTasks/styled';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
 import AddIcon from '@mui/icons-material/Add';
@@ -14,21 +13,21 @@ import s from './ControlPanelQuestions.module.scss';
 
 const ControlPanelQuestions: React.FC = () => {
     return (
-        <div className="container">
+        <div className='container'>
             <HeaderContainer text='Блоки для конфигурации вопросов' />
 
-            <TitleContainer>
+            <div className={s.titleContainer}>
                 <TestTitle text='Расскажите о себе' />
-            </TitleContainer>
+            </div>
 
-            <TestBody>
+            <div className={s.testBody}>
 
                 <div className={s.testFieldsContainer}>
                     <div>
                         <TextFieldWithTitle title='Название заголовка блока'
                                             placeholder='Пример: психологические вопросы' />
 
-                        <div className={s.addingBtnWrapper}>
+                        <div className={s.addingBtn__wrapper}>
                             <button className={s.addingBtn}>создать вопрос
                                 <AddIcon
                                     sx={{
@@ -52,29 +51,29 @@ const ControlPanelQuestions: React.FC = () => {
                             <div className={s.downloadContainer}>
                                 <button className={s.addingBtn}>Загрузить картинку
                                     <div className={s.clipWrapper}>
-                                        <img alt="clip" src={ClipPath}/>
+                                        <img alt='clip' src={ClipPath} />
                                     </div>
 
 
                                 </button>
                             </div>
 
-                            <ButtonWrapper>
+                            <div className={s.btn__wrapper}>
                                 <Button width='17.7rem' text='Сохранить' bgColor='#096BFF' />
-                            </ButtonWrapper>
+                            </div>
 
                         </div>
 
-                        <TasksContainer>
+                        <div className={s.tasksContainer}>
                             {questionsData.map(item => <TaskItemBlock key={item.id} text={item.question} />)}
-                        </TasksContainer>
+                        </div>
                     </div>
 
                     <div>
                         <div className={s.dropDownForSearching}>Вопрос 1 - описание вопроса</div>
 
 
-                        <div className={s.addingBtnWrapper}>
+                        <div className={s.addingBtn__wrapper}>
                             <button className={s.addingBtn}>Варианты ответа
                                 <AddIcon
                                     sx={{
@@ -95,28 +94,28 @@ const ControlPanelQuestions: React.FC = () => {
                             <div className={s.downloadContainer}>
                                 <button className={s.addingBtn}>Загрузить картинку
                                     <div className={s.clipWrapper}>
-                                        <img alt="clip" src={ClipPath}/>
+                                        <img alt='clip' src={ClipPath} />
                                     </div>
                                 </button>
                             </div>
 
-                            <ButtonWrapper>
+                            <div className={s.btn__wrapper}>
                                 <Button width='17.7rem' text='Сохранить' bgColor='#096BFF' />
-                            </ButtonWrapper>
+                            </div>
 
                         </div>
 
-                        <TasksContainer>
+                        <div className={s.tasksContainer}>
                             {answersData.map(item => <TaskItemBlock key={item.id} text={item.answer} />)}
-                        </TasksContainer>
+                        </div>
                     </div>
 
                 </div>
 
-                <div className={s.btnContainer}>
-                    <Button width="24.2rem" text="Сохранить блок" bgColor="#096BFF"/>
+                <div className={s.btn__container}>
+                    <Button width='24.2rem' text='Сохранить блок' bgColor='#096BFF' />
                 </div>
-            </TestBody>
+            </div>
 
         </div>
     );

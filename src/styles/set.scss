@@ -3,6 +3,7 @@
 *::after {
   box-sizing: border-box;
 }
+
 html {
   font-family: "Inter", sans-serif; // шрифт по умолчанию по сайту
   font-size: 0.520835vw; // на разрешении 1920 0.520835vw === 10px
@@ -13,6 +14,7 @@ html {
   margin: 0;
   padding: 0;
 }
+
 body {
   font-family: "Inter", sans-serif; // шрифт по умолчанию по сайту
   font-style: normal;
@@ -31,9 +33,11 @@ textarea {
   margin: 0;
   padding: 0;
 }
+
 a {
   color: unset;
 }
+
 a,
 a:hover {
   text-decoration: none;
@@ -46,9 +50,11 @@ textarea {
   outline: none;
   cursor: pointer;
   font: inherit;
+
   &:focus {
     outline: none;
   }
+
   &:active {
     outline: none;
   }
@@ -64,6 +70,7 @@ h6 {
   margin: 0;
   padding: 0;
 }
+
 p {
   margin-top: 0;
   margin-bottom: 0;
@@ -77,6 +84,7 @@ button {
   padding: 0;
   background-color: inherit;
 }
+
 ul {
   padding: 0;
   margin: 0;
@@ -107,7 +115,7 @@ input[type="number"] {
   html {
     font-size: 5px;
     font-size: 1.5625vw;
-    font-size: calc((100/320) * 5vw); // где 320 это ширина моб версии макета
+    font-size: calc((100 / 320) * 5vw); // где 320 это ширина моб версии макета
     -webkit-text-size-adjust: none;
   }
 
