@@ -4,7 +4,7 @@ import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitl
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '../../components/UI/TextFields/TextField/TextField';
 import Button from '../../components/UI/Buttons/Button/Button';
-import TaskItemBlock from '../../components/TaskItemBlock/TaskItemBlock';
+import TaskItemBlock from '../../components/Templates/TaskItemBlock/TaskItemBlock';
 import { tasksNamesData } from '../../data/tasksNames';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanelTasks.module.scss';

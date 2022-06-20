@@ -2,10 +2,10 @@ import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import Button from '../../components/UI/Buttons/Button/Button';
 import Title from '../../components/Titles/Title/Title';
-import ListItem from '../../components/ListItem/ListItem';
+import ListItem from '../../components/Templates/ListItem/ListItem';
 import DropDownForSearching from '../../components/UI/DropDowns/DropDownForSearching/DropDownForSearching';
 import AddIcon from '@mui/icons-material/Add';
-import Request from '../../components/Request/Request';
+import Request from '../../components/Templates/Request/Request';
 import s from './Semantics.module.scss';
 
 const Semantics: React.FC = () => {
