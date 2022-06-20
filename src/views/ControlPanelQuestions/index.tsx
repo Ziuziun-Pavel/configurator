@@ -5,7 +5,7 @@ import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitl
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '../../components/UI/TextFields/TextField/TextField';
 import Button from '../../components/UI/Buttons/Button/Button';
-import TaskItemBlock from '../../components/TaskItemBlock/TaskItemBlock';
+import TaskItemBlock from '../../components/Templates/TaskItemBlock/TaskItemBlock';
 import { questionsData } from '../../data/questionsData';
 import { answersData } from '../../data/answersData';
 import ClipPath from '../../assets/clip.svg';

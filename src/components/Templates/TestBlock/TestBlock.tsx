@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { TestBlockProps } from '../../models/Interfaces';
-import Button from '../UI/Buttons/Button/Button';
+import { TestBlockProps } from '../../../models/Interfaces';
+import Button from '../../UI/Buttons/Button/Button';
 import s from './TestBlock.module.scss';
 
 const TestBlock: React.FC<TestBlockProps> = ({ title, subtitle, isReady }) => {

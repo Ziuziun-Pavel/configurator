@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { ListItemProps } from '../../models/Interfaces';
+import { ListItemProps } from '../../../models/Interfaces';
 import s from './ListItem.module.scss';
 
 const ListItem: React.FC<ListItemProps> = ({ text, width }) => {

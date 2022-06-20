@@ -2,7 +2,7 @@ import React from 'react';
 import Title from '../../../Titles/Title/Title';
 import { DropDownMenuProps } from '../../../../models/Interfaces';
 import TypeDropdown from '../TypeDropdown/TypeDropdown';
-import ListItem from '../../../ListItem/ListItem';
+import ListItem from '../../../Templates/ListItem/ListItem';
 import { listItemTypesData } from '../../../../data/listItemsTypesData';
 import s from './DropDownMenu.module.scss';
 

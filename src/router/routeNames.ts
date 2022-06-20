@@ -1,9 +1,9 @@
 export const RouteNames = {
-    'CONFIGURATOR': '/configurator',
-    'BLOCKS': '/configurator/blocks',
-    'TASKS': '/configurator/tasks',
-    'QUESTIONS': '/configurator/questions',
-    'SEMANTICS': '/configurator/semantics',
-    'STATISTICS': '/configurator/statistics',
-    'PREVIEW': '/configurator/preview'
+    'CONFIGURATOR': '/',
+    'BLOCKS': '/blocks',
+    'TASKS': '/tasks',
+    'QUESTIONS': '/questions',
+    'SEMANTICS': '/semantics',
+    'STATISTICS': '/statistics',
+    'PREVIEW': '/preview'
 };

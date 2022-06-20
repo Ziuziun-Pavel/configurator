@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
-import TestBlock from '../../components/TestBlock/TestBlock';
+import TestBlock from '../../components/Templates/TestBlock/TestBlock';
 import { testBlocksData } from '../../data/testBlocksData';
 import s from './ListOfBlocks.module.scss';
 

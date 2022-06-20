@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import './styles/set.scss';
 import AppRouter from './router/AppRouter';
 

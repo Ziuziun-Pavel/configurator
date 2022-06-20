@@ -5,7 +5,7 @@ import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitl
 import DropdownMenu from '../../components/UI/DropDowns/DropDownMenu/DropdownMenu';
 import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
-import ListItem from '../../components/ListItem/ListItem';
+import ListItem from '../../components/Templates/ListItem/ListItem';
 import { textFieldTitlesData } from '../../data/textFieldTitlesData';
 import { dropDownMenuData } from '../../data/dropDownMenuData';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
