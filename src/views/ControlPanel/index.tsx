@@ -17,6 +17,8 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import { Table } from '@mui/material';
 import s from './ControlPanel.module.scss';
+import { Link } from 'react-router-dom';
+import { RouteNames } from '../../router/routeNames';
 
 const ControlPanel = () => {
 
@@ -37,8 +39,9 @@ const ControlPanel = () => {
             <HeaderContainer text='Конфигуратор тестов' />
 
             <div className={s.btnsGroup}>
-                <Button width='30.7rem' text='Смотреть статистику' bgColor='#FFF' />
-                <Button width='25.2rem' text='настроить блоки' bgColor='#096BFF' />
+                <Link to={RouteNames.QUESTIONS}><Button width='30.7rem' text='Смотреть статистику'
+                                                        bgColor='#FFF' /></Link>
+                <Link to={RouteNames.BLOCKS}><Button width='25.2rem' text='настроить блоки' bgColor='#096BFF' /></Link>
             </div>
 
             <div className={s.testFieldsGroup}>
@@ -152,8 +155,10 @@ const ControlPanel = () => {
                 </div>
 
                 <div className={s.footerBtnsGroup}>
-                    <Button width='27.5rem' text='активировать тест' bgColor='#096BFF' />
-                    <Button width='36.5rem' text='Посмотреть превью теста' bgColor='#096BFF' />
+                    <Link to={RouteNames.TASKS}> <Button width='27.5rem' text='активировать тест'
+                                                         bgColor='#096BFF' /></Link>
+                    <Link to={RouteNames.SEMANTICS}> <Button width='36.5rem' text='Посмотреть превью теста'
+                                                             bgColor='#096BFF' /></Link>
 
                 </div>
 
