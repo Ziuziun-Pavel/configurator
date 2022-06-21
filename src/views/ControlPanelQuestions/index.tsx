@@ -8,7 +8,7 @@ import Button from '../../components/UI/Buttons/Button/Button';
 import TaskItemBlock from '../../components/Templates/TaskItemBlock/TaskItemBlock';
 import { questionsData } from '../../data/questionsData';
 import { answersData } from '../../data/answersData';
-// import ClipPath from '../../assets/clip.svg';
+import ClipPath from '../../../public/assets/clip.svg';
 import s from './ControlPanelQuestions.module.scss';
 
 const ControlPanelQuestions: React.FC = () => {
@@ -50,9 +50,9 @@ const ControlPanelQuestions: React.FC = () => {
 
                             <div className={s.downloadContainer}>
                                 <button className={s.addingBtn}>Загрузить картинку
-                                    {/*<div className={s.clipWrapper}>*/}
-                                    {/*    <img alt='clip' src={ClipPath} />*/}
-                                    {/*</div>*/}
+                                    <div className={s.clipWrapper}>
+                                        <img alt='clip' src={ClipPath} />
+                                    </div>
 
 
                                 </button>
@@ -93,9 +93,9 @@ const ControlPanelQuestions: React.FC = () => {
 
                             <div className={s.downloadContainer}>
                                 <button className={s.addingBtn}>Загрузить картинку
-                                    {/*<div className={s.clipWrapper}>*/}
-                                    {/*    <img alt='clip' src={ClipPath} />*/}
-                                    {/*</div>*/}
+                                    <div className={s.clipWrapper}>
+                                        <img alt='clip' src={ClipPath} />
+                                    </div>
                                 </button>
                             </div>
 
