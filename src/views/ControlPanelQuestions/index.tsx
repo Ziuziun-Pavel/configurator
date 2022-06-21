@@ -49,13 +49,13 @@ const ControlPanelQuestions: React.FC = () => {
                             <TextField text='Опишите текст вопроса  ' />
 
                             <div className={s.downloadContainer}>
-                                <button className={s.addingBtn}>Загрузить картинку
+                                <label className={s.addingBtn} htmlFor='file'>
+                                    <input id='file' hidden type='file'/>
+                                    Загрузить картинку
                                     <div className={s.clipWrapper}>
                                         <img alt='clip' src={ClipPath} />
                                     </div>
-
-
-                                </button>
+                                </label>
                             </div>
 
                             <div className={s.btn__wrapper}>
@@ -92,11 +92,14 @@ const ControlPanelQuestions: React.FC = () => {
                             <TextField text='Опишите текст ответа на вопрос 1' />
 
                             <div className={s.downloadContainer}>
-                                <button className={s.addingBtn}>Загрузить картинку
+                                <label className={s.addingBtn} htmlFor='file'>
+                                    <input id='file' hidden type='file'/>
+                                    Загрузить картинку
                                     <div className={s.clipWrapper}>
                                         <img alt='clip' src={ClipPath} />
                                     </div>
-                                </button>
+                                </label>
+
                             </div>
 
                             <div className={s.btn__wrapper}>
