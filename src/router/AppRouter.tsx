@@ -9,13 +9,17 @@ import { RouteNames } from './routeNames';
 import Semantics from '../views/Semantics';
 import Statistics from '../views/Statistics';
 import Preview from '../views/Preview';
+import ListOfTests from '../views/ListOfTests';
+import Projects from '../views/Projects';
 
 const AppRouter = () => {
     return (
         <Routes>
-            <Route path={RouteNames.CONFIGURATOR} element={<ControlPanel />} />
+            <Route path={RouteNames.ASSEMBLY} element={<ControlPanel />} />
             <Route path={RouteNames.BLOCKS} element={<ListOfBlocks />} />
+            <Route path={RouteNames.TESTS} element={<ListOfTests />} />
             <Route path={RouteNames.TASKS} element={<ControlPanelTasks />} />
+            <Route path={RouteNames.PROJECTS} element={<Projects />} />
             <Route path={RouteNames.QUESTIONS} element={<ControlPanelQuestions />} />
             <Route path={RouteNames.SEMANTICS} element={<Semantics />} />
             <Route path={RouteNames.STATISTICS} element={<Statistics />} />

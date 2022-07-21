@@ -10,7 +10,7 @@ const DeleteButton: React.FC = () => {
                 <ClearIcon
                     sx={{
                         position: 'absolute',
-                        left: '7.5rem',
+                        right: '6.5rem',
                         top: '-.3rem',
                         color: 'red',
                         fontSize: '1.5em'

@@ -1,0 +1,29 @@
+.projects {
+  &__building {
+    margin-top: 8.7rem;
+    padding: 8rem 0 8rem 10.6rem;
+    height: 48.3rem;
+    background: #F0F6FF;
+    border-radius: 10px;
+  }
+
+  &__btn {
+    margin-top: 8rem;
+  }
+
+  &__textField {
+    margin-top: 3rem;
+  }
+
+  &__list {
+    margin-top: 6rem;
+    margin-left: 3.8rem;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 6rem;
+    line-height: 7.3rem;
+    color: #000000;
+  }
+}

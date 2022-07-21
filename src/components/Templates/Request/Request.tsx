@@ -9,9 +9,9 @@ import s from './Request.module.scss';
 
 function createData(
     name: string,
-    calories: number
+    intensivity: number
 ) {
-    return { name, calories };
+    return { name, intensivity };
 }
 
 const rows = [
@@ -26,12 +26,7 @@ const Request = () => {
         <>
 
             <div className={s.request}>
-                <div className={s.request__header}>Группа запросов
-                    <div className={s.subtitle__group}>
-                        <h3 className={s.subtitle}>Запрос (12)</h3>
-                        <h3 className={s.subtitle}>Интенсивность</h3>
-                    </div>
-                </div>
+
                 <div className={s.request__body}>
 
                     <TableContainer sx={{ 'fontFamily': 'Inter', 'padding': '0' }}>
@@ -46,7 +41,7 @@ const Request = () => {
                                         <TableCell sx={{ 'fontSize': '2rem' }} component='th' scope='row'>
                                             {row.name}
                                         </TableCell>
-                                        <TableCell sx={{ 'fontSize': '2rem' }} align='right'>{row.calories}</TableCell>
+                                        <TableCell sx={{ 'fontSize': '2rem' }} align='right'>{row.intensivity}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

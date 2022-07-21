@@ -1,4 +1,6 @@
-export const dropDownMenuData = [
+import { DropDownMenuDataProps } from '../models/Interfaces';
+
+export const dropDownMenuData: DropDownMenuDataProps[] = [
     {
         id: 1,
         title: 'Изучить работадателя (блок 2)',

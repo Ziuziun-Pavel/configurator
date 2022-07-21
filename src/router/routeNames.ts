@@ -1,6 +1,8 @@
 export const RouteNames = {
-    'CONFIGURATOR': '/',
+    'ASSEMBLY': '/assembly',
     'BLOCKS': '/blocks',
+    'TESTS': '/tests',
+    'PROJECTS': '/projects',
     'TASKS': '/tasks',
     'QUESTIONS': '/questions',
     'SEMANTICS': '/semantics',
