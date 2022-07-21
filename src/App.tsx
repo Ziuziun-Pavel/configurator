@@ -3,14 +3,13 @@ import './App.scss';
 import './styles/set.scss';
 import AppRouter from './router/AppRouter';
 
-
 const App = () => {
 
     return (
-        <div className='App'>
-            <AppRouter />
+            <div className='App'>
+                <AppRouter />
+            </div>
 
-        </div>
     );
 };
 

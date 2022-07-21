@@ -11,7 +11,7 @@ const DropdownMenu: React.FC<DropDownMenuProps> = ({ title, type }) => {
     return (
         <div className={s.menuContainer}>
             <Title text={title} />
-            <TypeDropdown />
+            <TypeDropdown deleteBtn={true} width='100%' title='Выберите тип блока' />
             {listItemTypesData.map(item => <ListItem key={item.id} text={type} width='100%' />)
             }
 
