@@ -1,63 +1,75 @@
 import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
-import AddIcon from '@mui/icons-material/Add';
-import TextField from '../../components/UI/TextFields/TextField/TextField';
 import Button from '../../components/UI/Buttons/Button/Button';
-import TaskItemBlock from '../../components/Templates/TaskItemBlock/TaskItemBlock';
-import { tasksNamesData } from '../../data/tasksNames';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanelTasks.module.scss';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
+import ClipPath from '../../assets/clip.svg';
+import { tasksData } from '../../data/tasksData';
+import TaskBlock from '../../components/Templates/TaskBlock/TaskBlock';
 
 const ControlPanelTasks: React.FC = () => {
     return (
         <>
             <NavigationMenu />
+
+
             <div className='container'>
-                <HeaderContainer text='Блоки для конфигурации заданий' />
+                <HeaderContainer text='Создание блока заданий' />
 
                 <div className={s.titleContainer}>
                     <TestTitle text='Расскажите о себе' />
                 </div>
 
-                <div className={s.test}>
+                <div className={s.taskBody}>
+
                     <TextFieldWithTitle title='Название заголовка блока'
                                         placeholder='Пример: психологические вопросы' />
 
-                    <button className={s.btn__adding}>создать задание
-                        <AddIcon
-                            sx={{
-                                position: 'absolute',
-                                left: '-3.3rem',
-                                top: '-.5rem',
-                                color: 'blue',
-                                fontSize: '2em',
-                                fontWeight: '700'
-                            }}
-                        />
-                    </button>
+                    <form onSubmit={() => {alert('submit')}}>
+                        <div className={s.taskBody__description}>
+                            <input id='task' className={s.taskBody__input}
+                                   placeholder='Сохранить задание' />
 
-                    <div className={s.test__description}>
-                        <TextField text='Опишите задание' />
+                            <div className={s.taskBody__download}>
+                                <input id='download_first' type='file' hidden />
 
-                        <div className={s.btn__wrapper}>
-                            <Button width='17.7rem' text='Сохранить' bgColor='#096BFF' />
+                                <label htmlFor='download_first'>Загрузить картинку</label>
+
+
+                                <div className={s.clipWrapper}>
+                                    <img alt='clip' src={ClipPath} />
+                                </div>
+                            </div>
+
                         </div>
 
+
+                        <div className={s.taskBody__submitBtn}>
+                            <Button width='27.9rem' bgColor='#096BFF' text='Сохранить задание' />
+                        </div>
+
+                    </form>
+
+                    <div className={s.taskBody__questionsBlocksList}>
+                        {
+                            tasksData.map(task => {
+                                return(
+                                    <TaskBlock key={task.id}
+                                               id={task.id}
+                                               title={task.title}
+                                               isKey={task.isKey}
+                                               description={task.description}
+                                               link={task.link}/>
+                                );
+                            })
+                        }
                     </div>
 
-                    <div className={s.tasksContainer}>
-                        {tasksNamesData.map(item => <TaskItemBlock key={item.id} text={item.task} />)}
-                    </div>
-
-                    <div className={s.btn__wrapper}>
-                        <Button width='24.2rem' text='Сохранить блок' bgColor='#096BFF' />
-                    </div>
 
 
                 </div>
-
             </div>
         </>
     );

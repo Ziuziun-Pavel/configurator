@@ -1,20 +1,36 @@
-export const questionsData = [
+import { QuestionProps } from '../models/Interfaces';
+
+export const questionsData: QuestionProps[] = [
     {
         id: 1,
-        question: 'Вопрос 1 - описание вопроса'
+        title: 'Психологические вопросы',
+        isActive: true,
+        status: 'Активный',
+        dataOfDeactivation: '',
+        answer: 'www.google.com'
     },
     {
         id: 2,
-        question: 'Вопрос 2 - описание вопроса'
-
+        title: 'Расскажите о себе',
+        isActive: false,
+        status: 'Деактивированный',
+        dataOfDeactivation: '13.05. в 12.09',
+        answer: 'www.google.com'
     },
     {
         id: 3,
-        question: 'Вопрос 3 - см. картинку'
-
+        title: 'Филосовский тест с графикой',
+        isActive: true,
+        status: 'Активный',
+        dataOfDeactivation: '',
+        answer: 'www.google.com'
     },
     {
         id: 4,
-        question: 'Вопрос 4 - см. картинку'
+        title: 'Расскажите о себе',
+        isActive: false,
+        status: 'Деактивированный',
+        dataOfDeactivation: '13.05. в 12.09',
+        answer: 'www.google.com'
     }
 ];

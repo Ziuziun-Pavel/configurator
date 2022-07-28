@@ -39,7 +39,7 @@ const Projects: React.FC = () => {
                                               id={project.id}
                                               title={project.title}
                                               isActive={project.isActive}
-                                              subtitle={project.subtitle}
+                                              status={project.status}
                                               dataOfDeactivation={project.dataOfDeactivation}
                                               region={project.region}
                                               site={project.site} />

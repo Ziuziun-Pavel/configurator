@@ -61,7 +61,10 @@ const ControlPanel: React.FC = () => {
             <div className='container'>
                 <HeaderContainer text='Тест (сборка теста)' />
 
-                <DropDownProjects/>
+                <div className={s.dropDownProjects__container}>
+                    <DropDownProjects />
+                </div>
+
 
                 <div className={s.testFieldsGroup}>
                     {textFieldTitlesData.map(item => <div className={s.textFieldContainer} key={item.id}>
@@ -82,7 +85,7 @@ const ControlPanel: React.FC = () => {
                     <div>
                         {
                             dropdowns.map(item => <DropdownMenu key={item.id} title={item.title}
-                                                                type={item.type[0]} />)
+                                                                type={item.list[0]} />)
                         }
 
                     </div>
@@ -95,7 +98,7 @@ const ControlPanel: React.FC = () => {
                         <button className={s.addingButton} onClick={() => addDropDownMenu({
                             id: 1,
                             title: 'Изучить работадателя (блок 2)',
-                            type: ['тип 1', 'тип 1', 'тип 1', 'тип 1']
+                            list: ['тип 1', 'тип 1', 'тип 1', 'тип 1']
                         })}>Добавить
                             <AddIcon
                                 sx={{
@@ -110,75 +113,18 @@ const ControlPanel: React.FC = () => {
                         </button>
                     </div>
 
-                    <div className={s.tableWrapper}>
+                    <div className={s.dropDowns__wrapper}>
 
-                        <div className={s.table}>
-                            <Title text='Целевые запросы' />
-
-                            <TableContainer>
-                                <Table align='center' sx={{
-                                    minWidth: '53.5rem',
-                                    overflow: 'hidden'
-                                }} aria-label='caption table'>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell sx={{
-                                                border: '1px solid #000',
-                                                fontSize: '1.5em'
-                                            }} align='center'>Запрос</TableCell>
-                                            <TableCell sx={{
-                                                border: '1px solid #000',
-                                                fontSize: '1.5em'
-                                            }} align='center'>Интенсивность</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {rows.map((row) => (
-                                            <TableRow key={row.request}>
-                                                <TableCell sx={{
-                                                    border: '1px solid #000',
-                                                    fontSize: '1.5rem'
-                                                }} align='center' component='th' scope='row'>
-                                                    {row.request}
-                                                </TableCell>
-                                                <TableCell sx={{
-                                                    border: '1px solid #000',
-                                                    fontSize: '1.5rem'
-                                                }} align='center'>{row.intensivity}</TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '2px solid #000',
-                                                    fontSize: '1.5rem',
-                                                    paddingLeft: '4.5rem'
-                                                }} align='center'>{row.deleteBtn}</TableCell>
-
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-
-                            </TableContainer>
-
-                            <button className={s.addingBtn}>Добавить запрос и интенсивность
-                                <AddIcon
-                                    sx={{
-                                        position: 'absolute',
-                                        left: '-3rem',
-                                        top: '-.6rem',
-                                        fontSize: '2em',
-                                        color: 'blue',
-                                        fontWeight: '700'
-                                    }}
-                                />
-                            </button>
+                        <div className={s.dropDownDirection__container}>
+                            <DropDownProjects/>
                         </div>
 
-                        <div>
+                        <div className={s.searching__wrapper}>
                             <Title text='Поисковая система' />
-                            <DropDownForSearching width='45.4rem' text='Выберите тип поисковой системы' />
-                            <ListItem text='Яндекс' width='45.4rem' deleteBtn={false} />
-                            <ListItem text='Google' width='45.4rem' deleteBtn={false} />
-                            <ListItem text='Google и Яндекс' width='45.4rem' deleteBtn={false} />
+                            <DropDownForSearching width='55.4rem' text='Выберите тип поисковой системы' />
+                            <ListItem text='Яндекс' width='55.4rem' deleteBtn={false} />
+                            <ListItem text='Google' width='55.4rem' deleteBtn={false} />
+                            <ListItem text='Google и Яндекс' width='55.4rem' deleteBtn={false} />
 
                         </div>
 

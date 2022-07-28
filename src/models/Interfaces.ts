@@ -4,6 +4,7 @@ export interface ButtonProps {
     width: string,
     text?: string,
     bgColor: string,
+    border?: string
 }
 
 export interface DropDownMenuProps {
@@ -13,9 +14,11 @@ export interface DropDownMenuProps {
 }
 
 export interface DropDownMenuDataProps {
-    id: number,
+    id?: number,
     title: string,
-    type: string[]
+    placeholder?: string,
+    list: string[],
+    addBtn?: boolean
 }
 
 export interface DropDownBtnProps {
@@ -34,7 +37,7 @@ export interface RequestsProps {
 
 export interface TypeDropDownProps {
     id?: number,
-    title: string,
+    title?: string,
     deleteBtn: boolean,
     width: string
 }
@@ -52,6 +55,7 @@ export interface RequestHeaderProps {
     isIntensive: boolean,
     isDelete?: boolean
 }
+
 export interface DropDownProps {
     id?: number,
     width: string,
@@ -70,7 +74,7 @@ export interface TestBlockProps {
     isActive: boolean,
     data: string,
     dataOfDeactivation?: string,
-    subtitle: string,
+    status: string,
     url: string,
     browser: string,
     region: string,
@@ -81,15 +85,40 @@ export interface ProjectBlockProps {
     id: number,
     title: string,
     isActive: boolean,
-    subtitle: string,
+    status: string,
     dataOfDeactivation: string,
     region: string,
     site: string
 }
 
+export interface QuestionProps {
+    id: number,
+    title: string,
+    isActive?: boolean,
+    status?: string,
+    dataOfDeactivation?: string,
+    answer?: string
+}
+
+export interface TaskProps {
+    id: number,
+    title: string,
+    isKey: boolean,
+    description: string,
+    link: string,
+    isActive?: boolean,
+    status?: string,
+    dataOfDeactivation?: string,
+}
+
 export interface ModalProps {
     active: boolean,
     setActive: Dispatch<SetStateAction<boolean>>
+}
+
+export interface AnswerProps {
+    id: number,
+    answer: string
 }
 
 export interface TextFieldBlockProps {

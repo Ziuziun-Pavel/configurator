@@ -5,7 +5,7 @@ export const projectsData: Array<ProjectBlockProps> = [
         id: 1,
         title: 'ЦВ',
         isActive: true,
-        subtitle: 'Активный',
+        status: 'Активный',
         dataOfDeactivation: '',
         region: 'Вся Россия',
         site: 'nasrf.ru'
@@ -14,7 +14,7 @@ export const projectsData: Array<ProjectBlockProps> = [
         id: 2,
         title: 'ЦВ',
         isActive: true,
-        subtitle: 'Активный',
+        status: 'Активный',
         dataOfDeactivation: '',
         region: 'Вся Россия',
         site: 'nasrf.ru'
@@ -23,7 +23,7 @@ export const projectsData: Array<ProjectBlockProps> = [
         id: 3,
         title: 'ЦВ',
         isActive: false,
-        subtitle: 'Деактивированный',
+        status: 'Деактивированный',
         dataOfDeactivation: '13.05. в 12.09',
         region: 'Вся Россия',
         site: 'nasrf.ru'

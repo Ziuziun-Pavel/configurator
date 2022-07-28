@@ -48,6 +48,20 @@
   margin-top: 3.7rem;
 }
 
+.dropDownProjects__container {
+  margin: 15.3rem 0 9.2rem;
+}
+
+.searching__wrapper {
+  padding: 3.8rem 19.7rem 7.6rem 7.6rem;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+}
+
+.dropDownDirection__container {
+  padding-top: 8.7rem;
+}
+
 .addingTextField {
   position: relative;
   width: 100%;
@@ -81,18 +95,13 @@
   margin-top: 3rem;
 }
 
-.tableWrapper {
+.dropDowns__wrapper {
   position: relative;
   display: flex;
   justify-content: space-between;
-  margin-top: 8rem;
-  padding-right: 25.5rem;
+  margin-top: 4.6rem;
 }
 
-.table {
-  position: relative;
-  height: 16rem;
-}
 
 .addingBtn {
   position: absolute;

@@ -76,8 +76,8 @@ const DropDownButton: React.FC<DropDownBtnProps> = ({  text, isTest, isBlock }) 
                     sx={style}
                 >
 
-                    <Link to={RouteNames.ASSEMBLY}><MenuItem onClick={handleClose}>Сборка теста</MenuItem></Link>
-                    <Link to={RouteNames.BLOCKS}><MenuItem onClick={handleClose}>Список всех тестов</MenuItem></Link>
+                    <Link to={RouteNames.TESTS_ASSEMBLY}><MenuItem onClick={handleClose}>Сборка теста</MenuItem></Link>
+                    <Link to={RouteNames.TESTS}><MenuItem onClick={handleClose}>Список всех тестов</MenuItem></Link>
 
                 </Menu>
             </div>
@@ -109,10 +109,10 @@ const DropDownButton: React.FC<DropDownBtnProps> = ({  text, isTest, isBlock }) 
                     TransitionComponent={Fade}
                     sx={style}
                 >
-                    <Link to={RouteNames.BLOCKS}><MenuItem onClick={handleClose}>Список всех блоков вопросов</MenuItem></Link>
+                    <Link to={RouteNames.QUESTIONS}><MenuItem onClick={handleClose}>Список всех блоков вопросов</MenuItem></Link>
                     <Link to={RouteNames.TASKS}><MenuItem onClick={handleClose}>Список всех блоков заданий</MenuItem></Link>
-                    <MenuItem onClick={handleClose}>Создание блока вопросов</MenuItem>
-                    <MenuItem onClick={handleClose}>Создание блока заданий</MenuItem>
+                    <Link to={RouteNames.QUESTIONS_ASSEMBLY}><MenuItem onClick={handleClose}>Создание блока вопросов</MenuItem></Link>
+                    <Link to={RouteNames.TASKS_ASSEMBLY}><MenuItem onClick={handleClose}>Создание блока заданий</MenuItem></Link>
 
                 </Menu>
             </div>
