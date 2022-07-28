@@ -2,15 +2,14 @@ import React from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
-import AddIcon from '@mui/icons-material/Add';
-import TextField from '../../components/UI/TextFields/TextField/TextField';
-import Button from '../../components/UI/Buttons/Button/Button';
-import TaskItemBlock from '../../components/Templates/TaskItemBlock/TaskItemBlock';
-import { questionsData } from '../../data/questionsData';
-import { answersData } from '../../data/answersData';
-import ClipPath from '../../assets/clip.svg';
 import s from './ControlPanelQuestions.module.scss';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
+import ClipPath from '../../assets/clip.svg';
+import AddIcon from '@mui/icons-material/Add';
+import Button from '../../components/UI/Buttons/Button/Button';
+import QuestionBlockWithAnswer from '../../components/Templates/QuestionBlockWithAnswer/QuestionBlockWithAnswer';
+import { questionsData } from '../../data/questionsData';
+
 
 const ControlPanelQuestions: React.FC = () => {
     return (
@@ -19,7 +18,7 @@ const ControlPanelQuestions: React.FC = () => {
 
 
             <div className='container'>
-                <HeaderContainer text='Блоки для конфигурации вопросов' />
+                <HeaderContainer text='Создание блока вопросов' />
 
                 <div className={s.titleContainer}>
                     <TestTitle text='Расскажите о себе' />
@@ -27,104 +26,96 @@ const ControlPanelQuestions: React.FC = () => {
 
                 <div className={s.testBody}>
 
-                    <div className={s.testFieldsContainer}>
-                        <div>
-                            <TextFieldWithTitle title='Название заголовка блока'
-                                                placeholder='Пример: психологические вопросы' />
+                    <TextFieldWithTitle title='Название заголовка блока'
+                                        placeholder='Пример: психологические вопросы' />
 
-                            <div className={s.addingBtn__wrapper}>
-                                <button className={s.addingBtn}>создать вопрос
-                                    <AddIcon
-                                        sx={{
-                                            position: 'absolute',
-                                            left: '-3.3rem',
-                                            top: '-.6rem',
-                                            color: 'blue',
-                                            fontSize: '2em',
-                                            fontWeight: '700'
-                                        }}
-                                    />
-                                    <div>
+                    <form onSubmit={() => {alert('submit')}}>
+                        <div className={s.testBody__description}>
+                            <input id='question' className={s.testBody__inputQuestion}
+                                   placeholder='Опишите текст вопроса' />
 
-                                    </div>
-                                </button>
-                            </div>
+                            <div className={s.testBody__download}>
+                                <input id='download_first' type='file' hidden />
 
-                            <div className={s.descriptionBlock}>
-                                <TextField text='Опишите текст вопроса  ' />
+                                <label htmlFor='download_first'>Загрузить картинку</label>
 
-                                <div className={s.downloadContainer}>
-                                    <label className={s.addingBtn} htmlFor='file'>
-                                        <input id='file' hidden type='file' />
-                                        Загрузить картинку
-                                        <div className={s.clipWrapper}>
-                                            <img alt='clip' src={ClipPath} />
-                                        </div>
-                                    </label>
+
+                                <div className={s.clipWrapper}>
+                                    <img alt='clip' src={ClipPath} />
                                 </div>
-
-                                <div className={s.btn__wrapper}>
-                                    <Button width='17.7rem' text='Сохранить' bgColor='#096BFF' />
-                                </div>
-
                             </div>
 
-                            <div className={s.tasksContainer}>
-                                {questionsData.map(item => <TaskItemBlock key={item.id} text={item.question} />)}
-                            </div>
                         </div>
 
-                        <div>
-                            <div className={s.dropDownForSearching}>Вопрос 1 - описание вопроса</div>
+                        <div className={s.testBody__description_small}>
+                            <input id='question' className={s.testBody__inputQuestion}
+                                   placeholder='Опишите текст вопроса' />
+
+                            <div className={s.testBody__download}>
+                                <input id='download_first' type='file' hidden />
+
+                                <label htmlFor='download_first'>Загрузить картинку</label>
 
 
-                            <div className={s.addingBtn__wrapper}>
-                                <button className={s.addingBtn}>Варианты ответа
-                                    <AddIcon
-                                        sx={{
-                                            position: 'absolute',
-                                            left: '-3.3rem',
-                                            top: '-.6rem',
-                                            color: 'blue',
-                                            fontSize: '2em',
-                                            fontWeight: '700'
-                                        }}
-                                    />
-                                </button>
-                            </div>
-
-                            <div className={s.descriptionBlock}>
-                                <TextField text='Опишите текст ответа на вопрос 1' />
-
-                                <div className={s.downloadContainer}>
-                                    <label className={s.addingBtn} htmlFor='file'>
-                                        <input id='file' hidden type='file' />
-                                        Загрузить картинку
-                                        <div className={s.clipWrapper}>
-                                            <img alt='clip' src={ClipPath} />
-                                        </div>
-                                    </label>
-
+                                <div className={s.clipWrapper}>
+                                    <img alt='clip' src={ClipPath} />
                                 </div>
-
-                                <div className={s.btn__wrapper}>
-                                    <Button width='17.7rem' text='Сохранить' bgColor='#096BFF' />
-                                </div>
-
                             </div>
 
-                            <div className={s.tasksContainer}>
-                                {answersData.map(item => <TaskItemBlock key={item.id} text={item.answer} />)}
-                            </div>
                         </div>
 
+                        <div className={s.testBody__description_small}>
+                            <input id='question' className={s.testBody__inputQuestion}
+                                   placeholder='Опишите текст вопроса' />
+
+                            <div className={s.testBody__download}>
+                                <input id='download_first' type='file' hidden />
+
+                                <label htmlFor='download_first'>Загрузить картинку</label>
+
+
+                                <div className={s.clipWrapper}>
+                                    <img alt='clip' src={ClipPath} />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button className={s.testBody__adding}>Варианты ответа
+                            <AddIcon
+                                sx={{
+                                    position: 'absolute',
+                                    left: '-3.3rem',
+                                    top: '-.5rem',
+                                    color: 'blue',
+                                    fontSize: '2em',
+                                    fontWeight: '700'
+                                }}
+                            />
+                        </button>
+
+                        <div className={s.testBody__submitBtn}>
+                            <Button width='40.5rem' bgColor='#096BFF' text='Сохранить вопрос с ответами' />
+                        </div>
+
+                    </form>
+
+                    <div className={s.testBody__questionsBlocksList}>
+                        {
+                            questionsData.map(question => {
+                                return(
+                                    <QuestionBlockWithAnswer key={question.id}
+                                                             id={question.id}
+                                                             title={question.title}
+                                                             answer={question.answer} />
+                                );
+                            })
+                        }
                     </div>
 
-                    <div className={s.btn__container}>
-                        <Button width='24.2rem' text='Сохранить блок' bgColor='#096BFF' />
-                    </div>
+
+
                 </div>
-
             </div>
         </>
 

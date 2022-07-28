@@ -1,20 +1,22 @@
-export const answersData = [
+import { AnswerProps } from '../models/Interfaces';
+
+export const answersData: AnswerProps[] = [
     {
         id: 1,
-        answer: 'Ответ 1 - описание ответа'
+        answer: './tests'
     },
     {
         id: 2,
-        answer: 'Ответ 2 - описание ответа'
+        answer: 'www.google.com'
 
     },
     {
         id: 3,
-        answer: 'Ответ 3 - описание ответа'
+        answer: 'www.google.com'
 
     },
     {
         id: 4,
-        answer: 'Ответ 4 - описание ответа'
+        answer: 'www.google.com'
     }
 ];

@@ -10,7 +10,7 @@ const NavigationMenu: React.FC = () => {
         <div className={s.menuContainer}>
             <nav className={s.menuItemsContainer}>
                 <DropDownButton id={1} text='Тест' isTest={true}/>
-                <Link to={RouteNames.QUESTIONS}><DropDownButton id={2} text='Проекты'/></Link>
+                <Link to={RouteNames.PROJECTS}><DropDownButton id={2} text='Проекты'/></Link>
                 <DropDownButton id={3} text='Блоки' isBlock={true}/>
                 <Link to={RouteNames.SEMANTICS}><DropDownButton id={4} text='Семантика'/></Link>
                 <Link to={RouteNames.STATISTICS}><DropDownButton id={5} text='Статистика'/></Link>

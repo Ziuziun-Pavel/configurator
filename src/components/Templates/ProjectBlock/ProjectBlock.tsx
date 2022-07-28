@@ -6,7 +6,7 @@ import IOSSwitch from '../../UI/Switchers/IOSswitcher';
 import Modal from '../Modal/Modal';
 
 const ProjectBlock: React.FC<ProjectBlockProps> = ({   title,
-                                                       subtitle,
+                                                       status,
                                                        isActive,
                                                        dataOfDeactivation,
                                                        site,
@@ -17,7 +17,7 @@ const ProjectBlock: React.FC<ProjectBlockProps> = ({   title,
       color: ${isActive ? '#07FF6A' : '#FFA800'};
     `;
 
-    const [modalActive, setModalActive] = useState(true);
+    const [modalActive, setModalActive] = useState(false);
 
     return (
         <>
@@ -26,7 +26,7 @@ const ProjectBlock: React.FC<ProjectBlockProps> = ({   title,
                 <div className={s.projectBlock__first}>
                     <div>
                         <StyledSubtitle
-                            className={s.projectBlock__subtitle}>{subtitle + ' ' + dataOfDeactivation}</StyledSubtitle>
+                            className={s.projectBlock__subtitle}>{status + ' ' + dataOfDeactivation}</StyledSubtitle>
                         <h3 className={s.projectBlock__title}>{title}</h3>
                     </div>
 

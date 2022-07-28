@@ -5,34 +5,34 @@ export const testBlocksData: Array<TestBlockProps> = [
     //     id: 1,
     //     title: 'Психологические вопросы',
     //     isActive: true,
-    //     subtitle: 'Готовый блок'
+    //     status: 'Готовый блок'
     // },
     // {
     //     id: 2,
     //     title: 'Филосовский тест с графикой',
     //     isActive: true,
-    //     subtitle: 'Готовый блок'
+    //     status: 'Готовый блок'
     //
     // },
     // {
     //     id: 3,
     //     title: 'Расскажите о себе',
     //     isActive: false,
-    //     subtitle: 'Не заполнен'
+    //     status: 'Не заполнен'
     //
     // },
     // {
     //     id: 4,
     //     title: 'Расскажите о себе',
     //     isActive: false,
-    //     subtitle: 'Не заполнен'
+    //     status: 'Не заполнен'
     //
     // },
     // {
     //     id: 5,
     //     title: 'Расскажите о себе',
     //     isActive: false,
-    //     subtitle: 'Не заполнен'
+    //     status: 'Не заполнен'
     //
     // }
 ];

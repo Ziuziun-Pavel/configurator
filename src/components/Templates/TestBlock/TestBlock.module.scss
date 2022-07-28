@@ -46,6 +46,13 @@
     color: #000000;
   }
 
+  &__second {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 120rem;
+  }
+
   &__subtitle, &__site {
     font-weight: 400;
     font-size: 2rem;

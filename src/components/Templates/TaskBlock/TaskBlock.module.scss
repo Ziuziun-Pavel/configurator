@@ -1,0 +1,83 @@
+.taskBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  height: 11.5rem;
+  padding: 1.5rem 4.5rem 1.5rem 6rem;
+  border: 1px solid #000000;
+  border-radius: 100px;
+
+  &__title {
+    font-weight: 400;
+    font-size: 4rem;
+    line-height: 4.8rem;
+    color: #000000;
+  }
+
+  &__link {
+    font-weight: 400;
+    font-size: 2.7rem;
+    line-height: 3.3rem;
+    text-decoration-line: underline;
+    color: #086BFF;
+  }
+
+  &__id {
+    font-weight: 400;
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+    color: #000000;
+  }
+
+  &__number {
+    margin-top: .8rem;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    color: #000000;
+  }
+
+  &__second {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70rem;
+  }
+
+  &__answersWrapper {
+    cursor: pointer;
+  }
+
+  &__answers {
+    position: relative;
+    font-weight: 400;
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+    color: #000000;
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -.2rem;
+      right: -5.2rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-right: 2px solid #000;
+      border-top: 2px solid black;
+      transform: rotate(135deg);
+      cursor: pointer;
+    }
+  }
+
+  &__description {
+    display: none;
+
+    &__active {
+      display: block;
+    }
+  }
+
+
+
+}
