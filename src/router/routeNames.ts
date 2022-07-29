@@ -1,5 +1,5 @@
 export const RouteNames = {
-    'TESTS_ASSEMBLY': '/tests/assembly',
+    'TESTS_ASSEMBLY': '/',
     'TESTS': '/tests',
     'PROJECTS': '/projects',
     'QUESTIONS': '/questions',
