@@ -7,10 +7,12 @@ import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import DropDownProjects from '../../components/UI/DropDowns/DropDownProjects/DropDownProjects';
+import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 
 const ListOfTests: React.FC = () => {
     return (
         <>
+            <NavigationMenu/>
             <HeaderContainer text='Список всех тестов' />
 
             <DropDownProjects />
