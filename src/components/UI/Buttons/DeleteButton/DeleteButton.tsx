@@ -1,12 +1,17 @@
 import React from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import s from './DeleteButton.module.scss';
+import { DeleteButtonProps } from '../../../../models/Interfaces';
+import styled from '@emotion/styled';
 
-const DeleteButton: React.FC = () => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({color}) => {
+    const StyledButton = styled.button`
+      color: ${color};
+    `;
 
     return (
         <>
-            <button className={s.btn}>Удалить
+            <StyledButton className={s.btn}>Удалить
                 <ClearIcon
                     sx={{
                         position: 'absolute',
@@ -15,7 +20,7 @@ const DeleteButton: React.FC = () => {
                         color: 'red',
                         fontSize: '1.5em'
                     }}
-                /></button>
+                /></StyledButton>
 
         </>
     );

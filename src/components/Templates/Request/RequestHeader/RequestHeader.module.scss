@@ -1,11 +1,12 @@
 .request__header {
+  position: relative;
   height: 10.2rem;
   width: 52.7rem;
   background: #0F5BCD;
   border-radius: 10px;
   color: #FFF;
-  padding: 1.5rem 4.1rem 3.9rem 3.9rem;
   text-align: center;
+  padding: 1.5rem 4.1rem 3.9rem 3.9rem;
   font-weight: 400;
   font-size: 4em;
   line-height: 4.8rem;
@@ -23,5 +24,24 @@
     margin-top: 1.7rem;
   }
 
+}
+
+.btn {
+  position: relative;
+  font-size: 1.5rem;
+  background: none;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+}
+
+.delete {
+  position: absolute;
+  top: 1rem;
+  right: 4.5rem;
+}
+
+.none {
+  display: none;
 }
 

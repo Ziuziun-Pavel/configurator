@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Request from '../../components/Templates/Request/Request';
 import s from './Semantics.module.scss';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
+import AddingListItem from '../../components/Templates/AddingListItem/AddingListItem';
 
 const Semantics: React.FC = () => {
     return (
@@ -18,30 +19,21 @@ const Semantics: React.FC = () => {
 
                 <div className={s.header}>
                     <div>
-                        <Title text='Проект:' />
-                        <DropDownForSearching width='55.4rem' text='Выберите проект' />
-                        <ListItem text='Request design' width='55.4rem' />
-                        <ListItem text='Centrvosstaonleniya' width='55.4rem' />
-                        <div className={s.list__item}>Добавьте новый проект
-                            <AddIcon
-                                sx={{
-                                    position: 'absolute',
-                                    top: '.7rem',
-                                    right: '1.5rem',
-                                    fontSize: '2em',
-                                    color: 'blue',
-                                    fontWeight: '700'
-                                }}
-                            />
+                        <Title text='Направление:' />
+                        <DropDownForSearching width='55.4rem' text='Выберите направление' />
+                        <ListItem text='Веб студия' width='55.4rem' />
+                        <ListItem text='Наркология' width='55.4rem' />
+                        <AddingListItem/>
+
+                    </div>
+
+                    <div className={s.search__wrapper}>
+                        <input id='group' className={s.search} type='text' placeholder='Название группы' />
+                        <div className={s.search__btn}>
+                            <Button width='25.2rem' text='Добавить группу' bgColor='#096BFF' />
                         </div>
-
                     </div>
 
-                    <div className={s.btnsGroup}>
-                        <Button width='30.7rem' text='Смотреть статистику' bgColor='#FFF' />
-                        <Button width='25.2rem' text='настроить блоки' bgColor='#096BFF' />
-                    </div>
-                    ;
                 </div>
 
                 <div className={s.requestsGroup}>

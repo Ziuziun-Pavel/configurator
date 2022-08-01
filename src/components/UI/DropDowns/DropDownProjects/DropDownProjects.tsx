@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { TargetSiteProps } from '../../../../models/Interfaces';
 import { targetSitesData } from '../../../../data/targetSitesData';
 
-const DropDownProjects: React.FC = () => {
+const DropDownProjects: React.FC= () => {
     const [addingSiteInput, setAddingSiteInput] = useState('');
     const [sites, setSite] = useState(targetSitesData);
 

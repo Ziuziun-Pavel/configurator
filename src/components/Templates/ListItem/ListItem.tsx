@@ -16,7 +16,7 @@ const ListItem: React.FC<ListItemProps> = ({ text, width, deleteBtn }) => {
         return <StyledItem className={s.item} onClick={() => setSelected(!isSelected)}>
             {text}
             <div className={s.btn}>
-                <DeleteButton/>
+                <DeleteButton color={'#000'}/>
             </div>
         </StyledItem>;
     } else {

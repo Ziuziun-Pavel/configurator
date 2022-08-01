@@ -16,7 +16,7 @@ const TypeDropdown: React.FC<TypeDropDownProps> = ({ title, deleteBtn, width }) 
                 <StyledDropDown className={s.dropDown}>
                     {title}
                     <div className={s.btnWrapper}>
-                        <DeleteButton />
+                        <DeleteButton color={'#000'}/>
                     </div>
                 </StyledDropDown>
 
