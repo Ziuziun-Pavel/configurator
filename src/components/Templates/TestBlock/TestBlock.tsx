@@ -43,7 +43,7 @@ const TestBlock: React.FC<TestBlockProps> = ({
 
                     <div>
                         <h3 className={s.testBlock__site}>{site}</h3>
-                        <button className={s.testBlock__btn}>{browser}</button>
+                        <button onClick={(e) => console.log(e.currentTarget)} className={s.testBlock__btn}>{browser}</button>
                     </div>
 
 

@@ -26,7 +26,7 @@ const QuestionBlockWithAnswer: React.FC<QuestionProps>  = ({id, title, answer}) 
                   </div>
 
                   <div>
-                      <DeleteButton />
+                      <DeleteButton color={'#000'}/>
                   </div>
               </div>
 

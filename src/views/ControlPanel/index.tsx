@@ -52,7 +52,7 @@ const ControlPanel: React.FC = () => {
     }
 
     const rows = [
-        createData('', 2, <DeleteButton />)
+        createData('', 2, <DeleteButton color={'#000'}/>)
     ];
 
     return (
@@ -136,7 +136,7 @@ const ControlPanel: React.FC = () => {
                         <div className={s.requests}>
                             <div className={s.requests__first}>
                                 <div className={s.requests__header}>
-                                    <RequestHeader title='Все запросы' isIntensive={false} requests={129} />
+                                    <RequestHeader title='Все запросы' isIntensive={false} requests={129} isDelete={false}/>
                                 </div>
 
                                 <div className={s.requests__searching}>

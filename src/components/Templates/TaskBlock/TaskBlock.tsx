@@ -26,7 +26,7 @@ const QuestionBlockWithAnswer: React.FC<TaskProps>  = ({id, title, isKey, link})
                   </div>
 
                   <div>
-                      <DeleteButton />
+                      <DeleteButton color={'#000'}/>
                   </div>
               </div>
 

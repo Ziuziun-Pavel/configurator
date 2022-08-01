@@ -56,6 +56,10 @@ export interface RequestHeaderProps {
     isDelete?: boolean
 }
 
+export interface DeleteButtonProps {
+    color: string,
+}
+
 export interface DropDownProps {
     id?: number,
     width: string,
@@ -78,7 +82,7 @@ export interface TestBlockProps {
     url: string,
     browser: string,
     region: string,
-    site: string
+    site: string,
 }
 
 export interface ProjectBlockProps {

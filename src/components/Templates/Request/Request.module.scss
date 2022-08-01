@@ -17,16 +17,31 @@
     background: #0F5BCD;
     border-radius: 10px;
     color: #FFF;
-    padding: 1.5rem 4.1rem 3.9rem 3.9rem;
+    padding: 2.6rem 4.1rem 3.9rem 3.9rem;
     text-align: center;
     font-weight: 400;
     font-size: 4em;
     line-height: 4.8rem;
   }
 
+  &__wrapper {
+    margin-top: 1.7rem;
+  }
+
+  &__item {
+    margin: .9rem 2.2rem 0 2.2rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    padding-bottom: .9rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    color: #000000;
+  }
+
   &__add {
     position: relative;
-    margin-top: 2rem;
+    margin-top: 3.3rem;
     padding: 1.6rem 0 1.5rem 2rem;
     background: #FFFFFF;
     border-radius: 10px;

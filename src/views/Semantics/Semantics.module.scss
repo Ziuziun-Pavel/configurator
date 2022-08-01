@@ -4,27 +4,34 @@
   margin: 17.5rem 0 8.5rem auto;
 }
 
-.btnsGroup {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0 8.5rem auto;
-  width: 68rem;
-}
+.search {
+  position: relative;
+  margin-right: 18rem;
+  width: 55.4rem;
+  height: 6.9rem;
+  padding: 2.5rem 4.4rem;
+  font-size: 2rem;
+  border: 1px solid #000000;
+  border-radius: 45px;
+  cursor: text;
 
-.list {
-  &__item {
+  &__wrapper {
     position: relative;
-    margin-top: .4rem;
-    width: 55.4rem;
-    padding: 1.1rem 2rem;
-    font-size: 1.5em;
+    margin: 0 0 8.5rem auto;
+  }
+
+  &::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5rem;
     line-height: 1.8rem;
-    text-align: left;
     color: rgba(0, 0, 0, 0.5);
-    background-color: #FFF;
-    border: 1px solid #000000;
-    border-radius: 45px;
-    cursor: pointer;
+  }
+
+  &__btn {
+    position: absolute;
+    top: 0;
+    right: 0rem;
   }
 }
 
