@@ -1,22 +1,23 @@
 import { AnswerProps } from '../models/Interfaces';
+import uniqid from 'uniqid';
 
 export const answersData: AnswerProps[] = [
     {
-        id: 1,
+        id: uniqid(),
         answer: './tests'
     },
     {
-        id: 2,
+        id: uniqid(),
         answer: 'www.google.com'
 
     },
     {
-        id: 3,
+        id: uniqid(),
         answer: 'www.google.com'
 
     },
     {
-        id: 4,
+        id: uniqid(),
         answer: 'www.google.com'
     }
 ];

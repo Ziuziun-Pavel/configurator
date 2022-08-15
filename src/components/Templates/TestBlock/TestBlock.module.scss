@@ -29,11 +29,12 @@
 
   &__btn {
     display: block;
+    margin-top: 1rem;
     font-weight: 400;
     font-size: 2rem;
     line-height: 2.4rem;
     padding: .4rem 1.2rem;
-    width: 9.4rem;
+    min-width: 9.4rem;
     height: 3.2rem;
     border: 1px solid #000000;
     border-radius: 100px;
@@ -56,11 +57,9 @@
   &__subtitle, &__site {
     font-weight: 400;
     font-size: 2rem;
-    line-height: 2.4rem;
   }
 
   &__site {
-    margin-bottom: 2.1rem;
     margin-top: .3rem;
   }
 
@@ -72,4 +71,21 @@
     color: #000000;
   }
 
+  &__activationBlock {
+    margin-top: 1.2rem;
+  }
+
+  &__siteBlock {
+    width: 20rem;
+  }
+
+  &__idBlock {
+    width: 20rem;
+  }
+
 }
+
+
+
+
+

@@ -9,10 +9,9 @@ import Modal from '../Modal/Modal';
 const TestBlock: React.FC<TestBlockProps> = ({
                                                  id,
                                                  title,
-                                                 status,
                                                  isActive,
-                                                 data,
-                                                 dataOfDeactivation,
+                                                 date,
+                                                 dateOfDeactivation,
                                                  url,
                                                  browser,
                                                  site,
@@ -30,28 +29,34 @@ const TestBlock: React.FC<TestBlockProps> = ({
             <div className={s.testBlock}>
                 <div>
                     <StyledSubtitle
-                        className={s.testBlock__subtitle}>{status + ' ' + dataOfDeactivation}</StyledSubtitle>
+                        className={s.testBlock__subtitle}>{isActive ? 'Активен' : 'Деактивированный' + ' ' + dateOfDeactivation}</StyledSubtitle>
                     <h3 className={s.testBlock__title}>{title}</h3>
-                    <h4 className={s.testBlock__data}>{data} Дата создания</h4>
+                    <h4 className={s.testBlock__data}>{date} Дата создания</h4>
                 </div>
 
                 <div className={s.testBlock__second}>
-                    <div>
+                    <div className={s.testBlock__idBlock}>
                         <h4 className={s.testBlock__info}>id {id}</h4>
                         <h4 className={s.testBlock__info}>URL {url}</h4>
                     </div>
 
-                    <div>
-                        <h3 className={s.testBlock__site}>{site}</h3>
+                    <div className={s.testBlock__siteBlock}>
+                        <span className={s.testBlock__site}>{site}</span>
                         <button onClick={(e) => console.log(e.currentTarget)} className={s.testBlock__btn}>{browser}</button>
                     </div>
 
 
                     <div>
-                        <h3 className={s.testBlock__region}>Региональность:</h3>
-                        <h4 className={s.testBlock__region}>{region}</h4>
-                        <span className={s.testBlock__activate}>Активировать</span>
-                        <IOSSwitch onChange={() => setModalActive(true)}/>
+                        <div>
+                            <h3 className={s.testBlock__region}>Региональность:</h3>
+                            <h4 className={s.testBlock__region}>{region}</h4>
+                        </div>
+
+                        <div className={s.testBlock__activationBlock}>
+                            <span className={s.testBlock__activate}>Активировать</span>
+                            <IOSSwitch onChange={() => setModalActive(true)}/>
+
+                        </div>
 
                     </div>
 
@@ -60,10 +65,12 @@ const TestBlock: React.FC<TestBlockProps> = ({
                 </div>
 
 
-
-
-
-                <Modal active={modalActive} setActive={setModalActive} />
+                <Modal active={modalActive}
+                       setActive={setModalActive}
+                       title='Вы точно хотите деактивировать проект?'
+                       subtitle='Это приведет к деактивации связанных с ним тестов'
+                       btnTrue='Да, деактивировать'
+                       btnFalse='Нет, оставить'/>
 
             </div>
         </>

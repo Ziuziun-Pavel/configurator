@@ -1,5 +1,10 @@
 .dropDownProjects {
   position: relative;
+  transition: .5s;
+
+  &__inactive {
+    display: none;
+  }
 }
 
 .addingSiteWrapper {
@@ -19,6 +24,8 @@
   background: #FFFFFF;
   border: 1px solid #000000;
   border-radius: 45px;
+  transition: 1s;
+
 }
 
 .addingButton {

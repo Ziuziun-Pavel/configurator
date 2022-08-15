@@ -1,14 +1,14 @@
 import { ListOfDropDownProjectItemsProps } from '../models/Interfaces';
 import uniqid from 'uniqid';
 
-export const targetSitesData: ListOfDropDownProjectItemsProps[] = [
+export const testDirectionData: ListOfDropDownProjectItemsProps[] = [
     {
         id: uniqid(),
-        site: 'Narkology.info'
+        site: 'Веб студия'
     },
     {
         id: uniqid(),
-        site: 'Nasrf.r'
+        site: 'Наркология'
 
     },
 ];

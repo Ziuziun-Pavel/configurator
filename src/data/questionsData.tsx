@@ -1,8 +1,9 @@
 import { QuestionProps } from '../models/Interfaces';
+import uniqid from 'uniqid';
 
 export const questionsData: QuestionProps[] = [
     {
-        id: 1,
+        id: uniqid(),
         title: 'Психологические вопросы',
         isActive: true,
         status: 'Активный',
@@ -10,7 +11,7 @@ export const questionsData: QuestionProps[] = [
         answer: 'www.google.com'
     },
     {
-        id: 2,
+        id: uniqid(),
         title: 'Расскажите о себе',
         isActive: false,
         status: 'Деактивированный',
@@ -18,7 +19,7 @@ export const questionsData: QuestionProps[] = [
         answer: 'www.google.com'
     },
     {
-        id: 3,
+        id: uniqid(),
         title: 'Филосовский тест с графикой',
         isActive: true,
         status: 'Активный',
@@ -26,7 +27,7 @@ export const questionsData: QuestionProps[] = [
         answer: 'www.google.com'
     },
     {
-        id: 4,
+        id: uniqid(),
         title: 'Расскажите о себе',
         isActive: false,
         status: 'Деактивированный',

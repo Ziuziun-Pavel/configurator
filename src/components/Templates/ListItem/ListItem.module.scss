@@ -8,11 +8,20 @@
   border: 1px solid #000000;
   border-radius: 45px;
   cursor: pointer;
+
+  &__wrapper {
+    position: relative;
+  }
 }
 
-.btn {
+.btnWrapper {
+  display: block;
   position: absolute;
   top: 1rem;
   right: 1.7rem;
   z-index: 15;
+
+  &__inactive {
+    display: none;
+  }
 }

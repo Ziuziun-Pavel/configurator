@@ -1,3 +1,59 @@
 .menuContainer {
   margin-top: 2.6rem;
+  height: 10rem;
+  transition: 0.5s;
+
+  &__open {
+    margin-top: 3.6rem;
+    transition: 0.5s;
+  }
+}
+
+.menu {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s;
+
+  &__inactive {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s;
+  }
+
+}
+
+.addingSiteWrapper {
+  position: relative;
+  margin-top: .4rem;
+}
+
+.addingTextField {
+  position: relative;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.5);
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 45px;
+  transition: 1s;
+
+}
+
+.addingButton {
+  position: absolute;
+  right: 7.8rem;
+  top: 1.1rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.none {
+  display: none;
 }
