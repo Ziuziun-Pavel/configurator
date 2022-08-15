@@ -4,11 +4,11 @@ import Button from '../../components/UI/Buttons/Button/Button';
 import Title from '../../components/Titles/Title/Title';
 import ListItem from '../../components/Templates/ListItem/ListItem';
 import DropDownForSearching from '../../components/UI/DropDowns/DropDownForSearching/DropDownForSearching';
-import AddIcon from '@mui/icons-material/Add';
-import Request from '../../components/Templates/Request/Request';
 import s from './Semantics.module.scss';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import AddingListItem from '../../components/Templates/AddingListItem/AddingListItem';
+import RequestGroupFromSemantics
+    from '../../components/Templates/Request/RequestGroupFromSemantics/RequestGroupFromSemantics';
 
 const Semantics: React.FC = () => {
     return (
@@ -37,12 +37,13 @@ const Semantics: React.FC = () => {
                 </div>
 
                 <div className={s.requestsGroup}>
-                    <Request />
-                    <Request />
-                    <Request />
-                    <Request />
-                    <Request />
-                    <Request />
+                    <RequestGroupFromSemantics/>
+                    <RequestGroupFromSemantics/>
+                    <RequestGroupFromSemantics/>
+                    <RequestGroupFromSemantics/>
+                    <RequestGroupFromSemantics/>
+                    <RequestGroupFromSemantics/>
+
 
                 </div>
 

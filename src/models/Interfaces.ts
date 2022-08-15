@@ -1,16 +1,45 @@
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 export interface ButtonProps {
     width: string,
     text?: string,
-    bgColor: string,
-    border?: string
+    bgColor?: string,
+    border?: string,
+    onClick?: () => void
+}
+//
+// export interface TestProps {
+//     id: string,
+//     project: string,
+//     testName: string,
+//     testURL: string,
+//     testRegion: string,
+//     testComments: string,
+//     test: TestBlockProps[],
+//     testDirection: string,
+//     browser: string,
+//     requestsList: string[]
+// }
+
+export interface DropDownProjectsProps {
+    id?: string,
+    title: string,
+    placeholder: string,
+    value?: string,
+    listOfItems: ListOfDropDownProjectItemsProps[],
+    onSetTestData: (item: string) => void
 }
 
 export interface DropDownMenuProps {
     id?: number,
     title: string,
-    type?: string
+    width: string,
+    placeholder: string,
+    isDelete: boolean,
+    isAdding: boolean,
+    deleteFnc?: () => void,
+    listItemsText: string[],
+    onSetTestData: (item: string) => void
 }
 
 export interface DropDownMenuDataProps {
@@ -35,17 +64,39 @@ export interface RequestsProps {
     requestsList: string[]
 }
 
+export interface RequestGroupProps {
+    id?: number,
+    headerTitle: string,
+    requestsNumber: number,
+    isIntensive: boolean,
+    requestData: RequestsProps[]
+}
+
 export interface TypeDropDownProps {
     id?: number,
     title?: string,
     deleteBtn: boolean,
-    width: string
+    isActive?: boolean,
+    width: string,
+    onDelete?: () => void,
+    onClick?: () => void
 }
 
-export interface TargetSiteProps {
+export interface ListOfDropDownProjectItemsProps {
     id?: number,
     site: string,
     deleteBtn?: boolean
+}
+
+export interface DropDownOptionsProps {
+    title: string,
+    width: string,
+    isAdding: boolean,
+}
+
+export interface DropDownItemsProps {
+    id: number,
+    type: string[]
 }
 
 export interface RequestHeaderProps {
@@ -58,6 +109,7 @@ export interface RequestHeaderProps {
 
 export interface DeleteButtonProps {
     color: string,
+    onDelete?: () => void
 }
 
 export interface DropDownProps {
@@ -67,22 +119,28 @@ export interface DropDownProps {
 }
 
 export interface ListItemProps {
+    id?: number,
     text?: string,
     width?: string,
-    deleteBtn?: boolean
+    isSelected?: boolean,
+    deleteBtn?: boolean,
+    deleteFnc?: () => void,
+    onClick?: () => void,
+    onChoose?: () => void,
 }
 
 export interface TestBlockProps {
-    id: number,
+    id: string,
     title: string,
     isActive: boolean,
-    data: string,
-    dataOfDeactivation?: string,
-    status: string,
+    date: string,
+    direction: string,
+    dateOfDeactivation?: string,
     url: string,
     browser: string,
     region: string,
     site: string,
+    comments: string
 }
 
 export interface ProjectBlockProps {
@@ -117,20 +175,30 @@ export interface TaskProps {
 
 export interface ModalProps {
     active: boolean,
-    setActive: Dispatch<SetStateAction<boolean>>
+    setActive: Dispatch<SetStateAction<boolean>>,
+    title: string,
+    subtitle: string,
+    btnTrue: string,
+    btnFalse: string,
+    onTrue?: () => void,
+    onFalse?: () => void,
 }
 
 export interface AnswerProps {
-    id: number,
+    id: string,
     answer: string
 }
 
 export interface TextFieldBlockProps {
     id?: number,
     title: string,
-    placeholder: string
+    placeholder: string,
+    value?: string,
+    onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void
 }
 
 export interface TextFieldProps {
     text?: string,
+    value?: string,
+    onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void
 }

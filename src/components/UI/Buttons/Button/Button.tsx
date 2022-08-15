@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { ButtonProps } from '../../../../models/Interfaces';
 import s from './Button.module.scss';
 
-const Button: React.FC<ButtonProps> = ({ text, width, bgColor, border }) => {
+const Button: React.FC<ButtonProps> = ({ text, width, bgColor, border, onClick }) => {
 
     const StyledButton = styled.button`
       width: ${width};
@@ -12,7 +12,9 @@ const Button: React.FC<ButtonProps> = ({ text, width, bgColor, border }) => {
       border: ${border};
     `;
 
-    return <StyledButton className={s.btn}>{text}</StyledButton>;
+    return <StyledButton className={s.btn}
+                         onClick={onClick}>{text}
+    </StyledButton>;
 };
 
 export default Button;

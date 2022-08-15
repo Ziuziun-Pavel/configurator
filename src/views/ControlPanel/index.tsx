@@ -1,59 +1,105 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import Button from '../../components/UI/Buttons/Button/Button';
 import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
 import DropdownMenu from '../../components/UI/DropDowns/DropDownMenu/DropdownMenu';
 import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
-import ListItem from '../../components/Templates/ListItem/ListItem';
-import { textFieldTitlesData } from '../../data/textFieldTitlesData';
 import { dropDownMenuData } from '../../data/dropDownMenuData';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
-import DropDownForSearching from '../../components/UI/DropDowns/DropDownForSearching/DropDownForSearching';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableBody from '@mui/material/TableBody';
-import { Table } from '@mui/material';
 import s from './ControlPanel.module.scss';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
-import { DropDownMenuDataProps } from '../../models/Interfaces';
-import SearchIconPath from '../../assets/searching.svg';
+import { DropDownMenuDataProps, TestBlockProps } from '../../models/Interfaces';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
-import DeleteButton from '../../components/UI/Buttons/DeleteButton/DeleteButton';
-import RequestHeader from '../../components/Templates/Request/RequestHeader/RequestHeader';
 import { requestsData } from '../../data/requestsData';
 import { choosenRequestsData } from '../../data/choosenRequestsData';
 import DropDownProjects from '../../components/UI/DropDowns/DropDownProjects/DropDownProjects';
+import Request from '../../components/Templates/Request/Request';
+import { targetSitesData } from '../../data/targetSitesData';
+import { testDirectionData } from '../../data/testDirectionData';
+import * as uniqid from 'uniqid';
+import Modal from '../../components/Templates/Modal/Modal';
 
 const ControlPanel: React.FC = () => {
+    const allTests: TestBlockProps[] = JSON.parse(localStorage.getItem('tests') || '[]');
+
     const [dropdowns, setDropdown] = useState(dropDownMenuData);
-    const [input, setInput] = useState('');
+    const [addingDropDownInput, setAddingDropDownInput] = useState('');
+    const [isDisabled, setDisabled] = useState(true);
+    const [tests, setTests] = useState<TestBlockProps[]>(allTests);
+    const [testName, setTestName] = useState('');
+    const [testURL, setTestURL] = useState('');
+    const [testRegion, setTestRegion] = useState('');
+    const [testComments, setTestComments] = useState('');
+    const [testSite, setTestSite] = useState('Выберите проект');
+    const [testDirection, setTestDirection] = useState('Выберите направление');
+    const [testBrowser, setTestBrowser] = useState('Выберите поисковую систему (по умолчанию ничего не выбрано)');
+    const [modalActive, setModalActive] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem('tests', JSON.stringify(tests));
+
+    }, [tests]);
 
     const addDropDownMenu = (item: DropDownMenuDataProps) => {
         item.id = dropdowns.length + 1;
-        item.title = input;
+        item.title = addingDropDownInput;
+        item.list = ['тип 1', 'тип 2', 'тип 3', 'тип 4'];
 
+        setAddingDropDownInput('');
         setDropdown([...dropdowns, item]);
+        setDisabled(true);
     };
 
-    const deleteDropDownMenu = (id: number) => {
+    const deleteDropDownMenu = (id: number | undefined) => {
         setDropdown(dropdowns.filter(user => user.id !== id));
     };
 
-    function createData(
-        request: string,
-        intensivity: number,
-        deleteBtn: JSX.Element | null
-    ) {
-        return { request, intensivity, deleteBtn };
-    }
+    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setAddingDropDownInput(e.target.value);
+        setDisabled(false);
+    };
 
-    const rows = [
-        createData('', 2, <DeleteButton color={'#000'}/>)
-    ];
+    const showModal = () => {
+        setModalActive(true);
+    };
+
+    const ResetFormControls = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        })
+
+        setTimeout(() => {
+            window.location.reload();
+         }, 600)
+    };
+
+    const onActivateTest = () => {
+        const current = new Date();
+        const date = `${current.getDate()}.${(current.getMonth() + 1 < 10) ? '0' + (current.getMonth() + 1) : (current.getMonth() + 1)}.${current.getFullYear() - 2000}`;
+
+        setModalActive(false);
+
+        setTests([...tests, {
+            id: uniqid(),
+            title: testName,
+            isActive: true,
+            date: date,
+            dateOfDeactivation: '',
+            direction: testDirection,
+            url: testURL,
+            browser: testBrowser,
+            region: testRegion,
+            site: testSite,
+            comments: testComments
+        }]);
+
+        ResetFormControls();
+
+    };
 
     return (
         <>
@@ -62,17 +108,47 @@ const ControlPanel: React.FC = () => {
                 <HeaderContainer text='Тест (сборка теста)' />
 
                 <div className={s.dropDownProjects__container}>
-                    <DropDownProjects />
+                    <div className={s.searching__dropdown}>
+                        <DropDownProjects title='Проект (целевые сайты)'
+                                          placeholder={testSite}
+                                          listOfItems={targetSitesData}
+                                          onSetTestData={(item) => setTestSite(item)}
+                        />
+                    </div>
                 </div>
 
-
                 <div className={s.testFieldsGroup}>
-                    {textFieldTitlesData.map(item => <div className={s.textFieldContainer} key={item.id}>
-                            <TextFieldWithTitle
-                                title={item.title}
-                                placeholder={item.placeholder} />
-                        </div>
-                    )}
+                    <div className={s.textFieldContainer}>
+                        <TextFieldWithTitle
+                            title='Название теста'
+                            value={testName}
+                            placeholder='Пример: тест рд1'
+                            onChange={(e) => setTestName(e.target.value)} />
+                    </div>
+
+                    <div className={s.textFieldContainer}>
+                        <TextFieldWithTitle
+                            title='URL теста'
+                            value={testURL}
+                            placeholder='Пример: /digital/test/rd1'
+                            onChange={(e) => setTestURL(e.target.value)} />
+                    </div>
+
+                    <div className={s.textFieldContainer}>
+                        <TextFieldWithTitle
+                            title='Региональность'
+                            value={testRegion}
+                            placeholder='Пример: РФ, Санкт-Петербург, Беларусь и т.д.'
+                            onChange={(e) => setTestRegion(e.target.value)} />
+                    </div>
+
+                    <div className={s.textFieldContainer}>
+                        <TextFieldWithTitle
+                            title='Внутренний комментарий'
+                            value={testComments}
+                            placeholder='Пример: этот тест для дизайнеров и программистов.'
+                            onChange={(e) => setTestComments(e.target.value)} />
+                    </div>
                 </div>
 
 
@@ -84,8 +160,15 @@ const ControlPanel: React.FC = () => {
 
                     <div>
                         {
-                            dropdowns.map(item => <DropdownMenu key={item.id} title={item.title}
-                                                                type={item.list[0]} />)
+                            dropdowns.map(item => <DropdownMenu key={item.id}
+                                                                title={item.title}
+                                                                placeholder='Выберите тип блока'
+                                                                width='100%'
+                                                                deleteFnc={() => deleteDropDownMenu(item.id)}
+                                                                listItemsText={item.list}
+                                                                onSetTestData={() => console.log('')}
+                                                                isAdding={false}
+                                                                isDelete={true} />)
                         }
 
                     </div>
@@ -93,13 +176,16 @@ const ControlPanel: React.FC = () => {
                     <div className={s.textFieldWrapper}>
                         <input className={s.addingTextField}
                                placeholder='Введите название блока'
-                               onChange={(e) => setInput(e.target.value)} />
+                               value={addingDropDownInput}
+                               onChange={(e) => onChangeInput(e)} />
 
-                        <button className={s.addingButton} onClick={() => addDropDownMenu({
-                            id: 1,
-                            title: 'Изучить работадателя (блок 2)',
-                            list: ['тип 1', 'тип 1', 'тип 1', 'тип 1']
-                        })}>Добавить
+                        <button className={s.addingButton}
+                                disabled={isDisabled}
+                                onClick={() => addDropDownMenu({
+                                    id: 1,
+                                    title: 'Изучить работадателя (блок 2)',
+                                    list: ['тип 1', 'тип 1', 'тип 1', 'тип 1']
+                                })}>Добавить
                             <AddIcon
                                 sx={{
                                     position: 'absolute',
@@ -116,15 +202,23 @@ const ControlPanel: React.FC = () => {
                     <div className={s.dropDowns__wrapper}>
 
                         <div className={s.dropDownDirection__container}>
-                            <DropDownProjects/>
+                            <DropDownProjects title='Направление:'
+                                              placeholder={testDirection}
+                                              listOfItems={testDirectionData}
+                                              onSetTestData={(item) => setTestDirection(item)} />
                         </div>
 
                         <div className={s.searching__wrapper}>
-                            <Title text='Поисковая система' />
-                            <DropDownForSearching width='55.4rem' text='Выберите тип поисковой системы' />
-                            <ListItem text='Яндекс' width='55.4rem' deleteBtn={false} />
-                            <ListItem text='Google' width='55.4rem' deleteBtn={false} />
-                            <ListItem text='Google и Яндекс' width='55.4rem' deleteBtn={false} />
+                            <div className={s.searching__dropdown}>
+                                <DropdownMenu title='Поисковая система'
+                                              placeholder={testBrowser}
+                                              width='55.4rem'
+                                              listItemsText={['Яндекс', 'Google', 'Google и Яндекс']}
+                                              onSetTestData={(item) => setTestBrowser(item)}
+                                              isAdding={false}
+                                              isDelete={false} />
+                            </div>
+
 
                         </div>
 
@@ -134,106 +228,15 @@ const ControlPanel: React.FC = () => {
                         <Title text='Добавить запросы из семантики' />
 
                         <div className={s.requests}>
-                            <div className={s.requests__first}>
-                                <div className={s.requests__header}>
-                                    <RequestHeader title='Все запросы' isIntensive={false} requests={129} isDelete={false}/>
-                                </div>
+                            <Request headerTitle='Все запросы'
+                                     requestData={requestsData}
+                                     requestsNumber={129}
+                                     isIntensive={true} />
 
-                                <div className={s.requests__searching}>
-                                    <input type='text'
-                                           placeholder='Найдите запрос или группу'
-                                           className={s.requests__input} />
-                                    <img src={SearchIconPath} alt='searching' className={s.requests__input__svg} />
-                                </div>
-
-                                <div className={s.requests__blocks}>
-                                    <div className={s.requests__blocks__wrapper}>
-
-
-                                        {
-                                            requestsData.map(request => {
-                                                return (
-                                                    <div key={request.id} className={s.requests__blocks__item}>
-                                                        <div className={s.requests__blocks__header}>
-                                                            <input type='checkbox' />
-                                                            <label>{request.title}</label>
-
-                                                            <span
-                                                                className={s.requests__blocks__numberRequests}>({request.requests} запросов)</span>
-                                                        </div>
-
-                                                        {
-                                                            request.requestsList.map(title => {
-                                                                return (
-                                                                    <div key={request.id}
-                                                                         className={s.requests__blocks__str}>
-                                                                        <input type='checkbox' />
-                                                                        <span>{title}</span>
-                                                                    </div>
-                                                                );
-                                                            })
-                                                        }
-
-                                                    </div>
-                                                );
-                                            })
-                                        }
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div className={s.requests__second}>
-                                <div className={s.requests__header}>
-                                    <RequestHeader title='Выбранные' isIntensive={false} requests={129} />
-                                </div>
-
-                                <div className={s.requests__searching}>
-                                    <input type='text'
-                                           placeholder='Найдите запрос или группу'
-                                           className={s.requests__input} />
-                                    <img src={SearchIconPath} alt='searching' className={s.requests__input__svg} />
-                                </div>
-
-                                <div className={s.requests__blocks}>
-                                    <div className={s.requests__blocks__wrapper}>
-
-
-                                        {
-                                            choosenRequestsData.map(request => {
-                                                return (
-                                                    <div key={request.id} className={s.requests__blocks__item}>
-                                                        <div className={s.requests__blocks__header}>
-                                                            <input type='checkbox' />
-                                                            <label>{request.title}</label>
-
-                                                            <span
-                                                                className={s.requests__blocks__numberRequests}>({request.requests} запросов)</span>
-                                                        </div>
-
-                                                        {
-                                                            request.requestsList.map(title => {
-                                                                return (
-                                                                    <div key={request.id}
-                                                                         className={s.requests__blocks__str}>
-                                                                        <input type='checkbox' />
-                                                                        <span>{title}</span>
-                                                                    </div>
-                                                                );
-                                                            })
-                                                        }
-
-                                                    </div>
-                                                );
-                                            })
-                                        }
-                                    </div>
-
-                                </div>
-
-                            </div>
-
+                            <Request headerTitle='Выбранные'
+                                     requestData={choosenRequestsData}
+                                     requestsNumber={19}
+                                     isIntensive={false} />
 
                         </div>
 
@@ -243,7 +246,8 @@ const ControlPanel: React.FC = () => {
                     <div className={s.footerBtnsGroup}>
                         <Button width='27.5rem'
                                 text='активировать тест'
-                                bgColor='#096BFF' />
+                                bgColor='#096BFF'
+                                onClick={showModal} />
                         <Link to={RouteNames.PREVIEW}>
                             <Button width='36.5rem'
                                     text='Посмотреть превью теста'
@@ -254,6 +258,15 @@ const ControlPanel: React.FC = () => {
 
                 </div>
 
+                <Modal active={modalActive}
+                       setActive={setModalActive}
+                       title='Вы точно хотите активировать тест?'
+                       subtitle='Это приведет к созданию нового теста'
+                       btnTrue='Да, активировать'
+                       btnFalse='Нет, отменить'
+                       onTrue={onActivateTest}
+                       onFalse={() => setModalActive(false)}
+                />
             </div>
         </>
 

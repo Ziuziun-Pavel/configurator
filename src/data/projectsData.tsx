@@ -1,8 +1,9 @@
 import { ProjectBlockProps } from '../models/Interfaces';
+import uniqid from 'uniqid';
 
 export const projectsData: Array<ProjectBlockProps> = [
     {
-        id: 1,
+        id: uniqid(),
         title: 'ЦВ',
         isActive: true,
         status: 'Активный',
@@ -11,7 +12,7 @@ export const projectsData: Array<ProjectBlockProps> = [
         site: 'nasrf.ru'
     },
     {
-        id: 2,
+        id: uniqid(),
         title: 'ЦВ',
         isActive: true,
         status: 'Активный',
@@ -20,7 +21,7 @@ export const projectsData: Array<ProjectBlockProps> = [
         site: 'nasrf.ru'
     },
     {
-        id: 3,
+        id: uniqid(),
         title: 'ЦВ',
         isActive: false,
         status: 'Деактивированный',

@@ -46,7 +46,12 @@ const ProjectBlock: React.FC<QuestionProps> = ({
                 </div>
 
 
-                <Modal active={modalActive} setActive={setModalActive} />
+                <Modal active={modalActive}
+                       setActive={setModalActive}
+                       title='Вы точно хотите деактивировать проект?'
+                       subtitle='Это приведет к деактивации связанных с ним тестов'
+                       btnTrue='Да, деактивировать'
+                       btnFalse='Нет, оставить'/>
             </div>
         </>
     );

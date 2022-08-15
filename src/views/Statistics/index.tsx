@@ -12,7 +12,9 @@ const Statistics: React.FC = () => {
                 <HeaderContainer text='Табличка со всеми тестами (статистика)' />
 
                 <div className={s.table__container}>
-                    <img className={s.table} src={path} alt='' />
+                    {/*<img className={s.table} src={path} alt='' />*/}
+
+                    
                 </div>
 
             </div>

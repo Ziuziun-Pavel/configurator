@@ -48,7 +48,12 @@ const ProjectBlock: React.FC<ProjectBlockProps> = ({   title,
                     <IOSSwitch onChange={() => setModalActive(true)} />
                 </div>
 
-                <Modal active={modalActive} setActive={setModalActive}/>
+                <Modal active={modalActive}
+                       setActive={setModalActive}
+                       title='Вы точно хотите деактивировать проект?'
+                       subtitle='Это приведет к деактивации связанных с ним тестов'
+                       btnTrue='Да, деактивировать'
+                       btnFalse='Нет, оставить'/>
             </div>
         </>
     );

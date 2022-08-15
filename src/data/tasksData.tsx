@@ -1,8 +1,9 @@
 import { TaskProps } from '../models/Interfaces';
+import uniqid from 'uniqid';
 
 export const tasksData: TaskProps[] = [
     {
-        id: 1,
+        id: uniqid(),
         isActive: true,
         status: 'Активный',
         dataOfDeactivation: '',
@@ -12,7 +13,7 @@ export const tasksData: TaskProps[] = [
         link: 'facebook.com'
     },
     {
-        id: 2,
+        id: uniqid(),
         isActive: false,
         status: 'Деактивированный',
         dataOfDeactivation: '13.05. в 12.09',

@@ -1,4 +1,4 @@
-.dropDown {
+.dropDown__down {
   position: relative;
   padding: 1.1rem 2rem;
   font-size: 1.5em;
@@ -7,17 +7,44 @@
   color: rgba(0, 0, 0, 0.5);
   border: 1px solid #000000;
   border-radius: 45px;
+  cursor: pointer;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 1rem;
+      right: 2.2rem;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-right: 3px solid #000;
+      border-top: 3px solid black;
+      transform: rotate(135deg);
+      cursor: pointer;
+    }
+}
+
+.dropDown__up {
+  position: relative;
+  padding: 1.1rem 2rem;
+  font-size: 1.5em;
+  line-height: 1.8rem;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #000000;
+  border-radius: 45px;
+  cursor: pointer;
 
   &:before {
     content: "";
     display: block;
     position: absolute;
-    top: 1rem;
+    top: 1.5rem;
     right: 2.2rem;
     width: 1.4rem;
     height: 1.4rem;
-    border-right: 3px solid #000;
-    border-top: 3px solid black;
+    border-left: 3px solid #000;
+    border-bottom: 3px solid black;
     transform: rotate(135deg);
     cursor: pointer;
   }
@@ -27,4 +54,8 @@
   position: absolute;
   right: 7.5rem;
   top: 1rem;
+
+  &__inactive {
+    display: none;
+  }
 }
