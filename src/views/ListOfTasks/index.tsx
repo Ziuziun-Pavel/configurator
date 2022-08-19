@@ -14,14 +14,15 @@ const ListOfTasks: React.FC = () => {
 
             <div className={s.tasks__list}>
                 {
-                    tasksData.map(task => {
+                    tasksData.map(question => {
                         return (
-                            <QuestionBlock key={task.id}
-                                           id={task.id}
-                                           title={task.title}
-                                           isActive={task.isActive}
-                                           status={task.status}
-                                           dataOfDeactivation={task.dataOfDeactivation} />
+                            <QuestionBlock key={question.id}
+                                           id={question.id}
+                                           title={question.title}
+                                           isActive={question.isActive}
+                                           start_data={question.start_data}
+                                           deactivation_data={question.deactivation_data}
+                                           questions={question.questions}/>
                         );
                     })
                 }

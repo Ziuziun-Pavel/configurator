@@ -27,7 +27,9 @@ const ControlPanelTasks: React.FC = () => {
                     <TextFieldWithTitle title='Название заголовка блока'
                                         placeholder='Пример: психологические вопросы' />
 
-                    <form onSubmit={() => {alert('submit')}}>
+                    <form onSubmit={() => {
+                        alert('submit');
+                    }}>
                         <div className={s.taskBody__description}>
                             <input id='task' className={s.taskBody__input}
                                    placeholder='Сохранить задание' />
@@ -55,18 +57,19 @@ const ControlPanelTasks: React.FC = () => {
                     <div className={s.taskBody__questionsBlocksList}>
                         {
                             tasksData.map(task => {
-                                return(
+                                return (
                                     <TaskBlock key={task.id}
                                                id={task.id}
                                                title={task.title}
-                                               isKey={task.isKey}
-                                               description={task.description}
-                                               link={task.link}/>
+                                               isActive={task.isActive}
+                                               start_data={task.start_data}
+                                               deactivation_data={task.deactivation_data}
+                                               tasks={task.questions}
+                                    />
                                 );
                             })
                         }
                     </div>
-
 
 
                 </div>

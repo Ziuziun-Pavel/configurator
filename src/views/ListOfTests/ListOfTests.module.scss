@@ -7,4 +7,14 @@
     justify-content: end;
     margin-top: 6rem;
   }
+  &__loading {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3rem;
+    font-size: 3rem;
+  }
+}
+
+.none {
+  display: none;
 }

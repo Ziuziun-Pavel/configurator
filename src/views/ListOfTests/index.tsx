@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TestBlock from '../../components/Templates/TestBlock/TestBlock';
 import s from './ListOfTests.module.scss';
 import Button from '../../components/UI/Buttons/Button/Button';
@@ -8,42 +8,67 @@ import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
 import DropDownProjects from '../../components/UI/DropDowns/DropDownProjects/DropDownProjects';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import { targetSitesData } from '../../data/targetSitesData';
-import { TestBlockProps } from '../../models/Interfaces';
-import { listOfAllTestsData } from '../../data/listOfAllTestsData';
+import { TestProps } from '../../models/Interfaces';
+import axios from 'axios';
 
 const ListOfTests: React.FC = () => {
-    const tests: TestBlockProps[] = JSON.parse(localStorage.getItem("tests") || '[]') ;
+    const [allTests, setAllTests] = useState<TestProps[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    const getTests = () => {
+        axios({
+            method: 'GET',
+            url: '/tests'
+        }).then((response) => {
+            const data = response.data.data;
+            setAllTests(data);
+            setLoading(false);
+        }).catch((error) => {
+            if (error.response) {
+                return <div>
+                    <h3>Ошибка {error.message}</h3>
+                </div>
+            }
+        });
+    };
 
     useEffect(() => {
-        localStorage.setItem('tests', JSON.stringify(listOfAllTestsData));
-    }, [tests]);
+        setLoading(true);
+        getTests();
+    }, []);
 
     return (
         <>
-            <NavigationMenu/>
+            <NavigationMenu />
             <HeaderContainer text='Список всех тестов' />
 
             <DropDownProjects title='Проект (целевые сайты)'
                               placeholder='Выберите проект'
-                              listOfItems={targetSitesData} onSetTestData={() => console.log('')}/>
+                              listOfItems={targetSitesData} onSetTestData={() => console.log('')} />
+
+            <div className={loading ? `${s.tests__loading}` : `${s.none}` }>
+                Загрузка...
+            </div>
 
             <div className={s.tests__list}>
                 {
-                    tests.map(test => {
+                    allTests.map(test => {
                         return (
                             <TestBlock key={test.id}
                                        id={test.id}
                                        title={test.title}
-                                       isActive={test.isActive}
-                                       date={test.date}
-                                       direction={test.direction}
-                                       dateOfDeactivation={test.isActive ? '' : test.dateOfDeactivation}
-                                       url={test.url}
-                                       browser={test.browser}
-                                       site={test.site}
                                        region={test.region}
-                                       comments={test.comments}
-                            />
+                                       comment={test.comment}
+                                       search_system={test.search_system}
+                                       url_test={test.url_test}
+                                       url_site={test.url_site}
+                                       isActive={test.isActive}
+                                       start_data={test.start_data}
+                                       deactivation_data={test.isActive ? '' : test.deactivation_data}
+                                       question_blocks={test.question_blocks}
+                                       task_blocks={test.task_blocks}
+                                       direction={test.direction}
+                             />
                         );
                     })
                 }
