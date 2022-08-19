@@ -107,7 +107,9 @@ const ControlPanelQuestions: React.FC = () => {
                                     <QuestionBlockWithAnswer key={question.id}
                                                              id={question.id}
                                                              title={question.title}
-                                                             answer={question.answer} />
+                                                             questions={question.questions}
+                                                             start_data={question.start_data}
+                                                             />
                                 );
                             })
                         }

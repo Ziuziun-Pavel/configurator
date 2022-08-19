@@ -1,5 +1,71 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
+
+export interface TestProps {
+    id: number,
+    title: string,
+    region: string,
+    comment: string,
+    search_system: string,
+    url_test: string,
+    url_site: string,
+    isActive: boolean,
+    start_data: string,
+    deactivation_data?: string,
+    question_blocks: QuestionBlockProps[],
+    task_blocks: TaskBlockProps[],
+    direction: DirectionProps[]
+
+}
+
+export interface QuestionBlockProps {
+    id: number,
+    title: string,
+    isActive?: boolean,
+    start_data: string,
+    deactivation_data?: string,
+    questions: [
+        {
+            "text": string,
+            "picture": string,
+            "question_variants": [
+                {
+                    "text": string,
+                    "picture": string
+                }
+            ]
+        }
+    ]
+}
+
+export interface TaskBlockProps {
+    // id: number,
+    // title: string,
+    // isKey: boolean,
+    // description: string,
+    // link: string,
+    // isActive?: boolean,
+    // status?: string,
+    // dataOfDeactivation?: string,
+    id: number,
+    title: string,
+    isActive?: boolean,
+    start_data: string,
+    deactivation_data?: string,
+    tasks: [
+        {
+            "text": string,
+        }
+    ]
+}
+
+export interface DirectionProps {
+    "group": string,
+    "subgroup": string,
+    "phrase": string,
+    "intensivity": number
+}
+
 export interface ButtonProps {
     width: string,
     text?: string,
@@ -7,19 +73,6 @@ export interface ButtonProps {
     border?: string,
     onClick?: () => void
 }
-//
-// export interface TestProps {
-//     id: string,
-//     project: string,
-//     testName: string,
-//     testURL: string,
-//     testRegion: string,
-//     testComments: string,
-//     test: TestBlockProps[],
-//     testDirection: string,
-//     browser: string,
-//     requestsList: string[]
-// }
 
 export interface DropDownProjectsProps {
     id?: string,
@@ -129,20 +182,6 @@ export interface ListItemProps {
     onChoose?: () => void,
 }
 
-export interface TestBlockProps {
-    id: string,
-    title: string,
-    isActive: boolean,
-    date: string,
-    direction: string,
-    dateOfDeactivation?: string,
-    url: string,
-    browser: string,
-    region: string,
-    site: string,
-    comments: string
-}
-
 export interface ProjectBlockProps {
     id: number,
     title: string,
@@ -153,25 +192,6 @@ export interface ProjectBlockProps {
     site: string
 }
 
-export interface QuestionProps {
-    id: number,
-    title: string,
-    isActive?: boolean,
-    status?: string,
-    dataOfDeactivation?: string,
-    answer?: string
-}
-
-export interface TaskProps {
-    id: number,
-    title: string,
-    isKey: boolean,
-    description: string,
-    link: string,
-    isActive?: boolean,
-    status?: string,
-    dataOfDeactivation?: string,
-}
 
 export interface ModalProps {
     active: boolean,

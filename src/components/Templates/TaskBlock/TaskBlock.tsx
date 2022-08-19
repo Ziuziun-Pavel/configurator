@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import s from './TaskBlock.module.scss';
-import { TaskProps } from '../../../models/Interfaces';
+import { TaskBlockProps } from '../../../models/Interfaces';
 import DeleteButton from '../../UI/Buttons/DeleteButton/DeleteButton';
 import AnswersBlock from '../AnswersBlock/AnswersBlock';
 
-const QuestionBlockWithAnswer: React.FC<TaskProps>  = ({id, title, isKey, link}) => {
+const QuestionBlockWithAnswer: React.FC<TaskBlockProps>  = ({id, title}) => {
     const [descriptionActivity, setDescriptionActivity] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const QuestionBlockWithAnswer: React.FC<TaskProps>  = ({id, title, isKey, link})
           <div className={s.taskBlock}>
               <div className={s.taskBlock__titleWrapper}>
                   <h3 className={s.taskBlock__title}>{title}</h3>
-                  <a href={link} className={s.taskBlock__link}>см. картинку</a>
+                  <a href='ss' className={s.taskBlock__link}>см. картинку</a>
               </div>
 
               <div className={s.taskBlock__second}>

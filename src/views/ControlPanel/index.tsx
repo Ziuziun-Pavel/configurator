@@ -10,7 +10,7 @@ import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanel.module.scss';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
-import { DropDownMenuDataProps, TestBlockProps } from '../../models/Interfaces';
+import { DropDownMenuDataProps, TestProps } from '../../models/Interfaces';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import { requestsData } from '../../data/requestsData';
 import { choosenRequestsData } from '../../data/choosenRequestsData';
@@ -20,27 +20,73 @@ import { targetSitesData } from '../../data/targetSitesData';
 import { testDirectionData } from '../../data/testDirectionData';
 import * as uniqid from 'uniqid';
 import Modal from '../../components/Templates/Modal/Modal';
+import axios from 'axios';
 
 const ControlPanel: React.FC = () => {
-    const allTests: TestBlockProps[] = JSON.parse(localStorage.getItem('tests') || '[]');
+    const [allTests, setAllTests] = useState<TestProps[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const [dropdowns, setDropdown] = useState(dropDownMenuData);
     const [addingDropDownInput, setAddingDropDownInput] = useState('');
     const [isDisabled, setDisabled] = useState(true);
-    const [tests, setTests] = useState<TestBlockProps[]>(allTests);
-    const [testName, setTestName] = useState('');
+    const [testTitle, setTestTitle] = useState('');
     const [testURL, setTestURL] = useState('');
     const [testRegion, setTestRegion] = useState('');
-    const [testComments, setTestComments] = useState('');
-    const [testSite, setTestSite] = useState('Выберите проект');
+    const [testComment, setTestComment] = useState('');
+    const [testSiteURL, setTestSiteURL] = useState('Выберите проект');
     const [testDirection, setTestDirection] = useState('Выберите направление');
-    const [testBrowser, setTestBrowser] = useState('Выберите поисковую систему (по умолчанию ничего не выбрано)');
+    const [testSearchingSystem, setTestSearchingSystem] = useState('Выберите поисковую систему (по умолчанию ничего не выбрано)');
     const [modalActive, setModalActive] = useState(false);
 
     useEffect(() => {
-        localStorage.setItem('tests', JSON.stringify(tests));
+        getTests();
+    }, []);
 
-    }, [tests]);
+    const getTests = () => {
+        setLoading(true);
+        axios({
+            method: 'GET',
+            url: '/tests/'
+        }).then((response) => {
+            const data = response.data.data;
+            setAllTests(data);
+        }).catch((error) => {
+            if (error.response) {
+                return <div>
+                    <h3>Ошибка {error.message}</h3>
+                </div>
+            }
+        });
+    };
+
+    function createTest() {
+        const current = new Date();
+        const date = `${current.getDate()}.${(current.getMonth() + 1 < 10) ? '0' + (current.getMonth() + 1) : (current.getMonth() + 1)}.${current.getFullYear() - 2000}`;
+
+        axios({
+            method: "POST",
+            url:"/tests/",
+            data:{
+                id: 48858,
+                title: testTitle,
+                region: testRegion,
+                comment: testComment,
+                search_system: testSearchingSystem,
+                url_test: testURL,
+                url_site: testSiteURL,
+                isActive: true,
+                start_data: date,
+                deactivation_data: null,
+                question_blocks: [],
+                task_blocks: [],
+                direction: []
+            }
+        }).then(res => {
+            console.log(res.data);
+            setAllTests([...allTests, res.data.data]);
+        })
+
+    }
 
     const addDropDownMenu = (item: DropDownMenuDataProps) => {
         item.id = dropdowns.length + 1;
@@ -72,30 +118,51 @@ const ControlPanel: React.FC = () => {
             behavior: 'smooth'
         })
 
-        setTimeout(() => {
-            window.location.reload();
-         }, 600)
+        // setTimeout(() => {
+        //     window.location.reload();
+        //  }, 600)
     };
 
     const onActivateTest = () => {
         const current = new Date();
         const date = `${current.getDate()}.${(current.getMonth() + 1 < 10) ? '0' + (current.getMonth() + 1) : (current.getMonth() + 1)}.${current.getFullYear() - 2000}`;
-
         setModalActive(false);
 
-        setTests([...tests, {
-            id: uniqid(),
-            title: testName,
-            isActive: true,
-            date: date,
-            dateOfDeactivation: '',
-            direction: testDirection,
-            url: testURL,
-            browser: testBrowser,
+        const data: TestProps = {
+            id: 48858,
+            title: testTitle,
             region: testRegion,
-            site: testSite,
-            comments: testComments
-        }]);
+            comment: testComment,
+            search_system: testSearchingSystem,
+            url_test: testURL,
+            url_site: testSiteURL,
+            isActive: true,
+            start_data: date,
+            deactivation_data: '',
+            question_blocks: [],
+            task_blocks: [],
+            direction: [
+                {
+                    "group": "test444",
+                    "subgroup": "test555",
+                    "phrase": "test658",
+                    "intensivity": 2
+                },
+                {
+                    "group": "test444",
+                    "subgroup": "test555",
+                    "phrase": "test658",
+                    "intensivity": 2
+                },
+            ]
+        };
+
+         axios.post('/tests', data).then(r => {
+             setAllTests(r.config.data)
+             console.log(allTests);
+         }).catch(e => {
+             console.log(e.response);
+         });
 
         ResetFormControls();
 
@@ -110,9 +177,9 @@ const ControlPanel: React.FC = () => {
                 <div className={s.dropDownProjects__container}>
                     <div className={s.searching__dropdown}>
                         <DropDownProjects title='Проект (целевые сайты)'
-                                          placeholder={testSite}
+                                          placeholder={testSiteURL}
                                           listOfItems={targetSitesData}
-                                          onSetTestData={(item) => setTestSite(item)}
+                                          onSetTestData={(item) => setTestSiteURL(item)}
                         />
                     </div>
                 </div>
@@ -121,9 +188,9 @@ const ControlPanel: React.FC = () => {
                     <div className={s.textFieldContainer}>
                         <TextFieldWithTitle
                             title='Название теста'
-                            value={testName}
+                            value={testTitle}
                             placeholder='Пример: тест рд1'
-                            onChange={(e) => setTestName(e.target.value)} />
+                            onChange={(e) => setTestTitle(e.target.value)} />
                     </div>
 
                     <div className={s.textFieldContainer}>
@@ -145,9 +212,9 @@ const ControlPanel: React.FC = () => {
                     <div className={s.textFieldContainer}>
                         <TextFieldWithTitle
                             title='Внутренний комментарий'
-                            value={testComments}
+                            value={testComment}
                             placeholder='Пример: этот тест для дизайнеров и программистов.'
-                            onChange={(e) => setTestComments(e.target.value)} />
+                            onChange={(e) => setTestComment(e.target.value)} />
                     </div>
                 </div>
 
@@ -211,10 +278,10 @@ const ControlPanel: React.FC = () => {
                         <div className={s.searching__wrapper}>
                             <div className={s.searching__dropdown}>
                                 <DropdownMenu title='Поисковая система'
-                                              placeholder={testBrowser}
+                                              placeholder={testSearchingSystem}
                                               width='55.4rem'
                                               listItemsText={['Яндекс', 'Google', 'Google и Яндекс']}
-                                              onSetTestData={(item) => setTestBrowser(item)}
+                                              onSetTestData={(item) => setTestSearchingSystem(item)}
                                               isAdding={false}
                                               isDelete={false} />
                             </div>

@@ -20,8 +20,9 @@ const ListOfQuestions: React.FC = () => {
                                            id={question.id}
                                            title={question.title}
                                            isActive={question.isActive}
-                                           status={question.status}
-                                           dataOfDeactivation={question.dataOfDeactivation} />
+                                           start_data={question.start_data}
+                                           deactivation_data={question.deactivation_data}
+                                           questions={question.questions}/>
                         );
                     })
                 }

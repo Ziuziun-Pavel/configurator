@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { QuestionProps } from '../../../models/Interfaces';
+import { QuestionBlockProps } from '../../../models/Interfaces';
 import s from './QuestionBlock.module.scss';
 import styled from '@emotion/styled';
 import IOSSwitch from '../../UI/Switchers/IOSswitcher';
 import Modal from '../Modal/Modal';
 import Button from '../../UI/Buttons/Button/Button';
 
-const ProjectBlock: React.FC<QuestionProps> = ({
-                                                   id,
-                                                   title,
-                                                   status,
-                                                   isActive,
-                                                   dataOfDeactivation
-                                               }) => {
+const ProjectBlock: React.FC<QuestionBlockProps> = ({
+                                                        id,
+                                                        title,
+                                                        isActive,
+                                                        deactivation_data
+                                                    }) => {
 
     const StyledSubtitle = styled.h4`
       color: ${isActive ? '#07FF6A' : '#FFA800'};
@@ -26,7 +25,7 @@ const ProjectBlock: React.FC<QuestionProps> = ({
 
                 <div>
                     <StyledSubtitle
-                        className={s.questionBlock__subtitle}>{status + ' ' + dataOfDeactivation}</StyledSubtitle>
+                        className={s.questionBlock__subtitle}>{deactivation_data}</StyledSubtitle>
                     <h3 className={s.questionBlock__title}>{title}</h3>
                 </div>
 
@@ -51,7 +50,7 @@ const ProjectBlock: React.FC<QuestionProps> = ({
                        title='Вы точно хотите деактивировать проект?'
                        subtitle='Это приведет к деактивации связанных с ним тестов'
                        btnTrue='Да, деактивировать'
-                       btnFalse='Нет, оставить'/>
+                       btnFalse='Нет, оставить' />
             </div>
         </>
     );
