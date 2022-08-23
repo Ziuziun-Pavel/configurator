@@ -3,24 +3,29 @@ import s from './Request.module.scss';
 import RequestHeader from './RequestHeader/RequestHeader';
 import SearchIconPath from '../../../assets/searching.svg';
 import { RequestGroupProps, RequestsProps } from '../../../models/Interfaces';
-import * as uniqid from 'uniqid';
-import { requestsData } from '../../../data/requestsData';
 import { choosenRequestsData } from '../../../data/choosenRequestsData';
 
-const Request: React.FC<RequestGroupProps> = ({ headerTitle, requestsNumber, isIntensive, requestData }) => {
+const Request: React.FC<RequestGroupProps> = ({
+                                                  isChoosenGroup,
+                                                  headerTitle,
+                                                  requestsNumber,
+                                                  requestData
+                                              }) => {
     const [searchInput, setSearchInput] = useState('');
     const [choosenArray, setChoosenArray] = useState<RequestsProps[]>([]);
-    const [checkedTitleCheckBoxState, setCheckedTitleCheckBoxState] = useState(
+    const [checkedSubgroupCheckBoxState, setCheckedSubgroupCheckBoxState] = useState(
         new Array(requestData.length).fill(false)
     );
-    const [checkedSubtitleCheckBoxState, setCheckedSubtitleCheckBoxState] = useState(
-        new Array(requestData.map(item => item.requestsList.map(i => i)).length).fill(false)
+    const [checkedPhraseCheckBoxState, setCheckedPhraseCheckBoxState] = useState(
+        new Array(requestData.map(item => item.phrases.map(i => i)).length).fill(false)
     );
 
     const filteredRequests = !searchInput
         ? requestData
         : requestData.filter((request) =>
-            request.title.toLowerCase().includes(searchInput.toLowerCase())
+            request.phrases.map(i => {
+                i.phrase.toLowerCase().includes(searchInput.toLowerCase());
+            })
         );
 
     const filteredWithCheckboxData = (requestData === choosenRequestsData)
@@ -32,28 +37,28 @@ const Request: React.FC<RequestGroupProps> = ({ headerTitle, requestsNumber, isI
     };
 
     const handleOnChangeTitleCheckbox = (state: string, position: number) => {
-        const updatedCheckedState = checkedTitleCheckBoxState.map((item, index) =>
+        const updatedCheckedState = checkedSubgroupCheckBoxState.map((item, index) =>
                 index === position ? !item : item
             )
         ;
 
-        setCheckedTitleCheckBoxState(updatedCheckedState);
+        setCheckedSubgroupCheckBoxState(updatedCheckedState);
 
     };
 
     const handleOnChangeSubTitleCheckbox = (position: number) => {
-        const updatedCheckedState = checkedSubtitleCheckBoxState.map((item, index) =>
+        const updatedCheckedState = checkedPhraseCheckBoxState.map((item, index) =>
             index === position ? !item : item
         );
 
-        setCheckedSubtitleCheckBoxState(updatedCheckedState);
+        setCheckedPhraseCheckBoxState(updatedCheckedState);
 
     };
 
     return (
         <div className={s.requests__first}>
             <div className={s.requests__header}>
-                <RequestHeader title={headerTitle} isIntensive={isIntensive} requests={requestsNumber}
+                <RequestHeader title={headerTitle} isIntensive={!isChoosenGroup} requests={requestsNumber}
                                isDelete={false} />
             </div>
 
@@ -69,44 +74,57 @@ const Request: React.FC<RequestGroupProps> = ({ headerTitle, requestsNumber, isI
             <div className={s.requests__blocks}>
                 <div className={s.requests__blocks__wrapper}>
 
-
                     {
                         filteredWithCheckboxData.map((request, i) => {
-                            return (
-                                <div key={request.id} className={s.requests__blocks__item}>
-                                    <div className={s.requests__blocks__header}>
-                                        <input id={`title-checkbox-${i}`}
-                                               type='checkbox'
-                                               name={request.title}
-                                               checked={checkedTitleCheckBoxState[i]}
-                                               onChange={(e) => handleOnChangeTitleCheckbox(e.target.value, i)}
-                                               value={request.title} />
-                                        <label htmlFor={`title-checkbox-${i}`}>{request.title}</label>
+                            return request.phrases.map(phrase => {
+                                return (
+                                    <div key={phrase.subgroup_id} className={s.requests__blocks__item}>
+                                        <div className={s.requests__blocks__header}>
+                                            <input id={`title-checkbox-${i}`}
+                                                   type='checkbox'
+                                                   name={request.subGroup}
+                                                   checked={checkedSubgroupCheckBoxState[i]}
+                                                   onChange={(e) => handleOnChangeTitleCheckbox(e.target.value, i)}
+                                                   value={request.subGroup} />
+                                            <label htmlFor={`title-checkbox-${i}`}>{request.subGroup}</label>
 
-                                        <span
-                                            className={s.requests__blocks__numberRequests}>({request.requests} запросов)</span>
+                                            <span
+                                                className={s.requests__blocks__numberRequests}>({request.phrases.length} запросов)</span>
+                                        </div>
+
+                                        {
+                                            request.phrases.map((phrase, index) => {
+                                                return (
+                                                    <div key={phrase.id} className={s.requests__blocks__str}>
+                                                        <div>
+                                                            <input id={`subtitle-checkbox-${index}`}
+                                                                   className={s.requests__blocks__checkbox}
+                                                                   type='checkbox'
+                                                                   checked={checkedSubgroupCheckBoxState[i] || checkedPhraseCheckBoxState[i][index]}
+                                                                   name={phrase.phrase}
+                                                                   value={phrase.phrase}
+                                                                   onChange={() => handleOnChangeSubTitleCheckbox(index)}
+                                                            />
+                                                            <label
+                                                                htmlFor={`subtitle-checkbox-${index}`}>{phrase.phrase}</label>
+                                                        </div>
+
+                                                        {
+                                                            isChoosenGroup ?
+                                                                <input type='number'
+                                                                       className={s.requests__blocks__intensivity} />
+                                                                : <div></div>
+                                                        }
+                                                    </div>
+
+                                                );
+                                            })
+                                        }
+
                                     </div>
+                                );
+                            });
 
-                                    {
-                                        request.requestsList.map((title, index) => {
-                                            return (
-                                                <div key={request.id}
-                                                     className={s.requests__blocks__str}>
-                                                    <input id={`subtitle-checkbox-${index}`}
-                                                           type='checkbox'
-                                                           checked={checkedTitleCheckBoxState[i] || checkedSubtitleCheckBoxState[i][index]}
-                                                           name={title}
-                                                           value={title}
-                                                           onChange={() => handleOnChangeSubTitleCheckbox(index)}
-                                                    />
-                                                    <label htmlFor={`subtitle-checkbox-${index}`}>{title}</label>
-                                                </div>
-                                            );
-                                        })
-                                    }
-
-                                </div>
-                            );
                         })
 
                     }

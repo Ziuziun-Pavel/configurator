@@ -7,24 +7,24 @@ export interface TestProps {
     region: string,
     comment: string,
     search_system: string,
-    url_test: string,
+    title_site: string,
     url_site: string,
     isActive: boolean,
-    start_data: string,
-    deactivation_data?: string,
-    question_blocks: QuestionBlockProps[],
-    task_blocks: TaskBlockProps[],
+    start_date: string,
+    deactivation_date?: string,
+    question_block_id: QuestionBlockProps[],
+    task_block_id: TaskBlockProps[],
     direction: DirectionProps[]
 
 }
 
 export interface QuestionBlockProps {
     id: number,
-    title: string,
+    title?: string,
     isActive?: boolean,
-    start_data: string,
+    start_data?: string,
     deactivation_data?: string,
-    questions: [
+    questions?: [
         {
             "text": string,
             "picture": string,
@@ -48,11 +48,12 @@ export interface TaskBlockProps {
     // status?: string,
     // dataOfDeactivation?: string,
     id: number,
-    title: string,
+    title?: string,
+    number?: number,
     isActive?: boolean,
-    start_data: string,
+    start_data?: string,
     deactivation_data?: string,
-    tasks: [
+    tasks?: [
         {
             "text": string,
         }
@@ -60,10 +61,10 @@ export interface TaskBlockProps {
 }
 
 export interface DirectionProps {
-    "group": string,
-    "subgroup": string,
-    "phrase": string,
-    "intensivity": number
+    group: string,
+    subgroup: string,
+    phrase: string,
+    intensivity: number
 }
 
 export interface ButtonProps {
@@ -110,18 +111,25 @@ export interface DropDownBtnProps {
     isBlock?: boolean
 }
 
-export interface RequestsProps {
+export interface RequestPhraseProps {
     id: number,
-    title: string,
-    requests: number,
-    requestsList: string[]
+    phrase: string,
+    subgroup_id: number,
+    created_at?: string,
+    updated_at?: string
+}
+
+export interface RequestsProps {
+    group: string,
+    subGroup: string,
+    phrases: RequestPhraseProps[]
 }
 
 export interface RequestGroupProps {
     id?: number,
+    isChoosenGroup: boolean,
     headerTitle: string,
     requestsNumber: number,
-    isIntensive: boolean,
     requestData: RequestsProps[]
 }
 

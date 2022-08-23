@@ -14,15 +14,15 @@ const RequestGroupFromSemantics = () => {
 
                 <div className={s.request__body}>
                     <div className={s.request__wrapper}>
-                        {
-                            requestsData.map(request => {
-                                return(
-                                    <div key={request.id} className={s.request__item}>
-                                        {request.title}
-                                    </div>
-                                );
-                            })
-                        }
+                        {/*{*/}
+                        {/*    requestsData.map(request => {*/}
+                        {/*        return(*/}
+                        {/*            <div key={request.id} className={s.request__item}>*/}
+                        {/*                {request.title}*/}
+                        {/*            </div>*/}
+                        {/*        );*/}
+                        {/*    })*/}
+                        {/*}*/}
                     </div>
 
 

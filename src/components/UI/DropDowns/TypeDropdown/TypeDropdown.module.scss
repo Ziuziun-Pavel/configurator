@@ -6,7 +6,7 @@
   text-align: left;
   color: rgba(0, 0, 0, 0.5);
   border: 1px solid #000000;
-  border-radius: 45px;
+  border-radius: 4.5rem;
   cursor: pointer;
 
     &:before {
@@ -17,8 +17,8 @@
       right: 2.2rem;
       width: 1.4rem;
       height: 1.4rem;
-      border-right: 3px solid #000;
-      border-top: 3px solid black;
+      border-right: .3rem solid #000;
+      border-top: .3rem solid black;
       transform: rotate(135deg);
       cursor: pointer;
     }
@@ -32,7 +32,7 @@
   text-align: left;
   color: rgba(0, 0, 0, 0.5);
   border: 1px solid #000000;
-  border-radius: 45px;
+  border-radius: 4.5rem;
   cursor: pointer;
 
   &:before {
@@ -43,8 +43,8 @@
     right: 2.2rem;
     width: 1.4rem;
     height: 1.4rem;
-    border-left: 3px solid #000;
-    border-bottom: 3px solid black;
+    border-left: .3rem solid #000;
+    border-bottom: .3rem solid black;
     transform: rotate(135deg);
     cursor: pointer;
   }
