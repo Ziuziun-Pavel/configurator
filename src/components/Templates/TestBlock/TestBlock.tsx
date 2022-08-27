@@ -11,11 +11,11 @@ const TestBlock: React.FC<TestProps> = ({
                                             title,
                                             region,
                                             search_system,
-                                            url_test,
+                                            title_site,
                                             url_site,
                                             isActive,
-                                            start_data,
-                                            deactivation_data
+                                            start_date,
+                                            deactivation_date
                                         }) => {
 
         const StyledSubtitle = styled.h4`
@@ -29,15 +29,15 @@ const TestBlock: React.FC<TestProps> = ({
                 <div className={s.testBlock}>
                     <div>
                         <StyledSubtitle
-                            className={s.testBlock__subtitle}>{isActive ? 'Активен' : 'Деактивированный' + ' ' + deactivation_data}</StyledSubtitle>
+                            className={s.testBlock__subtitle}>{isActive ? 'Активен' : 'Деактивированный' + ' ' + deactivation_date}</StyledSubtitle>
                         <h3 className={s.testBlock__title}>{title}</h3>
-                        <h4 className={s.testBlock__data}>{start_data} Дата создания</h4>
+                        <h4 className={s.testBlock__data}>{start_date} Дата создания</h4>
                     </div>
 
                     <div className={s.testBlock__second}>
                         <div className={s.testBlock__idBlock}>
                             <h4 className={s.testBlock__info}>id {id}</h4>
-                            <h4 className={s.testBlock__info}>URL {url_test}</h4>
+                            <h4 className={s.testBlock__info}>URL {title_site}</h4>
                         </div>
 
                         <div className={s.testBlock__siteBlock}>

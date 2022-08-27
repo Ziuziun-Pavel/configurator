@@ -8,8 +8,8 @@
   font-size: 1em;
   line-height: 1.8rem;
   text-align: left;
-  border: 1px solid #000000;
-  border-radius: 103px;
+  border: .1rem solid #000000;
+  border-radius: 10.3rem;
   cursor: pointer;
 
   &__title {
@@ -32,12 +32,13 @@
     margin-top: 1rem;
     font-weight: 400;
     font-size: 2rem;
+    text-align: center;
     line-height: 2.4rem;
     padding: .4rem 1.2rem;
     min-width: 9.4rem;
     height: 3.2rem;
     border: 1px solid #000000;
-    border-radius: 100px;
+    border-radius: 10rem;
   }
 
   &__data, &__region {
@@ -56,7 +57,7 @@
 
   &__subtitle, &__site {
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 
   &__site {

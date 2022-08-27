@@ -12,7 +12,7 @@ const QuestionBlockWithAnswer: React.FC<QuestionBlockProps>  = ({id, title, ques
           <div className={s.questionBlock}>
               <div className={s.questionBlock__titleWrapper}>
                   <h3 className={s.questionBlock__title}>{title}</h3>
-                  <a href={questions[0].text} className={s.questionBlock__link}>см. картинку</a>
+                  {/*<a href={questions[0].text} className={s.questionBlock__link}>см. картинку</a>*/}
               </div>
 
               <div className={s.questionBlock__second}>

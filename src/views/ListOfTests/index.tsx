@@ -10,30 +10,31 @@ import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import { targetSitesData } from '../../data/targetSitesData';
 import { TestProps } from '../../models/Interfaces';
 import axios from 'axios';
+import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpinner';
 
 const ListOfTests: React.FC = () => {
     const [allTests, setAllTests] = useState<TestProps[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const getTests = () => {
+        setIsLoading(true);
+
         axios({
             method: 'GET',
             url: '/tests'
         }).then((response) => {
             const data = response.data.data;
             setAllTests(data);
-            setLoading(false);
+            setIsLoading(false);
         }).catch((error) => {
-            if (error.response) {
-                return <div>
-                    <h3>Ошибка {error.message}</h3>
-                </div>
-            }
+            setErrorMessage(error.message);
+            setIsLoading(false);
+
         });
     };
 
     useEffect(() => {
-        setLoading(true);
         getTests();
     }, []);
 
@@ -46,11 +47,10 @@ const ListOfTests: React.FC = () => {
                               placeholder='Выберите проект'
                               listOfItems={targetSitesData} onSetTestData={() => console.log('')} />
 
-            <div className={loading ? `${s.tests__loading}` : `${s.none}` }>
-                Загрузка...
-            </div>
 
-            <div className={s.tests__list}>
+            {isLoading ? <div className={s.tests__loading}>
+                <LoadingSpinner />
+            </div> : <div className={s.tests__list}>
                 {
                     allTests.map(test => {
                         return (
@@ -60,19 +60,21 @@ const ListOfTests: React.FC = () => {
                                        region={test.region}
                                        comment={test.comment}
                                        search_system={test.search_system}
-                                       url_test={test.url_test}
+                                       title_site={test.title_site}
                                        url_site={test.url_site}
                                        isActive={test.isActive}
-                                       start_data={test.start_data}
-                                       deactivation_data={test.isActive ? '' : test.deactivation_data}
-                                       question_blocks={test.question_blocks}
-                                       task_blocks={test.task_blocks}
+                                       start_date={test.start_date}
+                                       deactivation_date={test.isActive ? '' : test.deactivation_date}
+                                       question_block_id={test.question_block_id}
+                                       task_block_id={test.task_block_id}
                                        direction={test.direction}
-                             />
+                            />
                         );
                     })
                 }
-            </div>
+            </div>}
+
+            {errorMessage && <div className={s.tests__error}>{errorMessage}</div>}
 
 
             <div className={s.tests__btn}>
