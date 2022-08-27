@@ -1,11 +1,11 @@
 .dropDownProjects {
   position: relative;
-  height: 10rem;
   opacity: 1;
   visibility: visible;
   transition: opacity 0.5s ease, visibility 0.5s;
 
   &__inactive {
+    height: 5rem;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s;
