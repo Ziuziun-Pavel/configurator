@@ -10,7 +10,6 @@ import Button from '../../components/UI/Buttons/Button/Button';
 import QuestionBlockWithAnswer from '../../components/Templates/QuestionBlockWithAnswer/QuestionBlockWithAnswer';
 import { questionsData } from '../../data/questionsData';
 
-
 const ControlPanelQuestions: React.FC = () => {
     return (
         <>
@@ -108,7 +107,7 @@ const ControlPanelQuestions: React.FC = () => {
                                                              id={question.id}
                                                              title={question.title}
                                                              questions={question.questions}
-                                                             start_data={question.start_data}
+                                                             start_date={question.start_date}
                                                              />
                                 );
                             })

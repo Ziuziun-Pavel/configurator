@@ -62,8 +62,8 @@ const ControlPanelTasks: React.FC = () => {
                                                id={task.id}
                                                title={task.title}
                                                isActive={task.isActive}
-                                               start_data={task.start_data}
-                                               deactivation_data={task.deactivation_data}
+                                               start_date={task.start_date}
+                                               deactivation_date={task.deactivation_date}
                                                tasks={task.questions}
                                     />
                                 );

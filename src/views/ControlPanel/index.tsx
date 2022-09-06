@@ -10,7 +10,7 @@ import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanel.module.scss';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
-import { DropDownMenuDataProps, RequestsProps, TestProps } from '../../models/Interfaces';
+import { DropDownMenuDataProps, RequestPhraseProps, RequestsProps, TestProps } from '../../models/Interfaces';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import { requestsData } from '../../data/requestsData';
 import { choosenRequestsData } from '../../data/choosenRequestsData';
@@ -24,6 +24,8 @@ import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpi
 
 const ControlPanel: React.FC = () => {
     const [allTests, setAllTests] = useState<TestProps[]>([]);
+    const [allRequests, setAllRequests] = useState<RequestsProps[]>([]);
+
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [modalActive, setModalActive] = useState(false);
@@ -48,6 +50,34 @@ const ControlPanel: React.FC = () => {
       setAddingDropDownInput('');
       setDropdown([...dropdowns, item]);
       setDisabled(true);
+    };
+
+    const getRequestsNumber = (requests: RequestsProps[]) => {
+      if (!requests || !requests.length) {
+        return 0;
+      } else {
+        return requests.reduce((acc, req) => acc + req.phrases.length, 0);
+      }
+    };
+
+    useEffect(() => {
+      getRequests();
+    }, []);
+
+    const getRequests = () => {
+
+      setIsLoading(true);
+      axios({
+        method: 'GET',
+        url: '/phrases'
+      }).then((response) => {
+        const requests = response.data.data;
+        setAllRequests(requests);
+        setIsLoading(false);
+      }).catch((error) => {
+        setErrorMessage(error.message);
+
+      });
     };
 
     const deleteDropDownMenu = (id: number | undefined) => {
@@ -85,18 +115,20 @@ const ControlPanel: React.FC = () => {
         search_system: testSearchingSystem,
         title_site: testURL,
         url_site: testSiteURL,
-        question_block_id: [
-          {
-            id: 1
-          }
-        ],
-        task_block_id: [
+        question_blocks: [
           {
             id: 1,
+            title: ''
+          }
+        ],
+        task_blocks: [
+          {
+            id: 1,
+            title: '',
             number: 12
           }
         ],
-        direction: [
+        directions: [
           {
             group: testDirection,
             subgroup: 'Sub Group',
@@ -116,6 +148,56 @@ const ControlPanel: React.FC = () => {
 
       ResetFormControls();
 
+    };
+
+    const onSelectSubGroup = (selectedSubGroup: RequestsProps) => {
+      const find = selectedRequests.indexOf(selectedSubGroup);
+
+      if (find > -1) {
+        setSelectedRequests(selectedRequests.filter(item => item.sub_id !== selectedSubGroup.sub_id));
+      } else {
+        setSelectedRequests([...selectedRequests, selectedSubGroup]);
+      }
+    };
+
+    const onSelectPhrase = (selectedPhrase: RequestPhraseProps) => {
+      const findIndex = selectedRequests.findIndex(i => {
+        return i.phrases.find(ph => ph.id === selectedPhrase.id);
+      });
+      console.log(findIndex);
+
+      if (findIndex > -1) {//Вырезает элемент если он существует
+        setSelectedRequests(selectedRequests.filter(item => item.phrases.some(i => i.id !== selectedPhrase.id)));
+
+      } else {//Добавляет элемент
+        const findArr: RequestsProps[] = allRequests.filter(item => item.sub_id === selectedPhrase.subgroup_id);
+
+        findArr.map(item => {//Если существует subGroup
+          // selectedRequests.map(i => {
+          //
+          //   if (i.subGroup.includes(item.subGroup)) {
+          //     const phrasesArr: RequestPhraseProps[] = [];
+          //     phrasesArr.push(selectedPhrase);
+          //     setSelectedRequests([...selectedRequests, {
+          //       group: item.group,
+          //       subGroup: item.subGroup,
+          //       sub_id: item.sub_id,
+          //       phrases: phrasesArr
+          //     }]);
+          //   } else {
+              setSelectedRequests([...selectedRequests, {
+                group: item.group,
+                subGroup: item.subGroup,
+                sub_id: item.sub_id,
+                phrases: [selectedPhrase]
+              }]);
+
+          //   }
+          // });
+
+        });
+
+      }
     };
 
     return (
@@ -253,12 +335,18 @@ const ControlPanel: React.FC = () => {
                   <div className={s.requests}>
                     <Request headerTitle='Все запросы'
                              isChoosenGroup={false}
-                             requestsNumber={129}
+                             requestsNumber={getRequestsNumber(allRequests)}
+                             requestData={allRequests}
+                             onSelectSubGroup={(selectedSubGroup) => onSelectSubGroup(selectedSubGroup)}
+                             onSelectPhrase={(selectedPhrase) => onSelectPhrase(selectedPhrase)}
+                             group={testDirection}
                     />
 
                     <Request headerTitle='Выбранные'
                              isChoosenGroup={true}
-                             requestsNumber={19}
+                             requestsNumber={getRequestsNumber(selectedRequests)}
+                             requestData={selectedRequests}
+                             group={testDirection}
                     />
 
                   </div>
@@ -284,7 +372,7 @@ const ControlPanel: React.FC = () => {
 
               <Modal active={modalActive}
                      setActive={setModalActive}
-                     title='Вы точно хотите активировать тест?'
+                     mainTitle='Вы точно хотите активировать тест?'
                      subtitle='Это приведет к созданию нового теста'
                      btnTrue='Да, активировать'
                      btnFalse='Нет, отменить'

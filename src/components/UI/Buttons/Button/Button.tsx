@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { ButtonProps } from '../../../../models/Interfaces';
 import s from './Button.module.scss';
 
-const Button: React.FC<ButtonProps> = ({ text, width, bgColor, border, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ text, disabled, width, bgColor, border, onClick }) => {
 
     const StyledButton = styled.button`
       width: ${width};
@@ -13,6 +13,7 @@ const Button: React.FC<ButtonProps> = ({ text, width, bgColor, border, onClick }
     `;
 
     return <StyledButton className={s.btn}
+                         disabled={disabled}
                          onClick={onClick}>{text}
     </StyledButton>;
 };

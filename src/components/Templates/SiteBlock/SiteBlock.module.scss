@@ -1,0 +1,77 @@
+.siteBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4rem;
+  height: 11.5rem;
+  padding: .8rem 4.6rem 1.2rem 8rem;
+  font-size: 1em;
+  line-height: 1.8rem;
+  text-align: left;
+  border: .1rem solid #000000;
+  border-radius: 10.3rem;
+  cursor: pointer;
+
+  &__title {
+    margin-top: 3rem;
+    font-weight: 400;
+    font-size: 4rem;
+    line-height: 4.8rem;
+    color: #000000;
+  }
+
+  &__url {
+    margin: 1.2rem;
+    font-weight: 400;
+    font-size: 1.7rem;
+    line-height: 2.4rem;
+    color: #000000;
+  }
+
+  &__region {
+    font-weight: 400;
+    font-size: 4rem;
+    line-height: 4.8rem;
+    color: #000000;
+  }
+
+  &__titlesWithUrl {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 55rem;
+  }
+
+  &__first {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90rem;
+  }
+
+  &__activate {
+    margin-right: 1.2rem;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    color: #000000;
+  }
+
+  &__activationBlock {
+    margin-top: 1.2rem;
+  }
+
+  &__urlBlock {
+    position: absolute;
+    bottom: -1rem;
+    right: 0  ;
+    width: 25rem;
+  }
+
+  &__subtitle {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
+
+}

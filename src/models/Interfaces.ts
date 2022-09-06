@@ -1,29 +1,66 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-
 export interface TestProps {
+  id?: number,
+  title: string,
+  region?: string,
+  comment?: string,
+  search_system?: string,
+  title_site?: string,
+  url_site?: string,
+  isActive?: boolean,
+  start_date?: string,
+  deactivation_date?: string,
+  question_blocks?: QuestionBlockProps[],
+  task_blocks?: TaskBlockProps[],
+  directions?: DirectionProps[],
+  setAllTests?: Dispatch<React.SetStateAction<TestProps[]>>;
+  setErrorMessage?: Dispatch<React.SetStateAction<string>>;
+  setIsLoading?: Dispatch<React.SetStateAction<boolean>>;
+  allTests?: TestProps[]
+}
+
+export interface QuestionTaskBlockProps {
   id: number,
   title: string,
-  region: string,
-  comment: string,
-  search_system: string,
-  title_site: string,
-  url_site: string,
-  isActive: boolean,
-  start_date: string,
+  start_date?: string,
+  isActive?: boolean,
   deactivation_date?: string,
-  question_block_id: QuestionBlockProps[],
-  task_block_id: TaskBlockProps[],
-  direction: DirectionProps[]
-
+  isTask?: boolean;
+  modalActive?: boolean;
+  questions?: [
+    {
+      'text': string,
+      'picture': string,
+      'question_variants': [
+        {
+          'text': string,
+          'picture': string
+        }
+      ]
+    }
+  ];
+  tasks?: [
+    {
+      'text': string,
+    }
+  ];
+  number?: number;
+  setModalActive?: Dispatch<SetStateAction<boolean>>;
+  setAllQuestions?: Dispatch<React.SetStateAction<QuestionBlockProps[]>>;
+  setAllTasks?: Dispatch<React.SetStateAction<TaskBlockProps[]>>;
+  setErrorMessage?: Dispatch<React.SetStateAction<string>>;
+  setIsLoading?: Dispatch<React.SetStateAction<boolean>>;
+  allQuestions?: QuestionBlockProps[],
+  allTasks?: TaskBlockProps[]
 }
 
 export interface QuestionBlockProps {
   id: number,
-  title?: string,
+  title: string,
   isActive?: boolean,
-  start_data?: string,
-  deactivation_data?: string,
+  start_date?: string,
+  deactivation_date?: string,
   questions?: [
     {
       'text': string,
@@ -38,21 +75,27 @@ export interface QuestionBlockProps {
   ]
 }
 
+export interface SiteBlockProps {
+  id: number;
+  title: string,
+  url: string,
+  isActive: boolean,
+  start_date?: string,
+  deactivation_date?: string,
+  onUpdate?: (data: SiteBlockProps) => void;
+  setAllSites?: Dispatch<React.SetStateAction<SiteBlockProps[]>>;
+  setErrorMessage?: Dispatch<React.SetStateAction<string>>;
+  setIsLoading?: Dispatch<React.SetStateAction<boolean>>
+}
+
+
 export interface TaskBlockProps {
-  // id: number,
-  // title: string,
-  // isKey: boolean,
-  // description: string,
-  // link: string,
-  // isActive?: boolean,
-  // status?: string,
-  // dataOfDeactivation?: string,
   id: number,
-  title?: string,
+  title: string,
   number?: number,
   isActive?: boolean,
-  start_data?: string,
-  deactivation_data?: string,
+  start_date?: string,
+  deactivation_date?: string,
   tasks?: [
     {
       'text': string,
@@ -70,6 +113,7 @@ export interface DirectionProps {
 export interface ButtonProps {
   width: string,
   text?: string,
+  disabled?: boolean,
   bgColor?: string,
   border?: string,
   onClick?: () => void
@@ -115,13 +159,14 @@ export interface RequestPhraseProps {
   id: number,
   phrase: string,
   subgroup_id: number,
-  created_at?: string,
-  updated_at?: string
+  created_at: null | string,
+  updated_at: null | string
 }
 
 export interface RequestsProps {
   group: string,
   subGroup: string,
+  sub_id: number,
   phrases: RequestPhraseProps[]
 }
 
@@ -130,6 +175,10 @@ export interface RequestGroupProps {
   isChoosenGroup: boolean,
   headerTitle: string,
   requestsNumber: number,
+  requestData: RequestsProps[],
+  onSelectSubGroup?: (selectedRequests: RequestsProps) => void
+  onSelectPhrase?: (selectedPhrase: RequestPhraseProps) => void
+  group: string
 }
 
 export interface TypeDropDownProps {
@@ -189,25 +238,14 @@ export interface ListItemProps {
   onChoose?: () => void,
 }
 
-export interface ProjectBlockProps {
-  id: number,
-  title: string,
-  isActive: boolean,
-  status: string,
-  dataOfDeactivation: string,
-  region: string,
-  site: string
-}
-
-
 export interface ModalProps {
   active: boolean,
   setActive: Dispatch<SetStateAction<boolean>>,
-  title: string,
+  mainTitle: string,
   subtitle: string,
   btnTrue: string,
   btnFalse: string,
-  onTrue?: () => void,
+  onTrue?: (value?: any) => void,
   onFalse?: () => void,
 }
 

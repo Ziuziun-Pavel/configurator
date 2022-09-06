@@ -4,7 +4,7 @@ import uniqid from 'uniqid';
 export const questionsData: QuestionBlockProps[] = [
     // {
     //     id: uniqid(),
-    //     title: 'Психологические вопросы',
+    //     mainTitle: 'Психологические вопросы',
     //     isActive: true,
     //     status: 'Активный',
     //     dataOfDeactivation: '',
@@ -12,7 +12,7 @@ export const questionsData: QuestionBlockProps[] = [
     // },
     // {
     //     id: uniqid(),
-    //     title: 'Расскажите о себе',
+    //     mainTitle: 'Расскажите о себе',
     //     isActive: false,
     //     status: 'Деактивированный',
     //     dataOfDeactivation: '13.05. в 12.09',
@@ -20,7 +20,7 @@ export const questionsData: QuestionBlockProps[] = [
     // },
     // {
     //     id: uniqid(),
-    //     title: 'Филосовский тест с графикой',
+    //     mainTitle: 'Филосовский тест с графикой',
     //     isActive: true,
     //     status: 'Активный',
     //     dataOfDeactivation: '',
@@ -28,7 +28,7 @@ export const questionsData: QuestionBlockProps[] = [
     // },
     // {
     //     id: uniqid(),
-    //     title: 'Расскажите о себе',
+    //     mainTitle: 'Расскажите о себе',
     //     isActive: false,
     //     status: 'Деактивированный',
     //     dataOfDeactivation: '13.05. в 12.09',

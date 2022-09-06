@@ -18,7 +18,7 @@ const RequestGroupFromSemantics = () => {
                         {/*    requestsData.map(request => {*/}
                         {/*        return(*/}
                         {/*            <div key={request.id} className={s.request__item}>*/}
-                        {/*                {request.title}*/}
+                        {/*                {request.mainTitle}*/}
                         {/*            </div>*/}
                         {/*        );*/}
                         {/*    })*/}
