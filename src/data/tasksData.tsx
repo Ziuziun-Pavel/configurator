@@ -7,7 +7,7 @@ export const tasksData: QuestionBlockProps[] = [
     //     isActive: true,
     //     status: 'Активный',
     //     dataOfDeactivation: '',
-    //     title: 'Расскажите о себе',
+    //     mainTitle: 'Расскажите о себе',
     //     isKey: true,
     //     description: 'Описание задания ',
     //     link: 'facebook.com'
@@ -17,7 +17,7 @@ export const tasksData: QuestionBlockProps[] = [
     //     isActive: false,
     //     status: 'Деактивированный',
     //     dataOfDeactivation: '13.05. в 12.09',
-    //     title: 'Расскажите о себе',
+    //     mainTitle: 'Расскажите о себе',
     //     isKey: true,
     //     description: 'Описание задания ',
     //     link: 'facebook.com'
@@ -27,7 +27,7 @@ export const tasksData: QuestionBlockProps[] = [
     //     isActive: true,
     //     status: 'Активный',
     //     dataOfDeactivation: '',
-    //     title: 'Расскажите о себе',
+    //     mainTitle: 'Расскажите о себе',
     //     isKey: true,
     //     description: 'Описание задания ',
     //     link: 'facebook.com'
@@ -37,7 +37,7 @@ export const tasksData: QuestionBlockProps[] = [
     //     isActive: false,
     //     status: 'Деактивированный',
     //     dataOfDeactivation: '13.05. в 12.09',
-    //     title: 'Расскажите о себе',
+    //     mainTitle: 'Расскажите о себе',
     //     isKey: true,
     //     description: 'Описание задания ',
     //     link: 'facebook.com'

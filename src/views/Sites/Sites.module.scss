@@ -1,4 +1,4 @@
-.projects {
+.sites {
   &__building {
     margin-top: 8.7rem;
     padding: 8rem 0 8rem 10.6rem;
@@ -25,5 +25,12 @@
     font-size: 6rem;
     line-height: 7.3rem;
     color: #000000;
+  }
+
+  &__loading, &__error {
+    display: flex;
+    justify-content: space-around;
+    margin: 3rem;
+    font-size: 3rem;
   }
 }

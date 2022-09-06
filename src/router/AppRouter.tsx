@@ -9,7 +9,7 @@ import Semantics from '../views/Semantics';
 import Statistics from '../views/Statistics';
 import Preview from '../views/Preview';
 import ListOfTests from '../views/ListOfTests';
-import Projects from '../views/Projects';
+import Sites from '../views/Sites';
 import ListOfQuestions from '../views/ListOfQuestions';
 import ListOfTasks from '../views/ListOfTasks';
 
@@ -18,7 +18,7 @@ const AppRouter = () => {
         <Routes>
             <Route path={RouteNames.TESTS_ASSEMBLY} element={<ControlPanel />} />
             <Route path={RouteNames.TESTS} element={<ListOfTests />} />
-            <Route path={RouteNames.PROJECTS} element={<Projects />} />
+            <Route path={RouteNames.PROJECTS} element={<Sites />} />
             <Route path={RouteNames.QUESTIONS} element={<ListOfQuestions />} />
             <Route path={RouteNames.QUESTIONS_ASSEMBLY} element={<ControlPanelQuestions />} />
             <Route path={RouteNames.TASKS_ASSEMBLY} element={<ControlPanelTasks />} />

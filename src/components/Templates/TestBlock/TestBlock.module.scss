@@ -18,6 +18,10 @@
     line-height: 3.8rem;
     color: #000000;
   }
+  &__subtitle {
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
 
   &__info {
     margin: 1.2rem;
@@ -55,13 +59,17 @@
     width: 120rem;
   }
 
-  &__subtitle, &__site {
+  &__site {
     font-weight: 400;
     font-size: 1.4rem;
   }
 
   &__site {
     margin-top: .3rem;
+  }
+
+  &__titles {
+    width: 30rem;
   }
 
   &__activate {
@@ -77,7 +85,7 @@
   }
 
   &__siteBlock {
-    width: 20rem;
+    width: 25rem;
   }
 
   &__idBlock {

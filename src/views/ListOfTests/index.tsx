@@ -13,77 +13,69 @@ import axios from 'axios';
 import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpinner';
 
 const ListOfTests: React.FC = () => {
-    const [allTests, setAllTests] = useState<TestProps[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+  const [allTests, setAllTests] = useState<TestProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-    const getTests = () => {
-        setIsLoading(true);
+  const getTests = () => {
+    setIsLoading(true);
 
-        axios({
-            method: 'GET',
-            url: '/tests'
-        }).then((response) => {
-            const data = response.data.data;
-            setAllTests(data);
-            setIsLoading(false);
-        }).catch((error) => {
-            setErrorMessage(error.message);
-            setIsLoading(false);
+    axios({
+      method: 'GET',
+      url: '/tests'
+    }).then((response) => {
+      const data = response.data.data;
+      setAllTests(data.sort((x: { title: string; }, y: { title: any; }) => x.title.localeCompare(y.title)));
+      setIsLoading(false);
+    }).catch((error) => {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    });
+  };
 
-        });
-    };
+  useEffect(() => {
+    getTests();
+  }, []);
 
-    useEffect(() => {
-        getTests();
-    }, []);
+  return (
+    <>
+      <NavigationMenu />
+      <HeaderContainer text='Список всех тестов' />
 
-    return (
-        <>
-            <NavigationMenu />
-            <HeaderContainer text='Список всех тестов' />
+      <DropDownProjects title='Проект (целевые сайты)'
+                        placeholder='Выберите проект'
+                        listOfItems={targetSitesData} onSetTestData={() => console.log('')} />
 
-            <DropDownProjects title='Проект (целевые сайты)'
-                              placeholder='Выберите проект'
-                              listOfItems={targetSitesData} onSetTestData={() => console.log('')} />
+      {isLoading ? (<div className={s.tests__loading}>
+        <LoadingSpinner />
+      </div>) : (<div className={s.tests__list}>
+          {
+            allTests.map((test, index) => {
+              return (
+                <TestBlock key={index}
+                           {...test}
+                           setAllTests={setAllTests}
+                           setIsLoading={setIsLoading}
+                           setErrorMessage={setErrorMessage}
+                           allTests={allTests}
+                />
+              );
+            })
+          }
+          {errorMessage && <div className={s.tests__error}>{errorMessage}</div>}
 
-
-            {isLoading ? <div className={s.tests__loading}>
-                <LoadingSpinner />
-            </div> : <div className={s.tests__list}>
-                {
-                    allTests.map(test => {
-                        return (
-                            <TestBlock key={test.id}
-                                       id={test.id}
-                                       title={test.title}
-                                       region={test.region}
-                                       comment={test.comment}
-                                       search_system={test.search_system}
-                                       title_site={test.title_site}
-                                       url_site={test.url_site}
-                                       isActive={test.isActive}
-                                       start_date={test.start_date}
-                                       deactivation_date={test.isActive ? '' : test.deactivation_date}
-                                       question_block_id={test.question_block_id}
-                                       task_block_id={test.task_block_id}
-                                       direction={test.direction}
-                            />
-                        );
-                    })
-                }
-            </div>}
-
-            {errorMessage && <div className={s.tests__error}>{errorMessage}</div>}
+        </div>
+      )}
 
 
-            <div className={s.tests__btn}>
-                <Link to={RouteNames.TESTS_ASSEMBLY}><Button width='39.7rem' bgColor='#096BFF'
-                                                             text='Создать новый тест' /></Link>
-            </div>
+      <div className={s.tests__btn}>
+        <Link to={RouteNames.TESTS_ASSEMBLY}><Button width='39.7rem'
+                                                     bgColor='#096BFF'
+                                                     text='Создать новый тест' /></Link>
+      </div>
 
-        </>
-    );
+    </>
+  );
 };
 
 export default ListOfTests;
