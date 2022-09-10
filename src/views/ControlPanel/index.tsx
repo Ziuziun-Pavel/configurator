@@ -5,15 +5,20 @@ import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitl
 import DropdownMenu from '../../components/UI/DropDowns/DropDownMenu/DropdownMenu';
 import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
-import { dropDownMenuData } from '../../data/dropDownMenuData';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanel.module.scss';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
-import { DropDownMenuDataProps, RequestPhraseProps, RequestsProps, TestProps } from '../../models/Interfaces';
+import {
+  DirectionProps,
+  DropDownMenuDataProps,
+  QuestionBlockProps,
+  RequestPhraseProps,
+  RequestsProps,
+  TaskBlockProps,
+  TestProps
+} from '../../models/Interfaces';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
-import { requestsData } from '../../data/requestsData';
-import { choosenRequestsData } from '../../data/choosenRequestsData';
 import DropDownProjects from '../../components/UI/DropDowns/DropDownProjects/DropDownProjects';
 import Request from '../../components/Templates/Request/Request';
 import { targetSitesData } from '../../data/targetSitesData';
@@ -21,34 +26,64 @@ import { testDirectionData } from '../../data/testDirectionData';
 import Modal from '../../components/Templates/Modal/Modal';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpinner';
+import uniqid from 'uniqid';
 
 const ControlPanel: React.FC = () => {
     const [allTests, setAllTests] = useState<TestProps[]>([]);
     const [allRequests, setAllRequests] = useState<RequestsProps[]>([]);
+    const [requestsFilteredByDirection, setRequestsFilteredByDirection] = useState<RequestsProps[]>([]);
+    const [allQuestions, setAllQuestions] = useState<QuestionBlockProps[]>([]);
+    const [allTasks, setAllTasks] = useState<TaskBlockProps[]>([]);
 
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [modalActive, setModalActive] = useState(false);
     const [isDisabled, setDisabled] = useState(true);
     const [selectedRequests, setSelectedRequests] = useState<RequestsProps[]>([]);
-
-    const [dropdowns, setDropdown] = useState(dropDownMenuData);
-    const [addingDropDownInput, setAddingDropDownInput] = useState('');
+    const [titlesOfQuestionAndTaskBlocks, setTitlesOfQuestionAndTaskBlocks] = useState<string[]>([]);
+    const [dropdowns, setDropdown] = useState<DropDownMenuDataProps[]>([]);
+    const [dropDownBlockTitle, setDropDownBlockTitle] = useState('');
     const [testTitle, setTestTitle] = useState('');
     const [testURL, setTestURL] = useState('');
     const [testRegion, setTestRegion] = useState('');
     const [testComment, setTestComment] = useState('');
     const [testSiteURL, setTestSiteURL] = useState('Выберите проект');
+    const [testQuestions, setTestQuestions] = useState<QuestionBlockProps[]>([]);
+    const [testTasks, setTestTasks] = useState<TaskBlockProps[]>([]);
     const [testDirection, setTestDirection] = useState('Выберите направление');
+    const [testPhrases, setTestPhrases] = useState<DirectionProps[]>([]);
     const [testSearchingSystem, setTestSearchingSystem] = useState('Выберите поисковую систему (по умолчанию ничего не выбрано)');
+    const [intensivity, setIntensivity] = useState('');
 
-    const addDropDownMenu = (item: DropDownMenuDataProps) => {
-      item.id = dropdowns.length + 1;
-      item.title = addingDropDownInput;
-      item.list = ['тип 1', 'тип 2', 'тип 3', 'тип 4'];
 
-      setAddingDropDownInput('');
-      setDropdown([...dropdowns, item]);
+    const addingTestBlock = (selectedTitle: string) => {
+      allQuestions.map(q => {
+        if (q.title === selectedTitle) {
+          setTestQuestions(prev => [...prev, q]);
+          setTestTasks([q]);
+          return;
+        } else {
+          allTasks.map(t => {
+            if (t.title === selectedTitle) {
+              setTestTasks(prev => [...prev, t]);
+              return;
+            }
+          });
+        }
+      });
+
+    };
+
+
+    const addDropDownMenu = () => {
+      const newDropDown: DropDownMenuDataProps = {
+        id: uniqid(),
+        title: dropDownBlockTitle,
+        list: titlesOfQuestionAndTaskBlocks
+      };
+
+      setDropDownBlockTitle('');
+      setDropdown([...dropdowns, newDropDown]);
       setDisabled(true);
     };
 
@@ -62,6 +97,8 @@ const ControlPanel: React.FC = () => {
 
     useEffect(() => {
       getRequests();
+      getQuestions();
+      getTasks();
     }, []);
 
     const getRequests = () => {
@@ -80,12 +117,54 @@ const ControlPanel: React.FC = () => {
       });
     };
 
+    const getQuestions = () => {
+
+      setIsLoading(true);
+      axios({
+        method: 'GET',
+        url: '/question_blocks'
+      }).then((response) => {
+        const requests: QuestionBlockProps[] = response.data.data;
+        const titles: string[] = [];
+        requests.map(q => {
+          titles.push(q.title);
+        });
+        setTitlesOfQuestionAndTaskBlocks(prev => [...prev, ...titles]);
+        setAllQuestions(requests);
+        setIsLoading(false);
+      }).catch((error) => {
+        setErrorMessage(error.message);
+
+      });
+    };
+
+    const getTasks = () => {
+
+      setIsLoading(true);
+      axios({
+        method: 'GET',
+        url: '/task_blocks'
+      }).then((response) => {
+        const requests: TaskBlockProps[] = response.data.data;
+        const titles: string[] = [];
+        requests.map(q => {
+          titles.push(q.title);
+        });
+        setTitlesOfQuestionAndTaskBlocks(prev => [...prev, ...titles]);
+        setAllTasks(requests);
+        setIsLoading(false);
+      }).catch((error) => {
+        setErrorMessage(error.message);
+
+      });
+    };
+
     const deleteDropDownMenu = (id: number | undefined) => {
       setDropdown(dropdowns.filter(user => user.id !== id));
     };
 
     const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-      setAddingDropDownInput(e.target.value);
+      setDropDownBlockTitle(e.target.value);
       setDisabled(false);
     };
 
@@ -101,9 +180,46 @@ const ControlPanel: React.FC = () => {
       }, 600);
     };
 
+
+  {/*Не добавляет элемент*/}
+
     const onActivateTest = () => {
       setIsLoading(true);
       setModalActive(false);
+
+      // const data: TestProps = {
+      //   id: 666,
+      //   isActive: true,
+      //   start_date: '',
+      //   title: 'ЯЯЯЯЯЯЯ',
+      //   region: 'testRegion',
+      //   comment: 'testComment',
+      //   url_test: 'q',
+      //   search_system: 'testSearchingSystem',
+      //   title_site: 'testURL',
+      //   url_site: 'testSiteURL',
+      //   question_blocks: [
+      //     {
+      //       id: 1,
+      //       title: ''
+      //     }
+      //   ],
+      //   task_blocks: [
+      //     {
+      //       id: 1,
+      //       title: '',
+      //       number: 12
+      //     }
+      //   ],
+      //   direction: [
+      //     {
+      //       group: testDirection,
+      //       subgroup: 'Sub Group',
+      //       phrase: 'Phrase',
+      //       intensivity: 1
+      //     }
+      //   ]
+      // };
 
       const data: TestProps = {
         id: 1,
@@ -114,32 +230,15 @@ const ControlPanel: React.FC = () => {
         comment: testComment,
         search_system: testSearchingSystem,
         title_site: testURL,
+        url_test: testURL,
         url_site: testSiteURL,
-        question_blocks: [
-          {
-            id: 1,
-            title: ''
-          }
-        ],
-        task_blocks: [
-          {
-            id: 1,
-            title: '',
-            number: 12
-          }
-        ],
-        directions: [
-          {
-            group: testDirection,
-            subgroup: 'Sub Group',
-            phrase: 'Phrase',
-            intensivity: 1
-          }
-        ]
+        question_blocks: testQuestions,
+        task_blocks: testTasks,
+        direction: testPhrases
       };
 
       axios.post('/tests', data).then(r => {
-        setAllTests(r.config.data);
+        setAllTests(r.data);
         setIsLoading(false);
       }).catch(error => {
         setErrorMessage(error.message);
@@ -150,6 +249,10 @@ const ControlPanel: React.FC = () => {
 
     };
 
+    const onSetIntensivity = (value: string) => {
+      setIntensivity(value);
+    };
+
     const onSelectSubGroup = (selectedSubGroup: RequestsProps) => {
       const find = selectedRequests.indexOf(selectedSubGroup);
 
@@ -158,13 +261,28 @@ const ControlPanel: React.FC = () => {
       } else {
         setSelectedRequests([...selectedRequests, selectedSubGroup]);
       }
+      {/*Не добавляет направление*/}
+
+      selectedRequests.map(r => {
+        r.phrases.map(ph => {
+          setTestPhrases(prev => [...prev, {
+            group: r.group,
+            subgroup: r.subgroup,
+            phrase: ph.phrase,
+            intensivity: +intensivity
+          }]);
+        });
+
+        console.log(testPhrases, 's');
+      });
+
+
     };
 
     const onSelectPhrase = (selectedPhrase: RequestPhraseProps) => {
       const findIndex = selectedRequests.findIndex(i => {
         return i.phrases.find(ph => ph.id === selectedPhrase.id);
       });
-      console.log(findIndex);
 
       if (findIndex > -1) {//Вырезает элемент если он существует
         setSelectedRequests(selectedRequests.filter(item => item.phrases.some(i => i.id !== selectedPhrase.id)));
@@ -172,25 +290,25 @@ const ControlPanel: React.FC = () => {
       } else {//Добавляет элемент
         const findArr: RequestsProps[] = allRequests.filter(item => item.sub_id === selectedPhrase.subgroup_id);
 
-        findArr.map(item => {//Если существует subGroup
+        findArr.map(item => {//Если существует subgroup
           // selectedRequests.map(i => {
           //
-          //   if (i.subGroup.includes(item.subGroup)) {
+          //   if (i.subgroup.includes(item.subgroup)) {
           //     const phrasesArr: RequestPhraseProps[] = [];
           //     phrasesArr.push(selectedPhrase);
           //     setSelectedRequests([...selectedRequests, {
           //       group: item.group,
-          //       subGroup: item.subGroup,
+          //       subgroup: item.subgroup,
           //       sub_id: item.sub_id,
           //       phrases: phrasesArr
           //     }]);
           //   } else {
-              setSelectedRequests([...selectedRequests, {
-                group: item.group,
-                subGroup: item.subGroup,
-                sub_id: item.sub_id,
-                phrases: [selectedPhrase]
-              }]);
+          setSelectedRequests([...selectedRequests, {
+            group: item.group,
+            subgroup: item.subgroup,
+            sub_id: item.sub_id,
+            phrases: [selectedPhrase]
+          }]);
 
           //   }
           // });
@@ -198,14 +316,26 @@ const ControlPanel: React.FC = () => {
         });
 
       }
+      selectedRequests.map(r => {
+        r.phrases.map(ph => {
+          setTestPhrases(prev => [...prev, {
+            group: r.group,
+            subgroup: r.subgroup,
+            phrase: ph.phrase,
+            intensivity: +intensivity
+          }]);
+        });
+
+        console.log(testPhrases, 'p');
+      });
     };
 
     return (
       <>
         {isLoading ?
-          <div className={s.loadingSpinner}>
+          (<div className={s.loadingSpinner}>
             <LoadingSpinner />
-          </div>
+          </div>)
           :
           <>
             <NavigationMenu />
@@ -271,7 +401,7 @@ const ControlPanel: React.FC = () => {
                                                         width='100%'
                                                         deleteFnc={() => deleteDropDownMenu(item.id)}
                                                         listItemsText={item.list}
-                                                        onSetTestData={() => console.log('')}
+                                                        onSetTestData={addingTestBlock}
                                                         isAdding={false}
                                                         isDelete={true} />)
                   }
@@ -281,16 +411,12 @@ const ControlPanel: React.FC = () => {
                 <div className={s.textFieldWrapper}>
                   <input className={s.addingTextField}
                          placeholder='Введите название блока'
-                         value={addingDropDownInput}
+                         value={dropDownBlockTitle}
                          onChange={(e) => onChangeInput(e)} />
 
                   <button className={s.addingButton}
                           disabled={isDisabled}
-                          onClick={() => addDropDownMenu({
-                            id: 1,
-                            title: 'Изучить работадателя (блок 2)',
-                            list: ['тип 1', 'тип 1', 'тип 1', 'тип 1']
-                          })}>Добавить
+                          onClick={addDropDownMenu}>Добавить
                     <AddIcon
                       sx={{
                         position: 'absolute',
@@ -307,10 +433,14 @@ const ControlPanel: React.FC = () => {
                 <div className={s.dropDowns__wrapper}>
 
                   <div className={s.dropDownDirection__container}>
+                    {/*Не фильрует по направлению*/}
                     <DropDownProjects title='Направление:'
                                       placeholder={testDirection}
                                       listOfItems={testDirectionData}
-                                      onSetTestData={(item) => setTestDirection(item)} />
+                                      onSetTestData={(item) =>{
+                                        setTestDirection(item)
+                                        setRequestsFilteredByDirection(allRequests.filter(r => r.group === item))
+                                      }}  />
                   </div>
 
                   <div className={s.searching__wrapper}>
@@ -340,6 +470,7 @@ const ControlPanel: React.FC = () => {
                              onSelectSubGroup={(selectedSubGroup) => onSelectSubGroup(selectedSubGroup)}
                              onSelectPhrase={(selectedPhrase) => onSelectPhrase(selectedPhrase)}
                              group={testDirection}
+                             onSetIntensivity={onSetIntensivity}
                     />
 
                     <Request headerTitle='Выбранные'
@@ -347,6 +478,7 @@ const ControlPanel: React.FC = () => {
                              requestsNumber={getRequestsNumber(selectedRequests)}
                              requestData={selectedRequests}
                              group={testDirection}
+                             onSetIntensivity={onSetIntensivity}
                     />
 
                   </div>

@@ -31,7 +31,7 @@
   &__btn {
     position: absolute;
     top: 0;
-    right: 0rem;
+    right: 0;
   }
 }
 
@@ -40,4 +40,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 8rem;
+}
+
+.loadingSpinner, .error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40rem;
+  font-size: 3rem;
 }

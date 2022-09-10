@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import s from './Request.module.scss';
 import RequestHeader from './RequestHeader/RequestHeader';
 import SearchIconPath from '../../../assets/searching.svg';
-import { RequestGroupProps, RequestsProps } from '../../../models/Interfaces';
+import { RequestGroupProps, RequestPhraseProps, RequestsProps } from '../../../models/Interfaces';
+import RequestCheckBox from './RequestCheckBox/RequestCheckBox';
 
 const Request: React.FC<RequestGroupProps> = ({
                                                 isChoosenGroup,
@@ -24,7 +25,7 @@ const Request: React.FC<RequestGroupProps> = ({
   const filteredRequests = !searchInput
     ? requestData
     : requestData.filter((request) => {
-        return request.subGroup.toLowerCase().includes(searchInput.toLowerCase());
+        return request.subgroup.toLowerCase().includes(searchInput.toLowerCase());
       }
     );
 
@@ -39,6 +40,10 @@ const Request: React.FC<RequestGroupProps> = ({
 
     setCheckedSubgroupCheckBoxState(updatedCheckedState);
 
+  };
+
+  const setIntensivity = (value: string) => {
+    console.log(value);
   };
 
   const onChangePhraseCheckbox = (e: React.ChangeEvent<HTMLInputElement>, position: number) => {
@@ -77,41 +82,34 @@ const Request: React.FC<RequestGroupProps> = ({
                     <div className={s.requests__blocks__header}>
                       <input id={`subGroup-checkbox-${i}`}
                              type='checkbox'
-                             name={request.subGroup}
-                             checked={isChoosenGroup ? true : checkedSubgroupCheckBoxState[i] }
+                             name={request.subgroup}
+                             checked={isChoosenGroup ? true : checkedSubgroupCheckBoxState[i]}
                              onChange={(e) => onChangeSubGroupCheckbox(e, i)}
                              onClick={() => onSelectSubGroup ? onSelectSubGroup(request) : ''}
-                             value={request.subGroup} />
-                      <label htmlFor={`subGroup-checkbox-${i}`}>{request.subGroup}</label>
+                             value={request.subgroup} />
+                      <label htmlFor={`subGroup-checkbox-${i}`}>{request.subgroup}</label>
 
                       <span
                         className={s.requests__blocks__numberRequests}>({request.phrases.length} запросов)</span>
                     </div>
 
+
                     {
                       request.phrases.map((phrase, index) => {
                         return (
                           <div key={phrase.id} className={s.requests__blocks__str}>
-                            <div>
-                              <input id={`subtitle-checkbox-${index}`}
-                                     className={s.requests__blocks__checkbox}
-                                     type='checkbox'
-                                     checked={checkedSubgroupCheckBoxState[i] || isChoosenGroup ? true : checkedPhraseCheckBoxState[i][index]}
-                                     name={phrase.phrase}
-                                     value={phrase.phrase}
-                                     onChange={(e) => onChangePhraseCheckbox(e, index)}
-                                     onClick={() => onSelectPhrase ? onSelectPhrase(phrase) : ''}
-                              />
-                              <label
-                                htmlFor={`subtitle-checkbox-${index}`}>{phrase.phrase}</label>
-                            </div>
+                            <RequestCheckBox
+                              id={index}
+                              subGroupIndex={i}
+                              checkedSubgroupCheckBoxState={checkedSubgroupCheckBoxState}
+                              checkedPhraseCheckBoxState={checkedPhraseCheckBoxState}
+                              phrase={phrase}
+                              onSelectPhrase={phrase => onSelectPhrase?.(phrase)}
+                              onChangePhraseCheckbox={onChangePhraseCheckbox}
+                              isChoosenGroup={isChoosenGroup}
+                              onSetIntensivity={setIntensivity}
 
-                            {
-                              isChoosenGroup ?
-                                <input type='number'
-                                       className={s.requests__blocks__intensivity} />
-                                : <div></div>
-                            }
+                            />
                           </div>
 
                         );
@@ -119,7 +117,8 @@ const Request: React.FC<RequestGroupProps> = ({
                     }
 
                   </div>
-                );
+                )
+                  ;
               })
 
             }

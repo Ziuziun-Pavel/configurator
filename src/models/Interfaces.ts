@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 export interface TestProps {
   id?: number,
@@ -8,12 +8,13 @@ export interface TestProps {
   search_system?: string,
   title_site?: string,
   url_site?: string,
+  url_test?: string,
   isActive?: boolean,
   start_date?: string,
   deactivation_date?: string,
   question_blocks?: QuestionBlockProps[],
   task_blocks?: TaskBlockProps[],
-  directions?: DirectionProps[],
+  direction?: DirectionProps[],
   setAllTests?: Dispatch<React.SetStateAction<TestProps[]>>;
   setErrorMessage?: Dispatch<React.SetStateAction<string>>;
   setIsLoading?: Dispatch<React.SetStateAction<boolean>>;
@@ -110,6 +111,16 @@ export interface DirectionProps {
   intensivity: number
 }
 
+export interface RequestsProps {
+  group: string,
+  subgroup: string,
+  sub_id?: number,
+  phrases: RequestPhraseProps[],
+  allRequests?: RequestsProps[],
+  setAllRequests?: Dispatch<React.SetStateAction<RequestsProps[]>>;
+}
+
+
 export interface ButtonProps {
   width: string,
   text?: string,
@@ -117,6 +128,18 @@ export interface ButtonProps {
   bgColor?: string,
   border?: string,
   onClick?: () => void
+}
+
+export interface RequestCheckBoxProps {
+  id: number;
+  subGroupIndex: number;
+  checkedSubgroupCheckBoxState: boolean[];
+  checkedPhraseCheckBoxState: boolean[][];
+  phrase: RequestPhraseProps;
+  onSelectPhrase: (phrase: RequestPhraseProps) => void;
+  onChangePhraseCheckbox: (e: ChangeEvent<HTMLInputElement>, id: number) => void
+  isChoosenGroup: boolean;
+  onSetIntensivity: (value: string) => void
 }
 
 export interface DropDownProjectsProps {
@@ -156,18 +179,11 @@ export interface DropDownBtnProps {
 }
 
 export interface RequestPhraseProps {
-  id: number,
+  id?: number,
   phrase: string,
-  subgroup_id: number,
-  created_at: null | string,
-  updated_at: null | string
-}
-
-export interface RequestsProps {
-  group: string,
-  subGroup: string,
-  sub_id: number,
-  phrases: RequestPhraseProps[]
+  subgroup_id?: number,
+  created_at?: null | string,
+  updated_at?: null | string
 }
 
 export interface RequestGroupProps {
@@ -178,7 +194,8 @@ export interface RequestGroupProps {
   requestData: RequestsProps[],
   onSelectSubGroup?: (selectedRequests: RequestsProps) => void
   onSelectPhrase?: (selectedPhrase: RequestPhraseProps) => void
-  group: string
+  group: string;
+  onSetIntensivity: (val: string) => void
 }
 
 export interface TypeDropDownProps {
@@ -266,4 +283,10 @@ export interface TextFieldProps {
   text?: string,
   value?: string,
   onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void
+}
+
+export interface PostDataFile {
+  title: string;
+  body: string;
+  image: File | null;
 }

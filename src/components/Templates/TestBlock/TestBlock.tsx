@@ -22,7 +22,7 @@ const TestBlock: React.FC<TestProps> = ({
                                           deactivation_date,
                                           question_blocks,
                                           task_blocks,
-                                          directions,
+                                          direction,
                                           setAllTests,
                                           setErrorMessage,
                                           setIsLoading,
@@ -51,7 +51,7 @@ const TestBlock: React.FC<TestProps> = ({
           url_site: url_site,
           question_blocks: question_blocks,
           task_blocks: task_blocks,
-          directions: directions
+          direction: direction
         }
       ;
 
@@ -76,7 +76,7 @@ const TestBlock: React.FC<TestProps> = ({
                                       url_site,
                                       question_blocks,
                                       task_blocks,
-                                      directions
+                                      direction
                                     }: TestProps) => {
       const date = new Date();
       const currentDate = String(date.getDate()).padStart(2, '0') + '.' + String(date.getMonth() + 1).padStart(2, '0') + '.' + date.getFullYear();
@@ -95,7 +95,7 @@ const TestBlock: React.FC<TestProps> = ({
           url_site: url_site,
           question_blocks: question_blocks,
           task_blocks: task_blocks,
-          directions: directions
+          direction: direction
         }
       ;
 
@@ -181,7 +181,7 @@ const TestBlock: React.FC<TestProps> = ({
                    url_site,
                    question_blocks,
                    task_blocks,
-                   directions
+                   direction: direction
                  })}
                  onFalse={() => setModalActive(false)} />
 

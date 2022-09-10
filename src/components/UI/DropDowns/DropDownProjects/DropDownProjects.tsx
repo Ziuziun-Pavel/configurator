@@ -6,7 +6,10 @@ import ListItem from '../../../Templates/ListItem/ListItem';
 import AddIcon from '@mui/icons-material/Add';
 import { DropDownProjectsProps, ListOfDropDownProjectItemsProps } from '../../../../models/Interfaces';
 
-const DropDownProjects: React.FC<DropDownProjectsProps> = ({ title, placeholder, listOfItems, onSetTestData }) => {
+const DropDownProjects: React.FC<DropDownProjectsProps> = ({ title,
+                                                               placeholder,
+                                                               listOfItems,
+                                                               onSetTestData }) => {
     const [addingSiteInput, setAddingSiteInput] = useState('');
     const [sites, setSite] = useState<ListOfDropDownProjectItemsProps[]>(listOfItems);
     const [isDropDownActive, setDropDownActive] = useState(false);

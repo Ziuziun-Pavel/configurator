@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import s from './QuestionBlockWithAnswer.module.scss';
-import { QuestionBlockProps } from '../../../models/Interfaces';
+import { QuestionTaskBlockProps } from '../../../models/Interfaces';
 import DeleteButton from '../../UI/Buttons/DeleteButton/DeleteButton';
 import AnswersBlock from '../AnswersBlock/AnswersBlock';
 
-const QuestionBlockWithAnswer: React.FC<QuestionBlockProps>  = ({id, title, questions}) => {
+const QuestionTaskBlockWithAnswer: React.FC<QuestionTaskBlockProps>  = ({id, title, questions}) => {
     const [answerActivity, setAnswerActivity] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const QuestionBlockWithAnswer: React.FC<QuestionBlockProps>  = ({id, title, ques
           <div className={s.questionBlock}>
               <div className={s.questionBlock__titleWrapper}>
                   <h3 className={s.questionBlock__title}>{title}</h3>
-                  {/*<a href={questions[0].text} className={s.questionBlock__link}>см. картинку</a>*/}
+                  <a href={title} className={s.questionBlock__link}>см. картинку</a>
               </div>
 
               <div className={s.questionBlock__second}>
@@ -42,4 +42,4 @@ const QuestionBlockWithAnswer: React.FC<QuestionBlockProps>  = ({id, title, ques
   );
 };
 
-export default QuestionBlockWithAnswer;
+export default QuestionTaskBlockWithAnswer;
