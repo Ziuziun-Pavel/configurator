@@ -11,4 +11,12 @@ export const testDirectionData: ListOfDropDownProjectItemsProps[] = [
         site: 'Наркология'
 
     },
+    {
+        id: uniqid(),
+        site: 'est'
+    },
+    {
+        id: uniqid(),
+        site: 'a'
+    },
 ];

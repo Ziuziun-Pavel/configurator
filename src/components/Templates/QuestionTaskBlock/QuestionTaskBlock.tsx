@@ -53,7 +53,7 @@ const QuestionTaskBlock: React.FC<QuestionTaskBlockProps> = ({
         }
       ;
 
-      axios.post('/task_bloks', clonnedTask).then(r => {
+      axios.post('/task_blocks', clonnedTask).then(r => {
         setAllTasks?.(prev => [...prev, clonnedTask].sort((x, y) => x.title.localeCompare(y.title)));
         setIsLoading?.(false);
       }).catch(error => {
@@ -109,7 +109,7 @@ const QuestionTaskBlock: React.FC<QuestionTaskBlockProps> = ({
         }
       ;
 
-      axios.put(`/task_bloks/${id}`, newTask).then((response) => {
+      axios.put(`/task_blocks/${id}`, newTask).then((response) => {
         setAllTasks?.((prev) => [...prev.filter(({ id: idToDelete }) => id !== idToDelete), newTask].sort((x, y) => x.title.localeCompare(y.title)));
         setIsLoading?.(false);
       }).catch(error => {

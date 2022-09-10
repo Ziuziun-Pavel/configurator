@@ -17,13 +17,12 @@ const ListOfTests: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  console.log(allTests);
+
   const getTests = () => {
     setIsLoading(true);
 
-    axios({
-      method: 'GET',
-      url: '/tests'
-    }).then((response) => {
+    axios.get('/tests').then((response) => {
       const data = response.data.data;
       setAllTests(data.sort((x: { title: string; }, y: { title: any; }) => x.title.localeCompare(y.title)));
       setIsLoading(false);

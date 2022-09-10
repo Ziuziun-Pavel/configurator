@@ -2,36 +2,61 @@ import { QuestionBlockProps } from '../models/Interfaces';
 import uniqid from 'uniqid';
 
 export const questionsData: QuestionBlockProps[] = [
-    // {
-    //     id: uniqid(),
-    //     mainTitle: 'Психологические вопросы',
-    //     isActive: true,
-    //     status: 'Активный',
-    //     dataOfDeactivation: '',
-    //     answer: 'www.google.com'
-    // },
-    // {
-    //     id: uniqid(),
-    //     mainTitle: 'Расскажите о себе',
-    //     isActive: false,
-    //     status: 'Деактивированный',
-    //     dataOfDeactivation: '13.05. в 12.09',
-    //     answer: 'www.google.com'
-    // },
-    // {
-    //     id: uniqid(),
-    //     mainTitle: 'Филосовский тест с графикой',
-    //     isActive: true,
-    //     status: 'Активный',
-    //     dataOfDeactivation: '',
-    //     answer: 'www.google.com'
-    // },
-    // {
-    //     id: uniqid(),
-    //     mainTitle: 'Расскажите о себе',
-    //     isActive: false,
-    //     status: 'Деактивированный',
-    //     dataOfDeactivation: '13.05. в 12.09',
-    //     answer: 'www.google.com'
-    // }
+    {
+      id: 1,
+      title: 'string',
+      isActive: true,
+      start_date: '',
+      deactivation_date: 'string',
+      questions: [
+        {
+          'text': 'string',
+          'picture': 'string',
+          'question_variants': [
+            {
+              'text': 'string',
+              'picture': 'string'
+            }
+          ]
+        }
+      ]
+    },
+  {
+    id: 2,
+    title: 'string',
+    isActive: true,
+    start_date: '',
+    deactivation_date: 'string',
+    questions: [
+      {
+        'text': 'string',
+        'picture': 'string',
+        'question_variants': [
+          {
+            'text': 'string',
+            'picture': 'string'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: 'string',
+    isActive: true,
+    start_date: '',
+    deactivation_date: 'string',
+    questions: [
+      {
+        'text': 'string',
+        'picture': 'string',
+        'question_variants': [
+          {
+            'text': 'string',
+            'picture': 'string'
+          }
+        ]
+      }
+    ]
+  },
 ];

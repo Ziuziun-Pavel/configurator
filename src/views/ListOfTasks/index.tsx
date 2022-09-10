@@ -20,7 +20,7 @@ const ListOfTasks: React.FC = () => {
 
     axios({
       method: 'GET',
-      url: '/task_bloks'
+      url: '/task_blocks'
     }).then((response) => {
       const data = response.data.data;
       setAllTasks(data.sort((x: { title: string; }, y: { title: string; }) => x.title.localeCompare(y.title)));

@@ -44,6 +44,10 @@
     line-height: 1.8rem;
     color: #000000;
     cursor: pointer;
+
+    label {
+      cursor: pointer;
+    }
   }
 
   &__adding {
@@ -64,6 +68,10 @@
   &__questionsBlocksList {
     margin-top: 8rem;
   }
+
+  &__questionTitle {
+    margin-top: 8rem;
+  }
 }
 
 .clipWrapper {
@@ -75,4 +83,13 @@
 
 .titleContainer {
   margin-top: 8rem;
+}
+
+.uplodedImgsContainer {
+  margin-top: 1rem;
+
+  img   {
+    height: 100px;
+    width: 100px;
+  }
 }
