@@ -234,10 +234,16 @@ export interface RequestHeaderProps {
 }
 
 export interface DeleteButtonProps {
-  color: string,
-  onDelete?: () => void
+  color?: string;
+  text?: string;
+  right?: string;
+  onDelete?: () => void;
 }
 
+export interface FileTileProps {
+  file: File;
+  onRemove: (f: {name: string}) => void;
+}
 export interface DropDownProps {
   id?: number,
   width: string,

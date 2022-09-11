@@ -7,45 +7,66 @@ import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import ClipPath from '../../assets/clip.svg';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '../../components/UI/Buttons/Button/Button';
+import ClearIcon from '@mui/icons-material/Clear';
 import QuestionTaskBlockWithAnswer
   from '../../components/Templates/QuestionBlockWithAnswer/QuestionTaskBlockWithAnswer';
 import { questionsData } from '../../data/questionsData';
+import DeleteButton from '../../components/UI/Buttons/DeleteButton/DeleteButton';
 
 const ControlPanelQuestions: React.FC = () => {
   const [questionTitle, setQuestionTitle] = useState('');
   const [questionText, setQuestionText] = useState('');
-  const [newFile, setNewFile] = useState<File | undefined>();
-  const [newFileArr, setNewFileArr] = useState<File[] | undefined>([]);
-  const [preview, setPreview] = useState<string | undefined>('');
 
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
-  useEffect(() => {
-    if (!newFile) {
-      setPreview(undefined)
-      return
-    }
+  const formatFilesTitle = (t: number) => {
+    if (t === 1) return `${t} файл`;
+    if (t > 1 && t < 5) return `${t} файла`;
+    if (t >= 5) return `${t} файлов`;
 
-    const objectUrl = URL.createObjectURL(newFile)
-    setPreview(objectUrl)
-
-    return () => URL.revokeObjectURL(objectUrl)
-  }, [newFile])
-
-  const uploadFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setNewFile(undefined)
-      return
-    }
-
-    // I've kept this example simple by using the first image instead of multiple
-    setNewFile(e.target.files[0])
   };
 
+  const formatBytes = (b: number) => {
+    const units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    let l = 0;
+    let n = b;
+
+    while (n >= 1024) {
+      n /= 1024;
+      l += 1;
+    }
+
+    return `${n.toFixed(n >= 10 || l < 1 ? 0 : 1)}${units[l]}`;
+  };
+
+  const handleUploadFiles = (files: File[]) => {
+    const uploaded: File[] = [...uploadedFiles];
+    files.some(file => {
+      if (uploaded.findIndex(f => f.name === file.name) === -1) {
+        uploaded.push(file);
+      }
+    });
+    setUploadedFiles(uploaded);
+
+  };
+
+  const handleFileEvent = (e: ChangeEvent<HTMLInputElement>) => {
+    const chosenFiles = Array.prototype.slice.call(e.target.files);
+    handleUploadFiles(chosenFiles);
+  };
+
+  const onRemoveAllFiles = () => {
+    setUploadedFiles([]);
+  };
+
+  const onRemoveFileByFileName = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, f: File) => {
+    e.preventDefault();
+    setUploadedFiles(uploadedFiles.filter(x => x.name !== f.name));
+  };
 
   return (
     <>
       <NavigationMenu />
-
 
       <div className='container'>
         <HeaderContainer text='Создание блока вопросов' />
@@ -78,7 +99,7 @@ const ControlPanelQuestions: React.FC = () => {
                 <input id='download_first'
                        type='file'
                        name='file'
-                       onChange={uploadFile}
+                       onChange={handleFileEvent}
                        hidden />
 
                 <label htmlFor='download_first'>Загрузить картинку</label>
@@ -90,9 +111,35 @@ const ControlPanelQuestions: React.FC = () => {
               </div>
 
               <div className={s.uplodedImgsContainer}>
-                {newFile && <img src={preview} alt={preview} /> }
+                {
+                  uploadedFiles.map((file, index) => (
+                    <div key={index} className={s.closeImg}>
+                      <img src={URL.createObjectURL(file)} alt={file.name} />
+
+                      <button className={s.close} onClick={(e) => onRemoveFileByFileName(e,file)}>
+                        <ClearIcon
+                          sx={{
+                            color: 'red',
+                            fontSize: '1.5em'
+                          }} />
+                      </button>
+
+                    </div>
+                  ))
+                }
               </div>
 
+              {!uploadedFiles.length ? '' : <div className={s.testBody__filesNumber}>
+                {formatFilesTitle(uploadedFiles.length)}
+
+                <span
+                  className={s.testBody__filesSize}>{formatBytes(uploadedFiles.reduce((acc, file) => acc + file.size, 0))}</span>
+
+                <span className={s.delete_btn}><DeleteButton text='Удалить всё'
+                                                             right='9.5rem'
+                                                             onDelete={onRemoveAllFiles}
+                /></span>
+              </div>}
             </div>
 
             <div className={s.testBody__description_small}>
