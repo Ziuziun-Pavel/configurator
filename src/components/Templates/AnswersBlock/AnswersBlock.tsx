@@ -1,11 +1,15 @@
 import React from 'react';
 import s from './AnswersBlock.module.scss';
 import { answersData } from '../../../data/answersData';
-import { TextFieldProps } from '../../../models/Interfaces';
+import { AnswerBlockProps, TextFieldProps } from '../../../models/Interfaces';
 
-const AnswersBlock: React.FC<TextFieldProps> = ({text}) => {
+const AnswersBlock: React.FC<AnswerBlockProps> = ({text, description, answers}) => {
     return(
         <>
+          <div className={s.answersBlock__descr}>
+            {description}
+          </div>
+
             <div className={s.answersBlock}>
                 <div className={s.answersBlock__header}>
                     {text}
@@ -13,11 +17,11 @@ const AnswersBlock: React.FC<TextFieldProps> = ({text}) => {
 
                 <div className={s.answersBlock__list}>
                     {
-                        answersData.map(answer => {
+                        answers?.map((answer, index) => {
                             return(
-                                <div key={answer.id} className={s.answersBlock__list__item}>
-                                    <h3>Ответ {answer.id}</h3>
-                                    <a href={answer.answer}>см. картинку</a>
+                                <div key={index} className={s.answersBlock__list__item}>
+                                    <h3>{answer.text}</h3>
+                                    <a href={answer.picture}>см. картинку</a>
                                 </div>
                             );
                         })
