@@ -29,18 +29,7 @@ export interface QuestionTaskBlockProps {
   deactivation_date?: string,
   isTask?: boolean;
   modalActive?: boolean;
-  questions?: [
-    {
-      'text': string,
-      'picture': string,
-      'question_variants': [
-        {
-          'text': string,
-          'picture': string
-        }
-      ]
-    }
-  ];
+  questions?: QuestionProps[];
   tasks?: [
     {
       'text': string,
@@ -62,18 +51,23 @@ export interface QuestionBlockProps {
   isActive?: boolean,
   start_date?: string,
   deactivation_date?: string,
-  questions?: [
-    {
-      'text': string,
-      'picture': string,
-      'question_variants': [
-        {
-          'text': string,
-          'picture': string
-        }
-      ]
-    }
-  ]
+  questions?: QuestionProps[]
+}
+
+export interface QuestionProps {
+  number?: number;
+  text?: string;
+  description?: string;
+  question?: QuestionProps;
+  picture?: string;
+  question_variants?: QuestionVariantProps[];
+  deleteQuestion?: (number: number | undefined) => void;
+}
+
+export interface QuestionVariantProps {
+  number?: number;
+  text: string;
+  picture: string;
 }
 
 export interface SiteBlockProps {
@@ -89,6 +83,17 @@ export interface SiteBlockProps {
   setIsLoading?: Dispatch<React.SetStateAction<boolean>>
 }
 
+export interface AnswerVariantsProps {
+  placeholder: string;
+  question?: QuestionProps;
+  small: boolean;
+  index: number;
+  uploadFile: (answerText: string , files: File[]) => void;
+  questionUploadedFiles: File[];
+  setQuestionUploadedFiles?: Dispatch<SetStateAction<File[]>>;
+  questionText: string;
+  setQuestionText?: Dispatch<SetStateAction<string>>;
+}
 
 export interface TaskBlockProps {
   id: number,
@@ -119,7 +124,6 @@ export interface RequestsProps {
   allRequests?: RequestsProps[],
   setAllRequests?: Dispatch<React.SetStateAction<RequestsProps[]>>;
 }
-
 
 export interface ButtonProps {
   width: string,
@@ -240,10 +244,6 @@ export interface DeleteButtonProps {
   onDelete?: () => void;
 }
 
-export interface FileTileProps {
-  file: File;
-  onRemove: (f: {name: string}) => void;
-}
 export interface DropDownProps {
   id?: number,
   width: string,
@@ -273,8 +273,8 @@ export interface ModalProps {
 }
 
 export interface AnswerProps {
-  id: string,
-  answer: string
+  id?: string,
+  answer: string,
 }
 
 export interface TextFieldBlockProps {
@@ -291,8 +291,9 @@ export interface TextFieldProps {
   onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void
 }
 
-export interface PostDataFile {
-  title: string;
-  body: string;
-  image: File | null;
+export interface AnswerBlockProps {
+  text?: string,
+  description?: string,
+  answers?: QuestionVariantProps[]
 }
+

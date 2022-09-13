@@ -56,15 +56,10 @@ const ControlPanelTasks: React.FC = () => {
 
                     <div className={s.taskBody__questionsBlocksList}>
                         {
-                            tasksData.map(task => {
+                            tasksData.map((task, index) => {
                                 return (
-                                    <TaskBlock key={task.id}
-                                               id={task.id}
-                                               title={task.title}
-                                               isActive={task.isActive}
-                                               start_date={task.start_date}
-                                               deactivation_date={task.deactivation_date}
-                                               tasks={task.questions}
+                                    <TaskBlock key={index}
+                                               {...task}
                                     />
                                 );
                             })

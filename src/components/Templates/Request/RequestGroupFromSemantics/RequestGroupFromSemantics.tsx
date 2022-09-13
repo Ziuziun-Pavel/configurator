@@ -21,17 +21,6 @@ const RequestGroupFromSemantics: React.FC<RequestsProps> = ({
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPhrase(e.target.value);
   };
-  //
-  // const deleteGroup = () => {
-  //   axios.put(`/phrases/${sub_id}`, data).then(r => {
-  //     setAllRequests?.(prev => [...prev.filter((p) => p.sub_id !== sub_id), data].sort((x: { subgroup: string; }, y: { subgroup: string; }) => x.subgroup.localeCompare(y.subgroup)));
-  //     setNewPhrase('');
-  //     setIsLoading(false);
-  //   }).catch(error => {
-  //     setErrorMessage(error.message);
-  //     setIsLoading(false);
-  //   });
-  // };
 
   const addingPhrase = (e: { key: string; }) => {
     const newPhraseData: RequestPhraseProps = {
@@ -78,7 +67,7 @@ const RequestGroupFromSemantics: React.FC<RequestsProps> = ({
         <RequestHeader title={subgroup}
                        isIntensive={false}
                        requests={getRequestsNumber(allRequests)}
-                       isDelete={true} />
+                       isDelete={false} />
 
         <div className={s.request__body}>
           <div className={s.request__wrapper}>
