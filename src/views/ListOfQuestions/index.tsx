@@ -31,6 +31,22 @@ const ListOfQuestions: React.FC = () => {
     });
   };
 
+  const getQuestionById = (id: number) => {
+    setIsLoading(true);
+
+    axios({
+      method: 'GET',
+      url: `/question_blocks/${id}`
+    }).then((response) => {
+      const data = response.data.data;
+      console.log(data);
+      setIsLoading(false);
+    }).catch((error) => {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    });
+  };
+
   useEffect(() => {
     getQuestions();
   }, []);
@@ -51,6 +67,7 @@ const ListOfQuestions: React.FC = () => {
                                    isTask={false}
                                    {...question}
                                    allQuestions={allQuestions}
+                                   getQuestionTaskById={getQuestionById}
                                    setAllQuestions={setAllQuestions}
                                    setErrorMessage={setErrorMessage}
                                    setIsLoading={setIsLoading}

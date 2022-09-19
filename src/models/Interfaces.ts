@@ -14,7 +14,7 @@ export interface TestProps {
   deactivation_date?: string,
   question_blocks?: QuestionBlockProps[],
   task_blocks?: TaskBlockProps[],
-  direction?: DirectionProps[],
+  direction?: RequestsProps[],
   setAllTests?: Dispatch<React.SetStateAction<TestProps[]>>;
   setErrorMessage?: Dispatch<React.SetStateAction<string>>;
   setIsLoading?: Dispatch<React.SetStateAction<boolean>>;
@@ -22,27 +22,24 @@ export interface TestProps {
 }
 
 export interface QuestionTaskBlockProps {
-  id: number,
-  title: string,
-  start_date?: string,
-  isActive?: boolean,
-  deactivation_date?: string,
+  id: number;
+  title: string;
+  start_date?: string;
+  isActive?: boolean;
+  deactivation_date?: string;
   isTask?: boolean;
   modalActive?: boolean;
-  questions?: QuestionProps[];
-  tasks?: [
-    {
-      'text': string,
-    }
-  ];
+  questions?: QuestionTaskProps[];
+  tasks?: QuestionTaskProps[];
   number?: number;
   setModalActive?: Dispatch<SetStateAction<boolean>>;
   setAllQuestions?: Dispatch<React.SetStateAction<QuestionBlockProps[]>>;
   setAllTasks?: Dispatch<React.SetStateAction<TaskBlockProps[]>>;
   setErrorMessage?: Dispatch<React.SetStateAction<string>>;
   setIsLoading?: Dispatch<React.SetStateAction<boolean>>;
-  allQuestions?: QuestionBlockProps[],
-  allTasks?: TaskBlockProps[]
+  allQuestions?: QuestionBlockProps[];
+  getQuestionTaskById?: (id: number) => void;
+  allTasks?: TaskBlockProps[];
 }
 
 export interface QuestionBlockProps {
@@ -51,23 +48,26 @@ export interface QuestionBlockProps {
   isActive?: boolean,
   start_date?: string,
   deactivation_date?: string,
-  questions?: QuestionProps[]
+  questions?: QuestionTaskProps[]
 }
 
-export interface QuestionProps {
+export interface QuestionTaskProps {
   number?: number;
   text?: string;
   description?: string;
-  question?: QuestionProps;
-  picture?: string;
-  question_variants?: QuestionVariantProps[];
+  isTask?: boolean;
+  isKey?: boolean;
+  question?: QuestionTaskProps;
+  tasks?: QuestionTaskProps;
+  picture?: File[];
+  question_variants?: QuestionTaskVariantProps[];
   deleteQuestion?: (number: number | undefined) => void;
 }
 
-export interface QuestionVariantProps {
-  number?: number;
+export interface QuestionTaskVariantProps {
+  number: number;
   text: string;
-  picture: string;
+  picture?: File[];
 }
 
 export interface SiteBlockProps {
@@ -85,10 +85,14 @@ export interface SiteBlockProps {
 
 export interface AnswerVariantsProps {
   placeholder: string;
-  question?: QuestionProps;
-  small: boolean;
+  question?: QuestionTaskProps;
+  isSmall: boolean;
+  isTask?: boolean;
+  isKey?: boolean;
+  setIsKey?: Dispatch<SetStateAction<boolean | undefined>>;
+  changeKey?: (isKey: undefined | boolean) => void;
   index: number;
-  uploadFile: (answerText: string , files: File[]) => void;
+  uploadFile: (answerText: string, files: File[]) => void;
   questionUploadedFiles: File[];
   setQuestionUploadedFiles?: Dispatch<SetStateAction<File[]>>;
   questionText: string;
@@ -102,26 +106,16 @@ export interface TaskBlockProps {
   isActive?: boolean,
   start_date?: string,
   deactivation_date?: string,
-  tasks?: [
-    {
-      'text': string,
-    }
-  ]
-}
-
-export interface DirectionProps {
-  group: string,
-  subgroup: string,
-  phrase: string,
-  intensivity: number
+  tasks?: QuestionTaskProps[]
 }
 
 export interface RequestsProps {
-  group: string,
-  subgroup: string,
-  sub_id?: number,
-  phrases: RequestPhraseProps[],
-  allRequests?: RequestsProps[],
+  group: string;
+  subgroup: string;
+  sub_id?: number;
+  phrases: RequestPhraseProps[];
+  allRequests?: RequestsProps[];
+  intensivity?: number;
   setAllRequests?: Dispatch<React.SetStateAction<RequestsProps[]>>;
 }
 
@@ -141,18 +135,20 @@ export interface RequestCheckBoxProps {
   checkedPhraseCheckBoxState: boolean[][];
   phrase: RequestPhraseProps;
   onSelectPhrase: (phrase: RequestPhraseProps) => void;
-  onChangePhraseCheckbox: (e: ChangeEvent<HTMLInputElement>, id: number) => void
+  onChangePhraseCheckbox: (e: ChangeEvent<HTMLInputElement>, id: number) => void;
   isChoosenGroup: boolean;
-  onSetIntensivity: (value: string) => void
+  onSetIntensivity: (value: string) => void;
 }
 
 export interface DropDownProjectsProps {
-  id?: string,
-  title: string,
-  placeholder: string,
-  value?: string,
-  listOfItems: ListOfDropDownProjectItemsProps[],
-  onSetTestData: (item: string) => void
+  id?: string;
+  title: string;
+  placeholder?: string;
+  value?: string;
+  selected?: string;
+  setSelected?: Dispatch<SetStateAction<string>>;
+  listOfItems: ListOfDropDownProjectItemsProps[];
+  onSetTestData: (item: string) => void;
 }
 
 export interface DropDownMenuProps {
@@ -199,7 +195,6 @@ export interface RequestGroupProps {
   onSelectSubGroup?: (selectedRequests: RequestsProps) => void
   onSelectPhrase?: (selectedPhrase: RequestPhraseProps) => void
   group: string;
-  onSetIntensivity: (val: string) => void
 }
 
 export interface TypeDropDownProps {
@@ -278,22 +273,32 @@ export interface AnswerProps {
 }
 
 export interface TextFieldBlockProps {
-  id?: number,
-  title: string,
-  placeholder: string,
-  value?: string,
-  onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void
+  id?: number;
+  title: string;
+  placeholder: string;
+  required?: boolean;
+  value?: string;
+  onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void;
 }
 
 export interface TextFieldProps {
-  text?: string,
-  value?: string,
-  onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void
+  text?: string;
+  value?: string;
+  required?: boolean;
+  onChange?: (e: { target: { value: React.SetStateAction<string>; }; }) => void;
 }
 
 export interface AnswerBlockProps {
-  text?: string,
-  description?: string,
-  answers?: QuestionVariantProps[]
+  isTask?: boolean;
+  text?: string;
+  description?: string;
+  answers?: QuestionTaskVariantProps[];
+  tasks?: QuestionTaskProps;
+}
+
+export interface TableForStatisticsProps {
+  withHeader?: boolean;
+  requests?: RequestsProps[];
+  testData: TestProps;
 }
 

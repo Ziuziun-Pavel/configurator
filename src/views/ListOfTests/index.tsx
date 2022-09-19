@@ -16,14 +16,19 @@ const ListOfTests: React.FC = () => {
   const [allTests, setAllTests] = useState<TestProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [testsFilteredBySite, setTestsFilteredBySite] = useState<TestProps[]>([]);
+  const [selected, setSelected] = useState('Выберите проект');
 
-  console.log(allTests);
+  const filterTests = (option: string) => {
+    setTestsFilteredBySite(allTests.filter(t => t.url_site === option))
+  };
 
   const getTests = () => {
     setIsLoading(true);
 
     axios.get('/tests').then((response) => {
       const data = response.data.data;
+      setTestsFilteredBySite(data.sort((x: { title: string; }, y: { title: any; }) => x.title.localeCompare(y.title)));
       setAllTests(data.sort((x: { title: string; }, y: { title: any; }) => x.title.localeCompare(y.title)));
       setIsLoading(false);
     }).catch((error) => {
@@ -43,13 +48,18 @@ const ListOfTests: React.FC = () => {
 
       <DropDownProjects title='Проект (целевые сайты)'
                         placeholder='Выберите проект'
-                        listOfItems={targetSitesData} onSetTestData={() => console.log('')} />
+                        selected={selected}
+                        setSelected={setSelected}
+                        listOfItems={targetSitesData}
+                        onSetTestData={(item) => {
+                          filterTests(item);
+                        }}/>
 
       {isLoading ? (<div className={s.tests__loading}>
         <LoadingSpinner />
       </div>) : (<div className={s.tests__list}>
           {
-            allTests.map((test, index) => {
+            testsFilteredBySite.map((test, index) => {
               return (
                 <TestBlock key={index}
                            {...test}

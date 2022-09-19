@@ -1,76 +1,194 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeaderContainer from '../../components/HeaderContainer/HeaderContainer';
-import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
-import Button from '../../components/UI/Buttons/Button/Button';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
+import TextFieldWithTitle from '../../components/UI/TextFields/TextFieldWithTitle/TextFieldWithTitle';
 import s from './ControlPanelTasks.module.scss';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
-import ClipPath from '../../assets/clip.svg';
-import { tasksData } from '../../data/tasksData';
-import TaskBlock from '../../components/Templates/TaskBlock/TaskBlock';
+import Button from '../../components/UI/Buttons/Button/Button';
+import QuestionTaskBlockWithAnswer
+  from '../../components/Templates/QuestionBlockWithAnswer/QuestionTaskBlockWithAnswer';
+import AnswerVariant from '../../components/Templates/AnswerVariant/AnswerVariant';
+import { QuestionTaskBlockProps, QuestionTaskProps, TaskBlockProps } from '../../models/Interfaces';
+import axios from 'axios';
+import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpinner';
+import { useLocation } from 'react-router-dom';
 
 const ControlPanelTasks: React.FC = () => {
-    return (
-        <>
-            <NavigationMenu />
+  const location = useLocation();
 
+  const [taskBlockTitle, setTaskBlockTitle] = useState('');
+  const [task, setTask] = useState<QuestionTaskProps>();
+  const [taskBlocks, setTaskBlocks] = useState<QuestionTaskProps[] | undefined>([]);
 
-            <div className='container'>
-                <HeaderContainer text='Создание блока заданий' />
+  const [taskUploadedFiles, setTaskUploadedFiles] = useState<File[]>([]);
+  const [taskText, setTaskText] = useState('');
+  const [isCalled, setIsCalled] = useState(false);
+  const [key, setKey] = useState<boolean | undefined>(false);
 
-                <div className={s.titleContainer}>
-                    <TestTitle text='Расскажите о себе' />
-                </div>
+  const [allTasks, setAllTasks] = useState<TaskBlockProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-                <div className={s.taskBody}>
+  const onSetDuplicatedData = (): string  => {
+    if (location.state) {
+      setTaskBlocks((location.state as QuestionTaskBlockProps).tasks);
+      setTaskBlockTitle((location.state as QuestionTaskBlockProps).title);
+      // Когда появится поле key
+      // setKey((location.state as QuestionTaskProps).isKey);
+      // Когда появится поле picture
+      // setTaskUploadedFiles(((location.state as QuestionTaskBlockProps).tasks as  QuestionTaskProps[])[0].picture || [] as File[]);
+      setTaskText(((location.state as QuestionTaskBlockProps).tasks as  QuestionTaskProps[])[0].text as string);
+      return ((location.state as QuestionTaskBlockProps).tasks as  QuestionTaskProps[])[0].text as string;
+    } else {
+      return '';
+    }
+  };
+  const [taskTitle, setTaskTitle] = useState(onSetDuplicatedData);
 
-                    <TextFieldWithTitle title='Название заголовка блока'
-                                        placeholder='Пример: психологические вопросы' />
+  const ResetTasksFormControls = () => {
+    setTaskTitle('');
+    setTaskUploadedFiles([]);
+    setTaskText('');
+    setKey(false);
+  };
 
-                    <form onSubmit={() => {
-                        alert('submit');
-                    }}>
-                        <div className={s.taskBody__description}>
-                            <input id='task' className={s.taskBody__input}
-                                   placeholder='Сохранить задание' />
+  const ResetAllFormControls = () => {
+    setTaskBlockTitle('');
+    setTaskBlocks([]);
+    ResetTasksFormControls();
+  };
 
-                            <div className={s.taskBody__download}>
-                                <input id='download_first' type='file' hidden />
+  const sendTaskToTheServer = () => {
+    const data: TaskBlockProps = {
+      id: 1,
+      title: taskBlockTitle,
+      isActive: true,
+      tasks: taskBlocks
+    };
 
-                                <label htmlFor='download_first'>Загрузить картинку</label>
+    axios.post('/task_blocks', data).then(r => {
+      setAllTasks(r.data);
+      ResetAllFormControls();
+      setIsLoading(false);
+    }).catch(error => {
+      setErrorMessage(error.message);
+      setIsLoading(false);
+    });
+  };
 
+  const deleteTaskBlock = (number: number | undefined) => {
+    setTaskBlocks(taskBlocks?.filter(q => q.number !== number));
+  };
 
-                                <div className={s.clipWrapper}>
-                                    <img alt='clip' src={ClipPath} />
-                                </div>
-                            </div>
+  const saveTask = () => {
+    const taskData: QuestionTaskProps = {
+      ...task,
+      isKey: key
+    };
 
-                        </div>
+    setTaskBlocks(prev => [...prev!, taskData]);
+    ResetTasksFormControls();
+  };
 
+  const addTask = (answerText: string, files: File[]) => {
+    setIsCalled(true);
+    const data: QuestionTaskProps = {
+      number: taskBlocks!.length + 1,
+      text: taskTitle,
+      description: answerText,
+      picture: files
+    };
 
-                        <div className={s.taskBody__submitBtn}>
-                            <Button width='27.9rem' bgColor='#096BFF' text='Сохранить задание' />
-                        </div>
+    setTask(data);
+  };
 
-                    </form>
+  return (
+    <>
+      <NavigationMenu />
+      {isLoading ?
+        (<div className={s.loadingSpinner}>
+          <LoadingSpinner />
+        </div>)
+        :
+        (<div className='container'>
+          <HeaderContainer text='Создание блока заданий' />
 
-                    <div className={s.taskBody__questionsBlocksList}>
-                        {
-                            tasksData.map((task, index) => {
-                                return (
-                                    <TaskBlock key={index}
-                                               {...task}
-                                    />
-                                );
-                            })
-                        }
-                    </div>
+          <div className={s.titleContainer}>
+            <TestTitle text={taskBlockTitle} />
+          </div>
 
+          <div className={s.testBody}>
 
-                </div>
+            <TextFieldWithTitle title='Название заголовка вопроса'
+                                placeholder='Пример: Выберите какая цитата вам ближе:'
+                                value={taskTitle}
+                                onChange={e => setTaskTitle(e.target.value)}
+            />
+
+            <AnswerVariant placeholder='Опишите текст задания'
+                           isSmall={false}
+                           index={0}
+                           isTask={true}
+                           question={task}
+                           isKey={key}
+                           setIsKey={setKey}
+                           questionUploadedFiles={taskUploadedFiles}
+                           setQuestionUploadedFiles={setTaskUploadedFiles}
+                           questionText={taskText}
+                           setQuestionText={setTaskText}
+                           uploadFile={addTask}
+            />
+
+            <div className={s.testBody__submitBtn}>
+              <Button width='40.5rem'
+                      bgColor='#096BFF'
+                      disabled={taskTitle === '' || !isCalled}
+                      text='Сохранить задание'
+                      onClick={saveTask}
+              />
             </div>
-        </>
-    );
+
+            <div className={s.testBody__taskTitle}>
+              <TextFieldWithTitle title='Название заголовка блока'
+                                  placeholder='Пример: психологические вопросы'
+                                  value={taskBlockTitle}
+                                  onChange={e => setTaskBlockTitle(e.target.value)}
+              />
+            </div>
+
+
+            <div className={s.testBody__tasksBlocksList}>
+              {
+                taskBlocks?.map((task, index) => {
+                  return (
+                    <QuestionTaskBlockWithAnswer key={index}
+                                                 {...task}
+                                                 tasks={task}
+                                                 isTask={true}
+                                                 deleteQuestion={deleteTaskBlock}
+                    />
+                  );
+                })
+              }
+            </div>
+
+            <div className={s.testBody__submitBtn}>
+              <Button width='40.5rem'
+                      bgColor='#096BFF'
+                      text='Сохранить блок заданий'
+                      disabled={taskBlockTitle === '' || taskBlocks === []}
+                      onClick={sendTaskToTheServer}
+              />
+            </div>
+
+          </div>
+        </div>)
+      }
+      {errorMessage && <div className={s.error}>{errorMessage}</div>}
+
+    </>
+
+  );
 };
 
 export default ControlPanelTasks;

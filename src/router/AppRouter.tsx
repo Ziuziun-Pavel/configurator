@@ -20,7 +20,7 @@ const AppRouter = () => {
             <Route path={RouteNames.TESTS} element={<ListOfTests />} />
             <Route path={RouteNames.PROJECTS} element={<Sites />} />
             <Route path={RouteNames.QUESTIONS} element={<ListOfQuestions />} />
-            <Route path={RouteNames.QUESTIONS_ASSEMBLY} element={<ControlPanelQuestions />} />
+            <Route path={RouteNames.QUESTIONS_ASSEMBLY} element={<ControlPanelQuestions/>} />
             <Route path={RouteNames.TASKS_ASSEMBLY} element={<ControlPanelTasks />} />
             <Route path={RouteNames.TASKS} element={<ListOfTasks />} />
             <Route path={RouteNames.SEMANTICS} element={<Semantics />} />

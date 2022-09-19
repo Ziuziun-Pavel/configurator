@@ -15,12 +15,19 @@ const Semantics: React.FC = () => {
   const [testDirection, setTestDirection] = useState('Выберите направление');
   const [testSubGroup, setTestSubGroup] = useState('');
   const [allRequests, setAllRequests] = useState<RequestsProps[]>([]);
-  const [requestsFilteredByDirection, setRequestsFilteredByDirection] = useState<RequestsProps[]>(allRequests);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const [selected, setSelected] = useState(testDirection);
+
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setTestSubGroup(e.target.value);
+  };
+
+  const ResetFormControls = () => {
+    setTestSubGroup('');
+    setTestDirection('');
+    setSelected('Выберите направление');
   };
 
   const addGroup = () => {
@@ -36,8 +43,7 @@ const Semantics: React.FC = () => {
 
     axios.post(`/phrases`, data).then(r => {
       setAllRequests(prev => [...prev, data].sort((x: { subgroup: string; }, y: { subgroup: string; }) => x.subgroup.localeCompare(y.subgroup)));
-      setTestSubGroup('');
-      setTestDirection('');
+      ResetFormControls();
       setIsLoading(false);
     }).catch(error => {
       setErrorMessage(error.message);
@@ -81,6 +87,8 @@ const Semantics: React.FC = () => {
               <div>
                 <DropDownProjects title='Направление:'
                                   placeholder={testDirection}
+                                  selected={selected}
+                                  setSelected={setSelected}
                                   listOfItems={testDirectionData}
                                   onSetTestData={(item) => {
                                     setTestDirection(item);

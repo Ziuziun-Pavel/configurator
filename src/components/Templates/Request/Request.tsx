@@ -14,7 +14,7 @@ const Request: React.FC<RequestGroupProps> = ({
                                                 onSelectPhrase
                                               }) => {
   const [searchInput, setSearchInput] = useState('');
-
+  console.log(requestData);
   const [checkedSubgroupCheckBoxState, setCheckedSubgroupCheckBoxState] = useState(
     new Array(requestData.length).fill(false)
   );
