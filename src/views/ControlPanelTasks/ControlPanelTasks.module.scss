@@ -1,63 +1,33 @@
-.taskBody {
+.testBody {
   position: relative;
   padding: 8rem 6.7rem 8.9rem 8.7rem;
   background: #F0F6FF;
   border-radius: 10px;
 
-  &__description {
-    position: relative;
-    margin-top: 6rem;
-    padding: 3.1rem 6.4rem 6.4rem 1.7rem;
-    width: 100%;
-    min-height: 21rem;
-    background: #FFFFFF;
-    border-radius: 10px;
-
-  }
-
-  &__input {
-    position: relative;
-    padding: 1.5rem 6.4rem 6.4rem 3.7rem;
-    width: 100%;
-    height: 11.7rem;
-    border: 1px solid #000000;
-    border-radius: 45px;
-    cursor: text;
-
-    &[placeholder] {
-      font-weight: 400;
-      font-size: 1.5rem;
-      line-height: 1.8rem;
-      color: rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  &__download {
-    margin-top: 1.3rem;
-    margin-left: 6rem;
-    position: relative;
-    font-size: 1.5rem;
-    line-height: 1.8rem;
-    color: #000000;
-    cursor: pointer;
-  }
-
   &__submitBtn {
     margin-top: 5.7rem;
   }
 
-  &__questionsBlocksList {
+  &__tasksBlocksList {
     margin-top: 8rem;
   }
-}
 
-.clipWrapper {
-  position: absolute;
-  left: -3.3rem;
-  top: -.1rem;
-}
+  &__taskTitle {
+    width: 2rem;
+    height: 2rem;
+    margin-top: 8rem;
+  }
 
+}
 
 .titleContainer {
   margin-top: 8rem;
+}
+
+.loadingSpinner, .error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40rem;
+  font-size: 3rem;
 }

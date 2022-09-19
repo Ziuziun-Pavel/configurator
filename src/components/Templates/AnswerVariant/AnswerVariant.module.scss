@@ -33,6 +33,8 @@
   }
 
   &__download {
+    display: flex;
+    justify-content: space-between;
     margin-top: 1.3rem;
     margin-left: 6rem;
     position: relative;
@@ -45,6 +47,33 @@
       cursor: pointer;
     }
   }
+
+  &__checkboxContainer {
+    margin-right: 6rem;
+
+    label {
+      position: relative;
+    }
+  }
+
+  &__checkbox {
+    display: inline-block;
+    position: absolute;
+    left: 74.5rem;
+    top: -.2rem;
+    margin-right: .8rem;
+    width: 2rem;
+    height: 2rem;
+    border: .1rem solid #000000;
+    border-radius: .5rem;
+
+    input {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
   &__filesNumber, &__filesSize {
     margin-top: 1.6rem;
     margin-left: 1.6rem;
@@ -54,7 +83,7 @@
   }
 
   &__filesSize {
-    color: rgba(0,0,0, .5);
+    color: rgba(0, 0, 0, .5);
   }
 }
 

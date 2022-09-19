@@ -7,12 +7,11 @@ import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanel.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
 import {
-  DirectionProps,
   DropDownMenuDataProps,
-  QuestionBlockProps,
+  QuestionBlockProps, QuestionTaskBlockProps, QuestionTaskProps,
   RequestPhraseProps,
   RequestsProps,
   TaskBlockProps,
@@ -31,17 +30,17 @@ import uniqid from 'uniqid';
 const ControlPanel: React.FC = () => {
     const [allTests, setAllTests] = useState<TestProps[]>([]);
     const [allRequests, setAllRequests] = useState<RequestsProps[]>([]);
-    const [requestsFilteredByDirection, setRequestsFilteredByDirection] = useState<RequestsProps[]>([]);
+    const [requestsFilteredByDirection, setRequestsFilteredByDirection] = useState<RequestsProps[]>(allRequests);
     const [allQuestions, setAllQuestions] = useState<QuestionBlockProps[]>([]);
     const [allTasks, setAllTasks] = useState<TaskBlockProps[]>([]);
-
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [modalActive, setModalActive] = useState(false);
     const [isDisabled, setDisabled] = useState(true);
+    const [dropdowns, setDropdown] = useState<DropDownMenuDataProps[]>([]);
+
     const [selectedRequests, setSelectedRequests] = useState<RequestsProps[]>([]);
     const [titlesOfQuestionAndTaskBlocks, setTitlesOfQuestionAndTaskBlocks] = useState<string[]>([]);
-    const [dropdowns, setDropdown] = useState<DropDownMenuDataProps[]>([]);
     const [dropDownBlockTitle, setDropDownBlockTitle] = useState('');
     const [testTitle, setTestTitle] = useState('');
     const [testURL, setTestURL] = useState('');
@@ -51,9 +50,12 @@ const ControlPanel: React.FC = () => {
     const [testQuestions, setTestQuestions] = useState<QuestionBlockProps[]>([]);
     const [testTasks, setTestTasks] = useState<TaskBlockProps[]>([]);
     const [testDirection, setTestDirection] = useState('Выберите направление');
-    const [testPhrases, setTestPhrases] = useState<DirectionProps[]>([]);
+    const [testPhrases, setTestPhrases] = useState<RequestsProps[]>([]);
     const [testSearchingSystem, setTestSearchingSystem] = useState('Выберите поисковую систему (по умолчанию ничего не выбрано)');
     const [intensivity, setIntensivity] = useState('');
+
+    const [selectedSites, setSelectedSites] = useState(testSiteURL);
+    const [selectedDirection, setSelectedDirection] = useState(testDirection);
 
 
     const addingTestBlock = (selectedTitle: string) => {
@@ -139,8 +141,8 @@ const ControlPanel: React.FC = () => {
     };
 
     const getTasks = () => {
-
       setIsLoading(true);
+
       axios({
         method: 'GET',
         url: '/task_blocks'
@@ -175,51 +177,24 @@ const ControlPanel: React.FC = () => {
         behavior: 'smooth'
       });
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 600);
+      setSelectedSites('Выберите проект');
+      setSelectedDirection('Выберите направление');
+      setTestTitle('');
+      setTestURL('');
+      setTestRegion('');
+      setTestComment('');
+      setTestSiteURL('Выберите проект');
+      setTestQuestions([]);
+      setTestTasks([]);
+      setTestDirection('Выберите направление');
+      setTestPhrases([]);
+      setTestSearchingSystem('Выберите поисковую систему (по умолчанию ничего не выбрано)');
+      setSelectedRequests([]);
     };
-
-
-  {/*Не добавляет элемент*/}
 
     const onActivateTest = () => {
       setIsLoading(true);
       setModalActive(false);
-
-      // const data: TestProps = {
-      //   id: 666,
-      //   isActive: true,
-      //   start_date: '',
-      //   title: 'ЯЯЯЯЯЯЯ',
-      //   region: 'testRegion',
-      //   comment: 'testComment',
-      //   url_test: 'q',
-      //   search_system: 'testSearchingSystem',
-      //   title_site: 'testURL',
-      //   url_site: 'testSiteURL',
-      //   question_blocks: [
-      //     {
-      //       id: 1,
-      //       title: ''
-      //     }
-      //   ],
-      //   task_blocks: [
-      //     {
-      //       id: 1,
-      //       title: '',
-      //       number: 12
-      //     }
-      //   ],
-      //   direction: [
-      //     {
-      //       group: testDirection,
-      //       subgroup: 'Sub Group',
-      //       phrase: 'Phrase',
-      //       intensivity: 1
-      //     }
-      //   ]
-      // };
 
       const data: TestProps = {
         id: 1,
@@ -249,10 +224,6 @@ const ControlPanel: React.FC = () => {
 
     };
 
-    const onSetIntensivity = (value: string) => {
-      setIntensivity(value);
-    };
-
     const onSelectSubGroup = (selectedSubGroup: RequestsProps) => {
       const find = selectedRequests.indexOf(selectedSubGroup);
 
@@ -261,7 +232,8 @@ const ControlPanel: React.FC = () => {
       } else {
         setSelectedRequests([...selectedRequests, selectedSubGroup]);
       }
-      {/*Не добавляет направление*/}
+      {/*Не добавляет направление*/
+      }
 
       selectedRequests.map(r => {
         r.phrases.map(ph => {
@@ -269,17 +241,17 @@ const ControlPanel: React.FC = () => {
             group: r.group,
             subgroup: r.subgroup,
             phrase: ph.phrase,
-            intensivity: +intensivity
-          }]);
+            intensivity: 1
+          }] as RequestsProps[]);
         });
 
-        console.log(testPhrases, 's');
       });
 
 
     };
 
     const onSelectPhrase = (selectedPhrase: RequestPhraseProps) => {
+      console.log(selectedPhrase);
       const findIndex = selectedRequests.findIndex(i => {
         return i.phrases.find(ph => ph.id === selectedPhrase.id);
       });
@@ -323,7 +295,7 @@ const ControlPanel: React.FC = () => {
             subgroup: r.subgroup,
             phrase: ph.phrase,
             intensivity: +intensivity
-          }]);
+          }] as RequestsProps[]);
         });
 
         console.log(testPhrases, 'p');
@@ -346,6 +318,8 @@ const ControlPanel: React.FC = () => {
                 <div className={s.searching__dropdown}>
                   <DropDownProjects title='Проект (целевые сайты)'
                                     placeholder={testSiteURL}
+                                    selected={selectedSites}
+                                    setSelected={setSelectedSites}
                                     listOfItems={targetSitesData}
                                     onSetTestData={(item) => setTestSiteURL(item)}
                   />
@@ -436,11 +410,13 @@ const ControlPanel: React.FC = () => {
                     {/*Не фильрует по направлению*/}
                     <DropDownProjects title='Направление:'
                                       placeholder={testDirection}
+                                      selected={selectedDirection}
+                                      setSelected={setSelectedDirection}
                                       listOfItems={testDirectionData}
-                                      onSetTestData={(item) =>{
-                                        setTestDirection(item)
-                                        setRequestsFilteredByDirection(allRequests.filter(r => r.group === item))
-                                      }}  />
+                                      onSetTestData={(item) => {
+                                        setTestDirection(item);
+                                        setRequestsFilteredByDirection(allRequests.filter(r => r.group === item));
+                                      }} />
                   </div>
 
                   <div className={s.searching__wrapper}>
@@ -470,7 +446,6 @@ const ControlPanel: React.FC = () => {
                              onSelectSubGroup={(selectedSubGroup) => onSelectSubGroup(selectedSubGroup)}
                              onSelectPhrase={(selectedPhrase) => onSelectPhrase(selectedPhrase)}
                              group={testDirection}
-                             onSetIntensivity={onSetIntensivity}
                     />
 
                     <Request headerTitle='Выбранные'
@@ -478,7 +453,6 @@ const ControlPanel: React.FC = () => {
                              requestsNumber={getRequestsNumber(selectedRequests)}
                              requestData={selectedRequests}
                              group={testDirection}
-                             onSetIntensivity={onSetIntensivity}
                     />
 
                   </div>

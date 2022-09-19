@@ -1,0 +1,41 @@
+.table {
+  margin-top: 2rem;
+
+  &__allClicks {
+    margin-top: .5rem;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  &__allClicksNumber {
+    margin-top: .5rem;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+  }
+
+  &__titleCell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    color: rgba(0, 0, 0, 0.5);
+
+    &_browser {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 400;
+      font-size: 2rem;
+      text-align: center;
+      line-height: 2.4rem;
+      padding: .4rem 1.2rem;
+      min-width: 9.4rem;
+      height: 3.2rem;
+      border: 1px solid #000000;
+      border-radius: 10rem;
+    }
+  }
+}

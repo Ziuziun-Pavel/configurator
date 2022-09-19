@@ -11,47 +11,55 @@ import QuestionTaskBlockWithAnswer
 import AnswerVariant from '../../components/Templates/AnswerVariant/AnswerVariant';
 import {
   QuestionBlockProps,
-  QuestionProps,
+  QuestionTaskProps,
   QuestionTaskBlockProps,
-  QuestionVariantProps
+  QuestionTaskVariantProps
 } from '../../models/Interfaces';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpinner';
+import { useLocation } from 'react-router-dom';
 
 const ControlPanelQuestions: React.FC = () => {
-  const [questionTitle, setQuestionTitle] = useState('');
+  const location = useLocation();
+
   const [blockTitle, setBlockTitle] = useState('');
-  const [questionVariants, setQuestionVariants] = useState<QuestionVariantProps[]>([]);
-  const [question, setQuestion] = useState<QuestionProps>();
-  const [questions, setQuestions] = useState<QuestionProps[]>([{
-    number: 1,
-    text: 'qqqqqq',
-    picture: 'qqqqqq',
-    question_variants: [
-      {
-        text: 'qqqqqq',
-        picture: 'qqqqqq'
-      }
-    ]
-  }]);
+  const [questionVariants, setQuestionVariants] = useState<QuestionTaskVariantProps[]>([]);
+  const [question, setQuestion] = useState<QuestionTaskProps>();
+  const [questionBlocks, setQuestionBlocks] = useState<QuestionTaskProps[] | undefined>([]);
 
   const [questionUploadedFiles, setQuestionUploadedFiles] = useState<File[]>([]);
   const [questionText, setQuestionText] = useState('');
   const [allQuestions, setAllQuestions] = useState<QuestionBlockProps[]>([]);
+  const [isCalled, setIsCalled] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const onSetDuplicatedData = (): string  => {
+    if (location.state) {
+      //Когда прийдет нормальный массив с бэка
+      // setQuestionBlocks((location.state as QuestionTaskBlockProps).questions);
+      setBlockTitle((location.state as QuestionTaskBlockProps).title);
+      // setQuestion(((location.state as QuestionTaskBlockProps).questions as QuestionTaskProps[])[0]);
+      // setQuestionUploadedFiles(((location.state as QuestionTaskBlockProps).questions as  QuestionTaskProps[])[0].picture || [] as File[]);
+      // setQuestionText(((location.state as QuestionTaskBlockProps).questions as  QuestionTaskProps[])[0].text as string);
+      return ((location.state as QuestionTaskBlockProps).questions as  QuestionTaskProps[])[0].text as string;
+    } else {
+      return '';
+    }
+  };
+  const [questionTitle, setQuestionTitle] = useState(onSetDuplicatedData);
+
 
   const ResetQuestionFormControls = () => {
     setQuestionTitle('');
-    setQuestionUploadedFiles([]);
+    setQuestionUploadedFiles([])
     setQuestionText('');
     setQuestionVariants([]);
   };
 
   const ResetAllFormControls = () => {
     setBlockTitle('');
-    setQuestions([]);
+    setQuestionBlocks([]);
     ResetQuestionFormControls();
   };
 
@@ -60,63 +68,66 @@ const ControlPanelQuestions: React.FC = () => {
       id: 1,
       title: blockTitle,
       isActive: true,
-      questions: questions
+      questions: questionBlocks
     };
 
     axios.post('/question_blocks', data).then(r => {
       setAllQuestions(r.data);
+      ResetAllFormControls();
       setIsLoading(false);
     }).catch(error => {
       setErrorMessage(error.message);
       setIsLoading(false);
     });
 
-    ResetAllFormControls();
-
   };
 
-  const onAddVariant = () => {
-    setQuestionVariants(prev => [...prev, {
+  const onAddQuestionVariant = () => {
+    const questionVariant: QuestionTaskVariantProps = {
+      number: questionVariants.length + 1,
       text: '',
-      picture: ''
-    }]);
+      picture: []
+    };
+    setQuestionVariants(prev => [...prev, questionVariant]);
+
   };
 
   const deleteQuestionBlock = (number: number | undefined) => {
-    setQuestions(questions.filter(q => q.number !== number));
+    setQuestionBlocks(questionBlocks?.filter(q => q.number !== number));
   };
 
   const saveQuestion = () => {
-    const questionData: QuestionProps = {
+    const questionData: QuestionTaskProps = {
       ...question,
       question_variants: questionVariants
     };
 
-    setQuestions(prev => [...prev, questionData]);
+    setQuestionBlocks(prev => [...prev!, questionData]);
     ResetQuestionFormControls();
   };
 
+
   const addQuestion = (answerText: string, files: File[]) => {
-    const data: QuestionProps = {
-      number: questions.length + 1,
+    setIsCalled(true);
+    const data: QuestionTaskProps = {
+      number: questionBlocks!.length + 1,
       text: questionTitle,
       description: answerText,
-      picture: files[0].name
+      picture: files
     };
-
-    setQuestionUploadedFiles(files);
 
     setQuestion(data);
-
   };
 
-  const addQuestionVariants = (answerText: string, files: File[]) => {
-    const data: QuestionVariantProps = {
-      text: answerText,
-      picture: files[0].name
-    };
+  const addQuestionVariantsPictures = (answerText: string, files: File[]) => {
+    const a: QuestionTaskVariantProps = questionVariants[questionVariants.length - 1];
+      const data: QuestionTaskVariantProps = {
+        number: a.number,
+        text: answerText,
+        picture: files
+      };
 
-    setQuestionVariants(prev => [...prev.filter(i => i.picture !== ''), data]);
+      setQuestionVariants(prev => [...prev.filter(i => i !== a), data]);
   };
 
   return (
@@ -139,11 +150,12 @@ const ControlPanelQuestions: React.FC = () => {
             <TextFieldWithTitle title='Название заголовка вопроса'
                                 placeholder='Пример: Выберите какая цитата вам ближе:'
                                 value={questionTitle}
+                                required
                                 onChange={e => setQuestionTitle(e.target.value)}
             />
 
             <AnswerVariant placeholder='Опишите текст вопроса'
-                           small={false}
+                           isSmall={false}
                            index={0}
                            question={question}
                            questionUploadedFiles={questionUploadedFiles}
@@ -160,9 +172,9 @@ const ControlPanelQuestions: React.FC = () => {
                                  index={index + 1}
                                  placeholder='Вариант ответа'
                                  questionUploadedFiles={[]}
-                                 small={true}
+                                 isSmall={true}
                                  questionText=''
-                                 uploadFile={addQuestionVariants}
+                                 uploadFile={addQuestionVariantsPictures}
                   />
 
                 );
@@ -170,7 +182,7 @@ const ControlPanelQuestions: React.FC = () => {
             }
 
 
-            <button className={s.testBody__adding} onClick={onAddVariant}>Варианты ответа
+            <button className={s.testBody__adding} onClick={onAddQuestionVariant}>Варианты ответа
               <AddIcon
                 sx={{
                   position: 'absolute',
@@ -186,6 +198,7 @@ const ControlPanelQuestions: React.FC = () => {
             <div className={s.testBody__submitBtn}>
               <Button width='40.5rem'
                       bgColor='#096BFF'
+                      disabled={questionTitle === '' || !isCalled}
                       text='Сохранить вопрос с ответами'
                       onClick={saveQuestion}
               />
@@ -202,7 +215,7 @@ const ControlPanelQuestions: React.FC = () => {
 
             <div className={s.testBody__questionsBlocksList}>
               {
-                questions.map((question, index) => {
+                questionBlocks?.map((question, index) => {
                   return (
                     <QuestionTaskBlockWithAnswer key={index}
                                                  {...question}
@@ -217,14 +230,16 @@ const ControlPanelQuestions: React.FC = () => {
               <Button width='40.5rem'
                       bgColor='#096BFF'
                       text='Сохранить блок вопросов'
+                      disabled={blockTitle === '' || questionBlocks === []}
                       onClick={sendQuestionsToTheServer}
               />
             </div>
 
           </div>
+          {errorMessage && <div className={s.error}>{errorMessage}</div>}
+
         </div>)
       }
-      {errorMessage && <div className={s.error}>{errorMessage}</div>}
 
     </>
 

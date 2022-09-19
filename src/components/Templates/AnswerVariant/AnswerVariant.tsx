@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import s from './AnswerVariant.module.scss';
 import ClipPath from '../../../assets/clip.svg';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -7,14 +7,16 @@ import { AnswerVariantsProps } from '../../../models/Interfaces';
 
 const AnswerVariant: React.FC<AnswerVariantsProps> = ({
                                                         placeholder,
-                                                        small,
+                                                        isSmall,
                                                         questionUploadedFiles,
                                                         setQuestionUploadedFiles,
                                                         index,
+                                                        isKey,
+                                                        isTask,
+                                                        setIsKey,
                                                         uploadFile,
                                                         questionText,
-                                                        setQuestionText,
-                                                        question
+                                                        setQuestionText
                                                       }) => {
   const [answerText, setAnswerText] = useState('');
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -39,22 +41,25 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
   };
 
   const handleUploadFiles = (files: File[]) => {
-    const uploaded: File[] = [...uploadedFiles];
-    files.some(file => {
-      if (uploaded.findIndex(f => f.name === file.name) === -1) {
-        uploaded.push(file);
-      }
-    });
-    setUploadedFiles(uploaded);
 
-    if (!small) {
+    if (!isSmall) {
       const uploaded: File[] = [...questionUploadedFiles];
       files.some(file => {
         if (uploaded.findIndex(f => f.name === file.name) === -1) {
           uploaded.push(file);
+          uploadFile(answerText as string, uploaded);
         }
       });
       setQuestionUploadedFiles?.(uploaded);
+    } else {
+      const uploaded: File[] = [...uploadedFiles];
+      files.some(file => {
+        if (uploaded.findIndex(f => f.name === file.name) === -1) {
+          uploaded.push(file);
+          uploadFile(answerText as string, uploaded);
+        }
+      });
+      setUploadedFiles(uploaded);
     }
 
   };
@@ -62,29 +67,28 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
   const handleFileEvent = (e: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleUploadFiles(chosenFiles);
-    uploadFile(answerText as string, chosenFiles);
   };
 
   const onRemoveAllFiles = () => {
     setUploadedFiles([]);
-    if (!small) setQuestionUploadedFiles?.([]);
+    if (!isSmall) setQuestionUploadedFiles?.([]);
   };
 
   const onRemoveFileByFileName = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, f: File) => {
     e.preventDefault();
     setUploadedFiles(uploadedFiles.filter(x => x.name !== f.name));
-    if (!small) setQuestionUploadedFiles?.(questionUploadedFiles.filter(x => x.name !== f.name));
+    if (!isSmall) setQuestionUploadedFiles?.(questionUploadedFiles.filter(x => x.name !== f.name));
 
   };
 
   return (
-    <div className={small ? `${s.testBody__description_small}` : `${s.testBody__description}`}>
+    <div className={isSmall ? `${s.testBody__description_small}` : `${s.testBody__description}`}>
       <input id={`question${index}`} className={s.testBody__inputQuestion}
              placeholder={placeholder}
-             value={!small ? questionText : answerText}
-             onChange={e =>  {
-               setAnswerText(e.target.value)
-               if (!small) setQuestionText?.(e.target.value)
+             value={!isSmall ? questionText : answerText}
+             onChange={e => {
+               setAnswerText(e.target.value);
+               if (!isSmall) setQuestionText?.(e.target.value);
              }}
       />
 
@@ -93,7 +97,9 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
                type='file'
                name={`download_input${index}`}
                onChange={handleFileEvent}
-               hidden />
+               hidden
+               multiple
+        />
 
         <label htmlFor={`download_input${index}`}>Загрузить картинку</label>
 
@@ -101,11 +107,30 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
           <img alt='clip' src={ClipPath} />
         </div>
 
+        {
+          isTask ? (
+            <div className={s.testBody__checkboxContainer}>
+              <div className={s.testBody__checkbox}>
+                <input id={`checkbox_input${index}`}
+                       type='checkbox'
+                       checked={isKey}
+                       name={`checkbox_input${index}`}
+                       onChange={() => setIsKey?.(!isKey)}
+                />
+              </div>
+
+              <label htmlFor={`checkbox_input${index}`}>Прикрепить ключ (12 знаков, большие и маленькие буквы и
+                цифр)</label>
+            </div>
+          ) : ''
+        }
+
+
       </div>
 
       <div className={s.uplodedImgsContainer}>
         {
-          (!small ? questionUploadedFiles : uploadedFiles).map((file, index) => (
+          (!isSmall ? questionUploadedFiles : uploadedFiles).map((file, index) => (
             <div key={index} className={s.closeImg}>
               <img src={URL.createObjectURL(file)} alt={file.name} />
 
@@ -122,11 +147,11 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
         }
       </div>
 
-      {!(!small ? questionUploadedFiles : uploadedFiles).length ? '' : <div className={s.testBody__filesNumber}>
-        {formatFilesTitle((!small ? questionUploadedFiles : uploadedFiles).length)}
+      {!(!isSmall ? questionUploadedFiles : uploadedFiles).length ? '' : <div className={s.testBody__filesNumber}>
+        {formatFilesTitle((!isSmall ? questionUploadedFiles : uploadedFiles).length)}
 
         <span
-          className={s.testBody__filesSize}>{formatBytes((!small ? questionUploadedFiles : uploadedFiles).reduce((acc, file) => acc + file.size, 0))}</span>
+          className={s.testBody__filesSize}>{formatBytes((!isSmall ? questionUploadedFiles : uploadedFiles).reduce((acc, file) => acc + file.size, 0))}</span>
 
         <span className={s.delete_btn}><DeleteButton text='Удалить всё'
                                                      right='9.5rem'

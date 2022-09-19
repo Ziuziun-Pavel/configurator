@@ -1,10 +1,9 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import {
   QuestionBlockProps,
   QuestionTaskBlockProps,
-  SiteBlockProps,
-  TaskBlockProps,
-  TestProps
+  QuestionTaskProps,
+  TaskBlockProps
 } from '../../../models/Interfaces';
 import s from './QuestionTaskBlock.module.scss';
 import styled from '@emotion/styled';
@@ -12,6 +11,8 @@ import IOSSwitch from '../../UI/Switchers/IOSswitcher';
 import Modal from '../Modal/Modal';
 import Button from '../../UI/Buttons/Button/Button';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '../../../router/routeNames';
 
 const QuestionTaskBlock: React.FC<QuestionTaskBlockProps> = ({
                                                                id,
@@ -28,6 +29,7 @@ const QuestionTaskBlock: React.FC<QuestionTaskBlockProps> = ({
                                                                setErrorMessage,
                                                                setIsLoading,
                                                                allQuestions,
+                                                               getQuestionTaskById,
                                                                allTasks
 
                                                              }) => {
@@ -38,50 +40,24 @@ const QuestionTaskBlock: React.FC<QuestionTaskBlockProps> = ({
 
   const [modalActive, setModalActive] = useState(false);
   const [active, setActive] = useState(isActive);
+  const navigate = useNavigate();
 
-  const addBlock = () => {
-    if (isTask) {
-      const clonnedTask: TaskBlockProps =
-        {
-          id: allTasks ? allTasks?.length + 1 : id,
-          title: title,
-          isActive: true,
-          number: number,
-          start_date: start_date,
-          deactivation_date: deactivation_date,
-          tasks: tasks
-        }
-      ;
+  const routeToControlPanelQuestions = () => {
+    navigate(`${RouteNames.QUESTIONS_ASSEMBLY}`, {
+      state: {
+        deactivation_date,
+        id,
+        isActive,
+        questions,
+        start_date,
+        title,
+        description: (questions as QuestionTaskProps[])[0].description
+      }
+    });
+  };
 
-      axios.post('/task_blocks', clonnedTask).then(r => {
-        setAllTasks?.(prev => [...prev, clonnedTask].sort((x, y) => x.title.localeCompare(y.title)));
-        setIsLoading?.(false);
-      }).catch(error => {
-        setErrorMessage?.(error.message);
-        setIsLoading?.(false);
-      });
-
-    } else {
-      const clonnedQuestion: QuestionBlockProps =
-        {
-          id: allQuestions ? allQuestions?.length + 1 : id,
-          title: title,
-          isActive: true,
-          start_date: start_date,
-          deactivation_date: deactivation_date,
-          questions: questions
-        }
-      ;
-
-      axios.post('/question_blocks', clonnedQuestion).then(r => {
-        setAllQuestions?.(prev => [...prev, clonnedQuestion].sort((x, y) => x.title.localeCompare(y.title)));
-        setIsLoading?.(false);
-      }).catch(error => {
-        setErrorMessage?.(error.message);
-        setIsLoading?.(false);
-      });
-    }
-
+  const routeToControlPanelTasks = () => {
+    navigate(`${RouteNames.TASKS_ASSEMBLY}`, { state: { deactivation_date, id, isActive, tasks, start_date, title } });
   };
 
   const handleActivationOfBlock = ({
@@ -167,10 +143,11 @@ const QuestionTaskBlock: React.FC<QuestionTaskBlockProps> = ({
             }} />
           </div>
 
+
           <Button width='37.4rem'
                   bgColor='#096BFF'
                   text='Создать дубликат'
-                  onClick={addBlock}
+                  onClick={isTask ? () => routeToControlPanelTasks() : () => routeToControlPanelQuestions()}
           />
         </div>
 

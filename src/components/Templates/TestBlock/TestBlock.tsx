@@ -47,6 +47,7 @@ const TestBlock: React.FC<TestProps> = ({
           isActive: true,
           start_date: start_date,
           deactivation_date: deactivation_date,
+          url_test: title_site,
           title_site: title_site,
           url_site: url_site,
           question_blocks: question_blocks,
