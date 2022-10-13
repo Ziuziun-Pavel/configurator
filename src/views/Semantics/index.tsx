@@ -120,12 +120,15 @@ const Semantics: React.FC = () => {
               {
                 allRequests.map((r, index) => {
                   return (
-                    <RequestGroupFromSemantics
-                      key={index}
-                      allRequests={allRequests}
-                      setAllRequests={setAllRequests}
-                      {...r}
-                    />
+                    <div key={index} className={s.requestsGroup__item}>
+                      <RequestGroupFromSemantics
+                        key={index}
+                        allRequests={allRequests}
+                        setAllRequests={setAllRequests}
+                        {...r}
+                      />
+                    </div>
+
 
                   );
 

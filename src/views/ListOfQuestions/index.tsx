@@ -15,6 +15,7 @@ const ListOfQuestions: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  console.log(allQuestions);
   const getQuestions = () => {
     setIsLoading(true);
 

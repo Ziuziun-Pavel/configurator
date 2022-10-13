@@ -23,10 +23,10 @@ const QuestionTaskBlockWithAnswer: React.FC<QuestionTaskProps> = ({
         <div className={s.questionBlock__titleWrapper}>
           <h3 className={s.questionBlock__title}>{text}</h3>
           {
-            picture?.map((p, index) => {
+            (picture as unknown as []).map((p, index) => {
               return (
                 <div key={index}>
-                  <a target='_blank' rel='noreferrer' href={'http://localhost:3000/' + p.name}
+                  <a target='_blank' rel='noreferrer' href={'http://localhost:3000/'}
                      className={s.questionBlock__link}>см. картинку</a>
                   <br />
                 </div>

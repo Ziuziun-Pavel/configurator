@@ -8,7 +8,12 @@ import Button from '../../components/UI/Buttons/Button/Button';
 import QuestionTaskBlockWithAnswer
   from '../../components/Templates/QuestionBlockWithAnswer/QuestionTaskBlockWithAnswer';
 import AnswerVariant from '../../components/Templates/AnswerVariant/AnswerVariant';
-import { QuestionTaskBlockProps, QuestionTaskProps, TaskBlockProps } from '../../models/Interfaces';
+import {
+  QuestionTaskBlockProps,
+  QuestionTaskProps,
+  QuestionTaskVariantProps,
+  TaskBlockProps
+} from '../../models/Interfaces';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Templates/LoadingSpinner/LoadingSpinner';
 import { useLocation } from 'react-router-dom';
@@ -28,6 +33,7 @@ const ControlPanelTasks: React.FC = () => {
   const [allTasks, setAllTasks] = useState<TaskBlockProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const formData = new FormData();
 
   const onSetDuplicatedData = (): string  => {
     if (location.state) {
@@ -45,6 +51,7 @@ const ControlPanelTasks: React.FC = () => {
   };
   const [taskTitle, setTaskTitle] = useState(onSetDuplicatedData);
 
+
   const ResetTasksFormControls = () => {
     setTaskTitle('');
     setTaskUploadedFiles([]);
@@ -59,14 +66,27 @@ const ControlPanelTasks: React.FC = () => {
   };
 
   const sendTaskToTheServer = () => {
+    setIsLoading(true);
+
     const data: TaskBlockProps = {
       id: 1,
       title: taskBlockTitle,
-      isActive: true,
       tasks: taskBlocks
     };
 
-    axios.post('/task_blocks', data).then(r => {
+    formData.append('title', JSON.stringify(data.title));
+
+    data.tasks?.map((t, i) => {
+      formData.append(`tasks[${i}][text]`, t.text as string);
+      (t.picture as File[])?.map((p, j) => {
+        formData.append(`tasks[${i}][picture][${j}]`, p);
+      });
+
+    });
+
+
+    axios.post('/task_blocks', formData).then(r => {
+      setIsLoading(false);
       setAllTasks(r.data);
       ResetAllFormControls();
       setIsLoading(false);

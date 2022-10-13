@@ -11,10 +11,10 @@ const Request: React.FC<RequestGroupProps> = ({
                                                 requestsNumber,
                                                 requestData,
                                                 onSelectSubGroup,
-                                                onSelectPhrase
+                                                onSelectPhrase,
+                                                onSetIntensivity
                                               }) => {
   const [searchInput, setSearchInput] = useState('');
-  console.log(requestData);
   const [checkedSubgroupCheckBoxState, setCheckedSubgroupCheckBoxState] = useState(
     new Array(requestData.length).fill(false)
   );
@@ -42,9 +42,6 @@ const Request: React.FC<RequestGroupProps> = ({
 
   };
 
-  const setIntensivity = (value: string) => {
-    console.log(value);
-  };
 
   const onChangePhraseCheckbox = (e: React.ChangeEvent<HTMLInputElement>, position: number) => {
     const updatedCheckedState = checkedPhraseCheckBoxState.map((item, index) =>
@@ -107,8 +104,7 @@ const Request: React.FC<RequestGroupProps> = ({
                               onSelectPhrase={phrase => onSelectPhrase?.(phrase)}
                               onChangePhraseCheckbox={onChangePhraseCheckbox}
                               isChoosenGroup={isChoosenGroup}
-                              onSetIntensivity={setIntensivity}
-
+                              onSetIntensivity={onSetIntensivity}
                             />
                           </div>
 

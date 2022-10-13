@@ -82,8 +82,12 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
   };
 
   return (
-    <div className={isSmall ? `${s.testBody__description_small}` : `${s.testBody__description}`}>
-      <input id={`question${index}`} className={s.testBody__inputQuestion}
+    <form
+      encType="multipart/form-data"
+      className={isSmall ? `${s.testBody__description_small}` : `${s.testBody__description}`}
+    >
+      <input id={`question${index}`}
+             className={s.testBody__inputQuestion}
              placeholder={placeholder}
              value={!isSmall ? questionText : answerText}
              onChange={e => {
@@ -95,12 +99,12 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
       <div className={s.testBody__download}>
         <input id={`download_input${index}`}
                type='file'
+               value=''
                name={`download_input${index}`}
                onChange={handleFileEvent}
                hidden
                multiple
         />
-
         <label htmlFor={`download_input${index}`}>Загрузить картинку</label>
 
         <div className={s.clipWrapper}>
@@ -159,7 +163,7 @@ const AnswerVariant: React.FC<AnswerVariantsProps> = ({
         /></span>
       </div>}
 
-    </div>
+    </form>
   );
 };
 

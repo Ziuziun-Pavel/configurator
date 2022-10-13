@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './TableForStatistics.module.scss';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
@@ -26,28 +26,27 @@ function correctDate(month: number) {
   if (month >= 10) return month;
 }
 
-const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, testData, requests }) => {
+const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, testData }) => {
 
   function createData(
     isTitle: boolean,
-    phrase: string,
-    clicks8: number,
-    clicks7: number,
-    clicks6: number,
-    clicks5: number,
-    clicks4: number,
-    clicks3: number,
-    clicks2: number,
-    clicks1: number
+    phrase: string | undefined,
+    clicks8: number | undefined,
+    clicks7: number | undefined,
+    clicks6: number | undefined,
+    clicks5: number | undefined,
+    clicks4: number | undefined,
+    clicks3: number | undefined,
+    clicks2: number | undefined,
+    clicks1: number | undefined
   ) {
     return { isTitle, phrase, clicks8, clicks7, clicks6, clicks5, clicks4, clicks3, clicks2, clicks1 };
   }
 
   const rows = [
-    createData(true, 'Группа основные наркология', 159, 6.0, 24, 4.0, 4.0, 237, 9.0, 37),
-    createData(false, 'Вывод из запоя', 237, 9.0, 37, 4.3, 237, 4.0, 9.0, 37),
-    createData(false, 'Лечение наркомании', 262, 16.0, 24, 6.0, 237, 4.0, 9.0, 37),
-    createData(false, 'Лечение алкоголизма', 305, 3.7, 67, 4.3, 237, 4.0, 9.0, 37)
+    createData(true, testData.phrase.subgroup, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity),
+    createData(false, testData.phrase.phrase, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity, testData.phrase.intensivity)
+
   ];
 
   return (
@@ -81,7 +80,8 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                           background: '#F0F6FF'
                         }} align='left'>{date}
                           <p className={s.table__allClicks}>всего кликов <p
-                            className={s.table__allClicksNumber}>{requests?.reduce((r, a) => 0 + (a.intensivity as number),0) }</p></p>
+                            className={s.table__allClicksNumber}>{testData.click_amount}</p>
+                          </p>
                         </TableCell>
                       );
                     })
@@ -92,9 +92,9 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
           }
 
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
-                key={row.phrase}
+                key={index}
                 sx={{
                   '&:first-child td': {
                     background: '#0F5BCD',
@@ -118,9 +118,9 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                       {row.phrase}
 
                       <div className={s.table__titleCell}>
-                        <span>{testData.region}</span>
-                        <span className={s.table__titleCell_browser}>{testData.search_system}</span>
-                        <span></span>
+                        <span>{testData.test_region}</span>
+                        <span className={s.table__titleCell_browser}>{testData.test_search_system}</span>
+                        <span>{testData.phrase.group}</span>
 
                       </div>
 
@@ -143,7 +143,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   width: '9.5rem',
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)'
-                }} align='center'>{row.clicks8}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -151,7 +151,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   width: '9.5rem',
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)'
-                }} align='center'>{row.clicks7}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -159,7 +159,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   lineHeight: '2.4rem',
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)'
-                }} align='center'>{row.clicks6}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -167,7 +167,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   width: '9.5rem',
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)'
-                }} align='center'>{row.clicks5}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -175,7 +175,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   width: '9.5rem',
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)'
-                }} align='center'>{row.clicks4}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -183,7 +183,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   width: '9.5rem',
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)'
-                }} align='center'>{row.clicks3}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -192,7 +192,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)',
                   boxShadow: 'inset 0px 0px 16px #FFFFFF'
-                }} align='center'>{row.clicks2}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
                 <TableCell sx={{
                   fontWeight: 400,
                   fontSize: '2rem',
@@ -201,7 +201,7 @@ const TableForStatistics: React.FC<TableForStatisticsProps> = ({ withHeader, tes
                   background: 'rgba(15, 91, 205, 0.5)',
                   border: '0.5px solid rgba(0, 0, 0, 0.3)',
                   boxShadow: 'inset 0px 0px 16px #FFFFFF'
-                }} align='center'>{row.clicks1}</TableCell>
+                }} align='center'>{testData.phrase.intensivity}</TableCell>
               </TableRow>
             ))}
           </TableBody>

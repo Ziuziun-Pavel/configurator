@@ -14,13 +14,15 @@ const RequestCheckBox: React.FC<RequestCheckBoxProps> = ({
                                                            onSetIntensivity
                                                          }) => {
 
+  const [intensive, setIntensive] = useState<number>();
+
   return (
     <>
       <div>
         <input id={`subtitle-checkbox-${id}`}
                className={s.requests__blocks__checkbox}
                type='checkbox'
-               checked={checkedSubgroupCheckBoxState[subGroupIndex] || isChoosenGroup ? true : checkedPhraseCheckBoxState[subGroupIndex][id]}
+               checked={checkedSubgroupCheckBoxState[subGroupIndex] || isChoosenGroup ? true : checkedPhraseCheckBoxState[subGroupIndex]?.[id]}
                name={phrase.phrase}
                value={phrase.phrase}
                onChange={(e) => onChangePhraseCheckbox(e, id)}
@@ -34,9 +36,12 @@ const RequestCheckBox: React.FC<RequestCheckBoxProps> = ({
         isChoosenGroup ?
           <input type='number'
                  className={s.requests__blocks__intensivity}
-                 onChange={(e) => onSetIntensivity(e.target.value)}
+                 onChange={(e) => {
+                   setIntensive(+e.target.value);
+                   onSetIntensivity?.(+e.target.value);
+                 }}
           />
-          : <div></div>
+          : ''
       }
     </>
   );
