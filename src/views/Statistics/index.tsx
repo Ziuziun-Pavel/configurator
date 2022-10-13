@@ -5,49 +5,32 @@ import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
 import TableForStatistics from '../../components/Templates/TableForStatistics/TableForStatistics';
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
-import { RequestsProps, TestProps } from '../../models/Interfaces';
+import { StatisticsProps } from '../../models/Interfaces';
 import axios from 'axios';
 
 const Statistics: React.FC = () => {
-  const [allTests, setAllTests] = useState<TestProps[]>([]);
-  const [allRequests, setAllRequests] = useState<RequestsProps[]>([]);
+  const [allStatistics, setAllStatistics] = useState<StatisticsProps[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const getTests = () => {
+  const getStatistics = () => {
     setIsLoading(true);
 
-    axios.get('/tests').then((response) => {
+    axios.get('/test_statistic').then((response) => {
       const data = response.data.data;
-      setAllTests(data.sort((x: { title: string; }, y: { title: any; }) => x.title.localeCompare(y.title)));
+      setAllStatistics(data);
       setIsLoading(false);
     }).catch((error) => {
       setIsLoading(false);
       setErrorMessage(error.message);
-    });
-  };
-
-  const getRequests = () => {
-
-    setIsLoading(true);
-    axios({
-      method: 'GET',
-      url: '/phrases'
-    }).then((response) => {
-      const requests = response.data.data;
-      setAllRequests(requests);
-      setIsLoading(false);
-    }).catch((error) => {
-      setErrorMessage(error.message);
-
     });
   };
 
   useEffect(() => {
-    getTests();
-    getRequests();
+    getStatistics();
   }, []);
+
 
   return (
     <>
@@ -79,20 +62,75 @@ const Statistics: React.FC = () => {
         <div className={s.table__container}>
 
           {
-            allTests.map((test, index) => {
+            [{
+              "id": 1,
+              "date": "2022-09-21",
+              "click_amount": 33,
+              "test_title": "TьуаьцУВЛБ",
+              "test_region": "Russia",
+              "test_search_system": "Google",
+              "phrase": {
+                  "group": "Group",
+                  "subgroup": "Sub Group",
+                  "phrase": "Phrase",
+                  "intensivity": 33
+                }
+            },
+              {
+                "id": 2,
+                "date": "2022-09-21",
+                "click_amount": 6,
+                "test_title": "Title99",
+                "test_region": "МОСКВА",
+                "test_search_system": "Google",
+                "phrase": {
+                  "group": "тььльль",
+                  "subgroup": "Sub цццццц",
+                  "phrase": "цццццц",
+                  "intensivity": 6
+                }
+              },
+              {
+                "id": 3,
+                "date": "2022-09-21",
+                "click_amount": 3,
+                "test_title": "фьщукпщлбцфу",
+                "test_region": "РОССИЯ",
+                "test_search_system": "Google",
+                "phrase": {
+                  "group": "йййййййй",
+                  "subgroup": "йтлсьуалщцу",
+                  "phrase": "здюдбщлй",
+                  "intensivity": 3
+                }
+              },
+              {
+                "id": 4,
+                "date": "2022-09-21",
+                "click_amount": 12,
+                "test_title": "Tкфука",
+                "test_region": "Russia",
+                "test_search_system": "Google",
+                "phrase": {
+                  "group": "жхцжух2ь",
+                  "subgroup": "фуклщплбущфкп",
+                  "phrase": "фщлкплукфда",
+                  "intensivity": 12
+                }
+              },
+                ].map((test, index) => {
               if (index === 0) {
                 return (
                   <div key={index}>
                     <TableForStatistics withHeader={true}
                                         testData={test}
-                                        requests={test.direction}
                     />
                   </div>
                 );
               } else {
                 return (
                   <div key={index}>
-                    <TableForStatistics testData={test} requests={test.direction}
+                    <TableForStatistics testData={test}
                     />
                   </div>
                 );

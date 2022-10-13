@@ -24,7 +24,6 @@ const RequestGroupFromSemantics: React.FC<RequestsProps> = ({
 
   const addingPhrase = (e: { key: string; }) => {
     const newPhraseData: RequestPhraseProps = {
-      id: allPhrases.length + 1,
       phrase: newPhrase,
       subgroup_id: sub_id
     };

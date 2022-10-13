@@ -59,13 +59,13 @@ export interface QuestionTaskProps {
   isKey?: boolean;
   question?: QuestionTaskProps;
   tasks?: QuestionTaskProps;
-  picture?: File[];
+  picture?: File[] ;
   question_variants?: QuestionTaskVariantProps[];
   deleteQuestion?: (number: number | undefined) => void;
 }
 
 export interface QuestionTaskVariantProps {
-  number: number;
+  number?: number;
   text: string;
   picture?: File[];
 }
@@ -137,7 +137,7 @@ export interface RequestCheckBoxProps {
   onSelectPhrase: (phrase: RequestPhraseProps) => void;
   onChangePhraseCheckbox: (e: ChangeEvent<HTMLInputElement>, id: number) => void;
   isChoosenGroup: boolean;
-  onSetIntensivity: (value: string) => void;
+  onSetIntensivity?: (value: number) => void;
 }
 
 export interface DropDownProjectsProps {
@@ -181,7 +181,10 @@ export interface DropDownBtnProps {
 export interface RequestPhraseProps {
   id?: number,
   phrase: string,
+  group?: string;
+  subgroup?: string;
   subgroup_id?: number,
+  intensivity?: number;
   created_at?: null | string,
   updated_at?: null | string
 }
@@ -195,6 +198,7 @@ export interface RequestGroupProps {
   onSelectSubGroup?: (selectedRequests: RequestsProps) => void
   onSelectPhrase?: (selectedPhrase: RequestPhraseProps) => void
   group: string;
+  onSetIntensivity?: (value: number) => void;
 }
 
 export interface TypeDropDownProps {
@@ -298,7 +302,15 @@ export interface AnswerBlockProps {
 
 export interface TableForStatisticsProps {
   withHeader?: boolean;
-  requests?: RequestsProps[];
-  testData: TestProps;
+  testData: StatisticsProps;
 }
 
+export interface StatisticsProps {
+  id: number;
+  date: string;
+  click_amount: number;
+  test_title: string;
+  test_region: string;
+  test_search_system: string;
+  phrase: RequestPhraseProps
+}

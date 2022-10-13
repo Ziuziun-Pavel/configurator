@@ -4,7 +4,6 @@ import { answersData } from '../../../data/answersData';
 import { AnswerBlockProps, TextFieldProps } from '../../../models/Interfaces';
 
 const AnswersBlock: React.FC<AnswerBlockProps> = ({ text, tasks, isTask, description, answers }) => {
-  console.log(tasks);
   return (
     <>
       {
@@ -45,7 +44,7 @@ const AnswersBlock: React.FC<AnswerBlockProps> = ({ text, tasks, isTask, descrip
                     (answer.picture as File[]).map(p => {
                       return (
                         <>
-                          <a href={p.name}>см. картинку</a><span>  </span>
+                          <a href={p.name}>см. картинку</a><br/>
                         </>
                       );
                     })

@@ -7,11 +7,11 @@ import AddIcon from '@mui/icons-material/Add';
 import Title from '../../components/Titles/Title/Title';
 import TestTitle from '../../components/Titles/TestTitle/TestTitle';
 import s from './ControlPanel.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routeNames';
 import {
   DropDownMenuDataProps,
-  QuestionBlockProps, QuestionTaskBlockProps, QuestionTaskProps,
+  QuestionBlockProps,
   RequestPhraseProps,
   RequestsProps,
   TaskBlockProps,
@@ -30,7 +30,6 @@ import uniqid from 'uniqid';
 const ControlPanel: React.FC = () => {
     const [allTests, setAllTests] = useState<TestProps[]>([]);
     const [allRequests, setAllRequests] = useState<RequestsProps[]>([]);
-    const [requestsFilteredByDirection, setRequestsFilteredByDirection] = useState<RequestsProps[]>(allRequests);
     const [allQuestions, setAllQuestions] = useState<QuestionBlockProps[]>([]);
     const [allTasks, setAllTasks] = useState<TaskBlockProps[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -52,27 +51,30 @@ const ControlPanel: React.FC = () => {
     const [testDirection, setTestDirection] = useState('Выберите направление');
     const [testPhrases, setTestPhrases] = useState<RequestsProps[]>([]);
     const [testSearchingSystem, setTestSearchingSystem] = useState('Выберите поисковую систему (по умолчанию ничего не выбрано)');
-    const [intensivity, setIntensivity] = useState('');
+    const [intensivity, setIntensivity] = useState<number>();
 
     const [selectedSites, setSelectedSites] = useState(testSiteURL);
     const [selectedDirection, setSelectedDirection] = useState(testDirection);
-
 
     const addingTestBlock = (selectedTitle: string) => {
       allQuestions.map(q => {
         if (q.title === selectedTitle) {
           setTestQuestions(prev => [...prev, q]);
-          setTestTasks([q]);
-          return;
-        } else {
-          allTasks.map(t => {
-            if (t.title === selectedTitle) {
-              setTestTasks(prev => [...prev, t]);
-              return;
-            }
-          });
+          return 0;
         }
+        return 0;
       });
+
+
+      allTasks.map(t => {
+        if (t.title === selectedTitle) {
+          console.log(1);
+          setTestTasks(prev => [...prev, t]);
+          return 0;
+        }
+        return 0;
+      });
+
 
     };
 
@@ -230,28 +232,24 @@ const ControlPanel: React.FC = () => {
       if (find > -1) {
         setSelectedRequests(selectedRequests.filter(item => item.sub_id !== selectedSubGroup.sub_id));
       } else {
-        setSelectedRequests([...selectedRequests, selectedSubGroup]);
-      }
-      {/*Не добавляет направление*/
-      }
+        setSelectedRequests(prev => [...prev, selectedSubGroup]);
+        [...selectedRequests, selectedSubGroup].map(r => {
+          r.phrases.map(ph => {
+            setTestPhrases(prev => [...prev, {
+              group: r.group,
+              subgroup: r.subgroup,
+              phrase: ph.phrase,
+              intensivity: intensivity || 1
+            }] as RequestsProps[]);
+          });
 
-      selectedRequests.map(r => {
-        r.phrases.map(ph => {
-          setTestPhrases(prev => [...prev, {
-            group: r.group,
-            subgroup: r.subgroup,
-            phrase: ph.phrase,
-            intensivity: 1
-          }] as RequestsProps[]);
         });
 
-      });
-
+      }
 
     };
 
     const onSelectPhrase = (selectedPhrase: RequestPhraseProps) => {
-      console.log(selectedPhrase);
       const findIndex = selectedRequests.findIndex(i => {
         return i.phrases.find(ph => ph.id === selectedPhrase.id);
       });
@@ -262,29 +260,13 @@ const ControlPanel: React.FC = () => {
       } else {//Добавляет элемент
         const findArr: RequestsProps[] = allRequests.filter(item => item.sub_id === selectedPhrase.subgroup_id);
 
-        findArr.map(item => {//Если существует subgroup
-          // selectedRequests.map(i => {
-          //
-          //   if (i.subgroup.includes(item.subgroup)) {
-          //     const phrasesArr: RequestPhraseProps[] = [];
-          //     phrasesArr.push(selectedPhrase);
-          //     setSelectedRequests([...selectedRequests, {
-          //       group: item.group,
-          //       subgroup: item.subgroup,
-          //       sub_id: item.sub_id,
-          //       phrases: phrasesArr
-          //     }]);
-          //   } else {
+        findArr.map(item => {
           setSelectedRequests([...selectedRequests, {
             group: item.group,
             subgroup: item.subgroup,
             sub_id: item.sub_id,
             phrases: [selectedPhrase]
           }]);
-
-          //   }
-          // });
-
         });
 
       }
@@ -294,11 +276,10 @@ const ControlPanel: React.FC = () => {
             group: r.group,
             subgroup: r.subgroup,
             phrase: ph.phrase,
-            intensivity: +intensivity
+            intensivity: intensivity
           }] as RequestsProps[]);
         });
 
-        console.log(testPhrases, 'p');
       });
     };
 
@@ -415,7 +396,6 @@ const ControlPanel: React.FC = () => {
                                       listOfItems={testDirectionData}
                                       onSetTestData={(item) => {
                                         setTestDirection(item);
-                                        setRequestsFilteredByDirection(allRequests.filter(r => r.group === item));
                                       }} />
                   </div>
 
@@ -446,6 +426,7 @@ const ControlPanel: React.FC = () => {
                              onSelectSubGroup={(selectedSubGroup) => onSelectSubGroup(selectedSubGroup)}
                              onSelectPhrase={(selectedPhrase) => onSelectPhrase(selectedPhrase)}
                              group={testDirection}
+
                     />
 
                     <Request headerTitle='Выбранные'
@@ -453,6 +434,10 @@ const ControlPanel: React.FC = () => {
                              requestsNumber={getRequestsNumber(selectedRequests)}
                              requestData={selectedRequests}
                              group={testDirection}
+                             onSetIntensivity={value => {
+                               setIntensivity(value);
+                               console.log(value);
+                             }}
                     />
 
                   </div>
